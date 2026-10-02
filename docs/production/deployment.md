@@ -15,3 +15,6 @@ v0.7.0重做战斗音效：25段Kenney CC0采样，五英雄分层组合，降�
 没有现成Git远程仓库，本次完成Cloudflare公网部署及本地可复现配置；未创建或推送新的源码仓库。
 
 v0.7.1：首屏适配上线，8种窗口动态切换通过，最新完整性证据public-release-integrity-v071.json；公网三种窗口截图和实际边界见viewport-v071.json及viewport-*-v071.png。
+
+## v0.7.2 源码发布与入口补齐
+公开源码仓库 https://github.com/holynova/rift-survivors，唯一主分支main。页面增加GitHub链接，生产环境接入一次指定Umami统计；作品集master已补上Repo字段，Profile main同步游戏条目。30项规则测试、6项串行浏览器测试通过；动画测试刷新后等待Phaser素材就绪再发送按键，避免初始化期间输入丢失。生产构建仅上传dist，源码及原始素材保留在GitHub。部署ID和线上校验记录写入本地evidence/github-publish-completed.json。

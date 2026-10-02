@@ -70,6 +70,10 @@ test("animated art advances, pauses, respects reduced motion and gallery loads",
     e.y = 150;
     e.cool = 100;
   });
+  // Reload starts Phaser asset loading again; wait for the scene before input.
+  await page.waitForFunction(() =>
+    (window as any).__rift.artSnapshot().hero?.texture === "hero-frost",
+  );
   await page.keyboard.down("KeyD");
   await page.waitForTimeout(250);
   const still = await page.evaluate(() => (window as any).__rift.artSnapshot());
