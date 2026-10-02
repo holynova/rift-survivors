@@ -1,0 +1,60 @@
+[
+  {
+    "name": "gunner-run",
+    "refs": [
+      "/Users/sym/Documents/Codex/2026-09-30/chatgpt-conversation-6abcc50a-4320-83ea-b0cf/outputs/rift-survivors/public/assets/gunner.png",
+      "/Users/sym/Documents/Codex/2026-09-30/chatgpt-conversation-6abcc50a-4320-83ea-b0cf/work/art-v2/gunner-reference.png"
+    ],
+    "transparent": true,
+    "prompt": "Use case: identity-preserve. Production 2D sprite animation strip for a browser game. Image 1 is the exact shipped character identity; image 2 is the empty six-slot reference layout. Generate EXACTLY SIX sequential WALK/RUN CYCLE frames in ONE horizontal row, evenly spaced six equal cells, on a wide transparent canvas. SAME ORIGINAL FEMALE TIME GUNSLINGER in every frame: same brown bob haircut, gold goggles, orange cropped jacket, teal clock core, two pistols pointed outward. Face three-quarter FRONT in every frame, never rotate toward side/back. Preserve costume and silhouette, weapons remain same sizes. Frame progression: left step, passing, right step, passing, left step, returning. Legs and coat tails animate, shoulders gently bounce. Same head height and foot baseline, tiny motion not giant jumps. Full body fits each cell, no frame overlaps, no scenery, no text, no shadow, no extra people. Thick dark outline, polished chibi hand-painted pixel clusters matching reference. Entire strip once, not a collage. Aspect ratio 3:1 with six equal cells."
+  },
+  {
+    "name": "knight-run",
+    "refs": [
+      "/Users/sym/Documents/Codex/2026-09-30/chatgpt-conversation-6abcc50a-4320-83ea-b0cf/outputs/rift-survivors/public/assets/knight.png",
+      "/Users/sym/Documents/Codex/2026-09-30/chatgpt-conversation-6abcc50a-4320-83ea-b0cf/work/art-v2/knight-reference.png"
+    ],
+    "transparent": true,
+    "prompt": "Use case: identity-preserve. Production 2D animation strip. Image 1 exact shipped character; image 2 six-slot layout. Generate EXACTLY SIX sequential HEAVY WALK CYCLE frames in ONE horizontal row, evenly spaced six equal cells, wide transparent canvas, aspect 3:1. SAME ORIGINAL ASH KNIGHT in every frame, same pointed steel helmet, narrow amber visor, burgundy cape, gold-trimmed round shield and oversized sword. Facing three-quarter FRONT every frame, same orientation, no turn toward back. Short stocky legs alternating left step, passing, right step, passing, left step, returning. Sword and shield remain stable, cape sways lightly. Preserve silhouette, proportions, palette and face identity. Same ground baseline and scale; entire body, sword and shield within each cell. Thick dark outline polished chibi hand-painted pixel clusters. No labels, no background, no shadows, no frame overlap, no added characters. Complete strip once."
+  },
+  {
+    "name": "enemy-husk",
+    "transparent": true,
+    "prompt": "Use case: stylized-concept. One isolated original enemy sprite for a 2D top-down chibi action game, three-quarter front facing. A hunched skeletal husk foot soldier, oversized cracked ivory skull with two tiny ember eyes, ragged moss green tunic, rusty short sword, small uneven boots, distinctly enemy silhouette. Hand-painted pixel-like clusters, chunky dark outline, restrained olive / bone / rusty ochre palette, same production art tone as a polished chibi ash knight. Full body centered, transparent background, no text, no scenery, no ground shadow. Readable at 48 pixels. Compact square silhouette, friendly toy-like proportions but sinister expression, not any existing franchise character."
+  },
+  {
+    "name": "enemy-runner",
+    "transparent": true,
+    "prompt": "Use case: stylized-concept. One isolated original enemy sprite for 2D top-down chibi action game, three-quarter front facing. A small red-eyed crimson imp runner with oversized pointed ears, two short black horns, crouched sprint posture, long clawed hands, wrapped boots, torn burgundy scarf streaming behind. Compact, aggressive distinctive fast enemy silhouette. Hand-painted pixel-like clusters, chunky dark outline, controlled dusty terracotta / burgundy / ochre highlights. Full body centered transparent background. No text, no scenery, no ground shadow. Readable at 48 pixels, polished production game sprite, original design."
+  },
+  {
+    "name": "enemy-archer",
+    "transparent": true,
+    "prompt": "Use case: stylized-concept. One original isolated enemy sprite for 2D top-down chibi game, three-quarter front facing. A hooded spectral crossbow scout, oversized deep desaturated teal hood, dark empty face with tiny mint eyes, layered weathered leather robes, small bronze mechanical crossbow held clearly across chest, short boots. Compact readable enemy silhouette. Thick near-black outline and hand-painted pixel-like clusters. Teal / muted brass / brown palette, limited glow. Centered full body on transparent background, no scenery, no labels, no ground shadow. Readable at 48px, polished production game sprite, not existing IP."
+  },
+  {
+    "name": "enemy-elite",
+    "transparent": true,
+    "prompt": "Use case: stylized-concept. One original isolated elite enemy sprite for 2D top-down chibi action game, three-quarter front facing. A corrupted abyss guardian with oversized battered iron helmet, purple ember eye slit, jagged black-purple shoulder armor, torn violet cape, enormous angular iron halberd held diagonally, wide armored stance, shield shaped like a broken stone seal. Distinct larger elite silhouette, chunky dark outline, hand-painted pixel-like clusters, steel charcoal / dusty violet / pale bone highlights. Full body and weapon centered within square canvas, transparent background, no scenery, no labels, no ground shadow. Readable at 80px, not any existing IP."
+  },
+  {
+    "name": "enemy-boss",
+    "transparent": true,
+    "prompt": "Use case: stylized-concept. One original isolated FINAL BOSS sprite for 2D top-down chibi action game, three-quarter front facing. The Rift Warden: massive squat armored revenant with crowned horned bronze helmet, empty face with narrow molten orange visor, huge cracked stone shoulder plates inset with glowing amber runes, deep burgundy shredded cloak, gigantic dark iron warhammer with a smoldering core and thick handle, armored gauntlets, planted wide boots. Powerful unmistakable boss silhouette, 2.5 times normal enemy apparent bulk, no human realistic anatomy. Polished hand-painted pixel-like clusters, chunky nearly-black outline, bronze charcoal rust gold palette. Entire body and warhammer within square canvas centered, transparent background, no text, no scene, no ground shadow. Readable at 120px. Original design, no franchise resemblance."
+  },
+  {
+    "name": "arena-floor",
+    "transparent": false,
+    "prompt": "Use case: stylized-concept. Asset type: full floor texture for top-down 2D action arena, wide landscape 1100:650 aspect ratio. A strictly ORTHOGRAPHIC TOP DOWN ancient ruined stone courtyard, entire image is FLAT WALKABLE FLOOR, not a perspective landscape. Dark desaturated olive gray large irregular sandstone slabs, subdued hand-painted texture and cracks, a weathered circular ritual seal subtly engraved at center. Worn bronze inlay geometric rim inside the perimeter, a few small moss clusters, chipped tiles near edges, faint charcoal scorch marks. Center 80 percent open and low-detail for moving sprites and readable bullets. Corners slightly darker. Polished hand-painted pixel-inspired game art, coarse clusters and strong material definition but restrained contrast, rich warm gray rather than black. No walls, pillars, trees or props obstructing play; no characters, weapons, text or UI; no raised perspective objects; no glowing effects or dramatic directional lighting. It must be directly usable as game floor bitmap."
+  },
+  {
+    "name": "relic-icons",
+    "transparent": true,
+    "prompt": "Use case: stylized-concept. Asset type ONE UI ICON ATLAS, EXACTLY SIX distinct item icons in a clean TWO ROWS by THREE COLUMNS equal-cell grid, generous transparent gutters. Each centered full object in its equal cell, same visual size. Reading order: 1 gray whetstone with a tiny brass blade, 2 turquoise wind feather, 3 faceted red ruby, 4 battered small steel shield, 5 bronze horseshoe magnet with mint tips, 6 red wax lifesteal sigil with a silver fang. Hand-painted chunky game icons, bold dark outline, bronze edges, restrained jewel colors, chibi fantasy aesthetic matching dark stone arena. Transparent background, no borders, no card panels, no text, no numbers, no scenery, no cast shadows. Consistent light from upper left and readable at 32px. Exactly six icons, no extra objects or duplicates."
+  },
+  {
+    "name": "skill-icons",
+    "transparent": true,
+    "prompt": "Use case: stylized-concept. Asset type ONE six-icon SKILL ATLAS for a 2D chibi fantasy browser game. EXACTLY SIX icons, TWO ROWS by THREE COLUMNS equal-cell grid with wide fully TRANSPARENT gutters. Reading order top-left to bottom-right: 1 two turquoise blink chevrons crossing a bronze portal ring; 2 a bronze pocket watch with turquoise reverse-time arrow; 3 a small bronze pulse bomb with a bright turquoise energy core; 4 a steel armored boot within a gold curved rolling arrow; 5 a round battered steel shield crossed by a golden parry spark; 6 an iron greatsword surrounded by a compact orange ember vortex. All icons same visual scale and style: chunky hand-painted game art, thick dark outlines, bronze hardware and muted jewel accents, readable at 32px, polished original design. Each isolated object in its own cell, no scenery, NO background glow CLOUDS, no shadows, no backplates, no frames, no text or numbers. Transparent background only, alpha around each icon. Entire atlas produced once."
+  }
+]

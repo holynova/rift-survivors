@@ -1,0 +1,16 @@
+node_modules/
+dist/
+work/
+test-results/
+playwright-report/
+
+.wrangler/
+
+.env
+.env.*
+!.env.example
+.dev.vars
+.dev.vars.*
+*.zip
+art/audio-source/v7/*/
+evidence/*.wav

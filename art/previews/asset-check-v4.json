@@ -1,0 +1,62 @@
+[
+  {
+    "file": "public/assets/v4/engineer-idle.png",
+    "bytes": 22467
+  },
+  {
+    "file": "public/assets/v4/engineer-portrait.png",
+    "bytes": 79228
+  },
+  {
+    "file": "public/assets/v4/frost-idle.png",
+    "bytes": 21554
+  },
+  {
+    "file": "public/assets/v4/frost-portrait.png",
+    "bytes": 73705
+  },
+  {
+    "file": "public/assets/v4/icon-engineer-army.svg",
+    "bytes": 639
+  },
+  {
+    "file": "public/assets/v4/icon-engineer-swap.svg",
+    "bytes": 611
+  },
+  {
+    "file": "public/assets/v4/icon-engineer-turret.svg",
+    "bytes": 589
+  },
+  {
+    "file": "public/assets/v4/icon-frost-bolt.svg",
+    "bytes": 565
+  },
+  {
+    "file": "public/assets/v4/icon-frost-step.svg",
+    "bytes": 545
+  },
+  {
+    "file": "public/assets/v4/icon-frost-zone.svg",
+    "bytes": 583
+  },
+  {
+    "file": "public/assets/v4/icon-reaper-dash.svg",
+    "bytes": 509
+  },
+  {
+    "file": "public/assets/v4/icon-reaper-drain.svg",
+    "bytes": 519
+  },
+  {
+    "file": "public/assets/v4/icon-reaper-harvest.svg",
+    "bytes": 569
+  },
+  {
+    "file": "public/assets/v4/reaper-idle.png",
+    "bytes": 18564
+  },
+  {
+    "file": "public/assets/v4/reaper-portrait.png",
+    "bytes": 62896
+  }
+]

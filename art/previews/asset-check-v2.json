@@ -1,0 +1,416 @@
+[
+  {
+    "file": "enemy-archer.png",
+    "size": [
+      128,
+      128
+    ],
+    "bytes": 18762,
+    "alpha": [
+      0,
+      255
+    ],
+    "bbox": [
+      15,
+      10,
+      113,
+      118
+    ]
+  },
+  {
+    "file": "enemy-boss.png",
+    "size": [
+      192,
+      192
+    ],
+    "bytes": 61655,
+    "alpha": [
+      0,
+      255
+    ],
+    "bbox": [
+      10,
+      19,
+      182,
+      182
+    ]
+  },
+  {
+    "file": "enemy-elite.png",
+    "size": [
+      128,
+      128
+    ],
+    "bytes": 29076,
+    "alpha": [
+      0,
+      255
+    ],
+    "bbox": [
+      10,
+      10,
+      118,
+      118
+    ]
+  },
+  {
+    "file": "enemy-husk.png",
+    "size": [
+      128,
+      128
+    ],
+    "bytes": 21819,
+    "alpha": [
+      0,
+      255
+    ],
+    "bbox": [
+      11,
+      10,
+      117,
+      118
+    ]
+  },
+  {
+    "file": "enemy-runner.png",
+    "size": [
+      128,
+      128
+    ],
+    "bytes": 18551,
+    "alpha": [
+      0,
+      255
+    ],
+    "bbox": [
+      10,
+      21,
+      118,
+      118
+    ]
+  },
+  {
+    "file": "gunner-idle.png",
+    "size": [
+      128,
+      128
+    ],
+    "bytes": 25585,
+    "alpha": [
+      0,
+      255
+    ],
+    "bbox": [
+      7,
+      1,
+      120,
+      128
+    ]
+  },
+  {
+    "file": "gunner-portrait.png",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 60137,
+    "alpha": [
+      0,
+      255
+    ],
+    "bbox": [
+      17,
+      61,
+      239,
+      244
+    ]
+  },
+  {
+    "file": "gunner-run.png",
+    "size": [
+      768,
+      128
+    ],
+    "bytes": 155883,
+    "alpha": [
+      0,
+      255
+    ],
+    "bbox": [
+      7,
+      0,
+      761,
+      128
+    ]
+  },
+  {
+    "file": "icon-blink.png",
+    "size": [
+      96,
+      96
+    ],
+    "bytes": 14866,
+    "alpha": [
+      0,
+      255
+    ],
+    "bbox": [
+      8,
+      11,
+      88,
+      88
+    ]
+  },
+  {
+    "file": "icon-feather.png",
+    "size": [
+      96,
+      96
+    ],
+    "bytes": 13008,
+    "alpha": [
+      0,
+      255
+    ],
+    "bbox": [
+      12,
+      8,
+      83,
+      88
+    ]
+  },
+  {
+    "file": "icon-leech.png",
+    "size": [
+      96,
+      96
+    ],
+    "bytes": 12844,
+    "alpha": [
+      0,
+      255
+    ],
+    "bbox": [
+      10,
+      8,
+      85,
+      88
+    ]
+  },
+  {
+    "file": "icon-magnet.png",
+    "size": [
+      96,
+      96
+    ],
+    "bytes": 12980,
+    "alpha": [
+      0,
+      255
+    ],
+    "bbox": [
+      9,
+      8,
+      87,
+      88
+    ]
+  },
+  {
+    "file": "icon-parry.png",
+    "size": [
+      96,
+      96
+    ],
+    "bytes": 16535,
+    "alpha": [
+      0,
+      255
+    ],
+    "bbox": [
+      10,
+      8,
+      86,
+      88
+    ]
+  },
+  {
+    "file": "icon-pulse.png",
+    "size": [
+      96,
+      96
+    ],
+    "bytes": 12464,
+    "alpha": [
+      0,
+      255
+    ],
+    "bbox": [
+      12,
+      8,
+      83,
+      88
+    ]
+  },
+  {
+    "file": "icon-recall.png",
+    "size": [
+      96,
+      96
+    ],
+    "bytes": 12457,
+    "alpha": [
+      0,
+      255
+    ],
+    "bbox": [
+      8,
+      15,
+      88,
+      88
+    ]
+  },
+  {
+    "file": "icon-roll.png",
+    "size": [
+      96,
+      96
+    ],
+    "bytes": 16197,
+    "alpha": [
+      0,
+      255
+    ],
+    "bbox": [
+      9,
+      8,
+      87,
+      88
+    ]
+  },
+  {
+    "file": "icon-ruby.png",
+    "size": [
+      96,
+      96
+    ],
+    "bytes": 12793,
+    "alpha": [
+      0,
+      255
+    ],
+    "bbox": [
+      8,
+      9,
+      88,
+      88
+    ]
+  },
+  {
+    "file": "icon-stone.png",
+    "size": [
+      96,
+      96
+    ],
+    "bytes": 13072,
+    "alpha": [
+      0,
+      255
+    ],
+    "bbox": [
+      8,
+      12,
+      88,
+      88
+    ]
+  },
+  {
+    "file": "icon-storm.png",
+    "size": [
+      96,
+      96
+    ],
+    "bytes": 15611,
+    "alpha": [
+      0,
+      255
+    ],
+    "bbox": [
+      10,
+      8,
+      86,
+      88
+    ]
+  },
+  {
+    "file": "icon-wall.png",
+    "size": [
+      96,
+      96
+    ],
+    "bytes": 12953,
+    "alpha": [
+      0,
+      255
+    ],
+    "bbox": [
+      13,
+      8,
+      83,
+      88
+    ]
+  },
+  {
+    "file": "knight-idle.png",
+    "size": [
+      128,
+      128
+    ],
+    "bytes": 25633,
+    "alpha": [
+      0,
+      255
+    ],
+    "bbox": [
+      1,
+      18,
+      127,
+      128
+    ]
+  },
+  {
+    "file": "knight-portrait.png",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 75015,
+    "alpha": [
+      0,
+      255
+    ],
+    "bbox": [
+      12,
+      59,
+      244,
+      244
+    ]
+  },
+  {
+    "file": "knight-run.png",
+    "size": [
+      768,
+      128
+    ],
+    "bytes": 155922,
+    "alpha": [
+      0,
+      255
+    ],
+    "bbox": [
+      1,
+      18,
+      767,
+      128
+    ]
+  }
+]

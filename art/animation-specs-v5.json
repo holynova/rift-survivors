@@ -1,0 +1,66 @@
+[
+  {
+    "id": "frost-run",
+    "seed": "public/assets/v4/frost-idle.png",
+    "frames": 6,
+    "size": 128,
+    "description": "silver-haired ice witch in navy cyan cloak with crystal staff; gently flowing cloak and alternating steps",
+    "reference": "work/art-v5/frost-run-reference.png"
+  },
+  {
+    "id": "engineer-run",
+    "seed": "public/assets/v4/engineer-idle.png",
+    "frames": 6,
+    "size": 128,
+    "description": "goggle-wearing olive bronze clockwork engineer with wrench and backpack; brisk alternating boots and subtle wrench motion",
+    "reference": "work/art-v5/engineer-run-reference.png"
+  },
+  {
+    "id": "reaper-run",
+    "seed": "public/assets/v4/reaper-idle.png",
+    "frames": 6,
+    "size": 128,
+    "description": "white-haired crimson hooded twin dagger hunter; light quick stalking gait, alternating legs and cloak motion",
+    "reference": "work/art-v5/reaper-run-reference.png"
+  },
+  {
+    "id": "enemy-husk-run",
+    "seed": "public/assets/v2/enemy-husk.png",
+    "frames": 4,
+    "size": 128,
+    "description": "ivory skeleton soldier with olive tunic and rusty sword; shuffling gait",
+    "reference": "work/art-v5/enemy-husk-run-reference.png"
+  },
+  {
+    "id": "enemy-runner-run",
+    "seed": "public/assets/v2/enemy-runner.png",
+    "frames": 4,
+    "size": 128,
+    "description": "red horned imp with scarf; quick scampering gait",
+    "reference": "work/art-v5/enemy-runner-run-reference.png"
+  },
+  {
+    "id": "enemy-archer-run",
+    "seed": "public/assets/v2/enemy-archer.png",
+    "frames": 4,
+    "size": 128,
+    "description": "teal hooded crossbow cultist; careful alternating steps with steady crossbow",
+    "reference": "work/art-v5/enemy-archer-run-reference.png"
+  },
+  {
+    "id": "enemy-elite-run",
+    "seed": "public/assets/v2/enemy-elite.png",
+    "frames": 4,
+    "size": 128,
+    "description": "violet black armored knight with shield and long halberd; deliberate heavy gait",
+    "reference": "work/art-v5/enemy-elite-run-reference.png"
+  },
+  {
+    "id": "enemy-boss-run",
+    "seed": "public/assets/v2/enemy-boss.png",
+    "frames": 4,
+    "size": 192,
+    "description": "huge molten bronze crowned armored warden with warhammer; imposing slow heavy stomp, hammer remains readable",
+    "reference": "work/art-v5/enemy-boss-run-reference.png"
+  }
+]

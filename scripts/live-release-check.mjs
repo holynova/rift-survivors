@@ -1,0 +1,11 @@
+import fs from 'node:fs';import crypto from 'node:crypto';
+const root=process.env.RIFT_TEST_URL;if(!root)throw new Error('Set RIFT_TEST_URL to the public HTTPS URL.');
+const live=await fetch(new URL('/release.json',root));if(!live.ok)throw new Error(`release.json HTTP ${live.status}`);
+const manifest=await live.json(),local=JSON.parse(fs.readFileSync('dist/release.json','utf8'));
+if(JSON.stringify(manifest)!==JSON.stringify(local))throw new Error('Public release manifest differs from the local build.');
+let index=0;const results=[];
+await Promise.all(Array.from({length:6},async()=>{while(index<manifest.files.length){const entry=manifest.files[index++];const response=await fetch(new URL(entry.path,root));const bytes=Buffer.from(await response.arrayBuffer());const sha256=crypto.createHash('sha256').update(bytes).digest('hex');results.push({path:entry.path,status:response.status,bytes:bytes.length,match:response.ok&&sha256===entry.sha256});}}));
+const homepage=await fetch(new URL('/',root));const homepageBytes=Buffer.from(await homepage.arrayBuffer());const homepageMatch=homepage.ok&&crypto.createHash('sha256').update(homepageBytes).digest('hex')===manifest.files.find(f=>f.path==='index.html').sha256;
+const missing=await fetch(new URL('/assets/definitely-missing.png',root));
+const report={url:root,version:manifest.version,publishedAt:manifest.publishedAt,checked:results.length,matched:results.filter(r=>r.match).length,missingAssetStatus:missing.status,homepageStatus:homepage.status,homepageMatch,results};
+fs.writeFileSync('evidence/public-release-integrity.json',JSON.stringify(report,null,2));console.log({url:root,version:report.version,checked:report.checked,matched:report.matched,missingAssetStatus:report.missingAssetStatus,homepageStatus:report.homepageStatus,homepageMatch});if(report.checked!==report.matched||missing.status!==404||!homepageMatch)process.exit(1);

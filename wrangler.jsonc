@@ -1,0 +1,14 @@
+{
+  "name": "rift-survivors",
+  "account_id": "ef7863c4de93e71c3496f940c8ab4865",
+  "compatibility_date": "2026-10-01",
+  "workers_dev": true,
+  "routes": [
+    { "pattern": "rift-survivors.xiaosang.cc", "custom_domain": true }
+  ],
+  "assets": {
+    "directory": "./dist",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "none"
+  }
+}

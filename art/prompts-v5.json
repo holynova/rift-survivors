@@ -1,0 +1,88 @@
+{
+  "assets": [
+    {
+      "id": "frost-run",
+      "seed": "public/assets/v4/frost-idle.png",
+      "frames": 6,
+      "size": 128,
+      "description": "silver-haired ice witch in navy cyan cloak with crystal staff; gently flowing cloak and alternating steps",
+      "reference": "work/art-v5/frost-run-reference.png",
+      "prompt": "Edit the supplied reference canvas into ONE horizontal animation strip of exactly 6 equally spaced frames, a single row. Character reference: silver-haired ice witch in navy cyan cloak with crystal staff; gently flowing cloak and alternating steps. Preserve the reference's exact identity, palette, chibi proportions, costume, weapons and thick hand-painted dark fantasy outlines. All frames face RIGHT in three-quarter top-down game view. Show one full alternating walking cycle with visibly different leg positions, subtle cloth and weapon movement, seamless looping. Keep the exact same character scale and ground contact baseline across every frame. Every entire character and weapon stays within its own slot with transparent margins, no cut-off props, no overlaps. Recompose the sparse reference canvas into a wide horizontal strip with 6 identical square cells. Actual transparent background, no floor shadows, no scenery, no labels, no separators, no numbers, no text. Production game animation sprite sheet, crisp readable at small scale."
+    },
+    {
+      "id": "engineer-run",
+      "seed": "public/assets/v4/engineer-idle.png",
+      "frames": 6,
+      "size": 128,
+      "description": "goggle-wearing olive bronze clockwork engineer with wrench and backpack; brisk alternating boots and subtle wrench motion",
+      "reference": "work/art-v5/engineer-run-reference.png",
+      "prompt": "Edit the supplied reference canvas into ONE horizontal animation strip of exactly 6 equally spaced frames, a single row. Character reference: goggle-wearing olive bronze clockwork engineer with wrench and backpack; brisk alternating boots and subtle wrench motion. Preserve the reference's exact identity, palette, chibi proportions, costume, weapons and thick hand-painted dark fantasy outlines. All frames face RIGHT in three-quarter top-down game view. Show one full alternating walking cycle with visibly different leg positions, subtle cloth and weapon movement, seamless looping. Keep the exact same character scale and ground contact baseline across every frame. Every entire character and weapon stays within its own slot with transparent margins, no cut-off props, no overlaps. Recompose the sparse reference canvas into a wide horizontal strip with 6 identical square cells. Actual transparent background, no floor shadows, no scenery, no labels, no separators, no numbers, no text. Production game animation sprite sheet, crisp readable at small scale."
+    },
+    {
+      "id": "reaper-run",
+      "seed": "public/assets/v4/reaper-idle.png",
+      "frames": 6,
+      "size": 128,
+      "description": "white-haired crimson hooded twin dagger hunter; light quick stalking gait, alternating legs and cloak motion",
+      "reference": "work/art-v5/reaper-run-reference.png",
+      "prompt": "Edit the supplied reference canvas into ONE horizontal animation strip of exactly 6 equally spaced frames, a single row. Character reference: white-haired crimson hooded twin dagger hunter; light quick stalking gait, alternating legs and cloak motion. Preserve the reference's exact identity, palette, chibi proportions, costume, weapons and thick hand-painted dark fantasy outlines. All frames face RIGHT in three-quarter top-down game view. Show one full alternating walking cycle with visibly different leg positions, subtle cloth and weapon movement, seamless looping. Keep the exact same character scale and ground contact baseline across every frame. Every entire character and weapon stays within its own slot with transparent margins, no cut-off props, no overlaps. Recompose the sparse reference canvas into a wide horizontal strip with 6 identical square cells. Actual transparent background, no floor shadows, no scenery, no labels, no separators, no numbers, no text. Production game animation sprite sheet, crisp readable at small scale."
+    },
+    {
+      "id": "enemy-husk-run",
+      "seed": "public/assets/v2/enemy-husk.png",
+      "frames": 4,
+      "size": 128,
+      "description": "ivory skeleton soldier with olive tunic and rusty sword; shuffling gait",
+      "reference": "work/art-v5/enemy-husk-run-reference.png",
+      "prompt": "Edit the supplied reference canvas into ONE horizontal animation strip of exactly 4 equally spaced frames, a single row. Character reference: ivory skeleton soldier with olive tunic and rusty sword; shuffling gait. Preserve the reference's exact identity, palette, chibi proportions, costume, weapons and thick hand-painted dark fantasy outlines. All frames face RIGHT in three-quarter top-down game view. Show one full alternating walking cycle with visibly different leg positions, subtle cloth and weapon movement, seamless looping. Keep the exact same character scale and ground contact baseline across every frame. Every entire character and weapon stays within its own slot with transparent margins, no cut-off props, no overlaps. Recompose the sparse reference canvas into a wide horizontal strip with 4 identical square cells. Actual transparent background, no floor shadows, no scenery, no labels, no separators, no numbers, no text. Production game animation sprite sheet, crisp readable at small scale."
+    },
+    {
+      "id": "enemy-runner-run",
+      "seed": "public/assets/v2/enemy-runner.png",
+      "frames": 4,
+      "size": 128,
+      "description": "red horned imp with scarf; quick scampering gait",
+      "reference": "work/art-v5/enemy-runner-run-reference.png",
+      "prompt": "Edit the supplied reference canvas into ONE horizontal animation strip of exactly 4 equally spaced frames, a single row. Character reference: red horned imp with scarf; quick scampering gait. Preserve the reference's exact identity, palette, chibi proportions, costume, weapons and thick hand-painted dark fantasy outlines. All frames face RIGHT in three-quarter top-down game view. Show one full alternating walking cycle with visibly different leg positions, subtle cloth and weapon movement, seamless looping. Keep the exact same character scale and ground contact baseline across every frame. Every entire character and weapon stays within its own slot with transparent margins, no cut-off props, no overlaps. Recompose the sparse reference canvas into a wide horizontal strip with 4 identical square cells. Actual transparent background, no floor shadows, no scenery, no labels, no separators, no numbers, no text. Production game animation sprite sheet, crisp readable at small scale."
+    },
+    {
+      "id": "enemy-archer-run",
+      "seed": "public/assets/v2/enemy-archer.png",
+      "frames": 4,
+      "size": 128,
+      "description": "teal hooded crossbow cultist; careful alternating steps with steady crossbow",
+      "reference": "work/art-v5/enemy-archer-run-reference.png",
+      "prompt": "Edit the supplied reference canvas into ONE horizontal animation strip of exactly 4 equally spaced frames, a single row. Character reference: teal hooded crossbow cultist; careful alternating steps with steady crossbow. Preserve the reference's exact identity, palette, chibi proportions, costume, weapons and thick hand-painted dark fantasy outlines. All frames face RIGHT in three-quarter top-down game view. Show one full alternating walking cycle with visibly different leg positions, subtle cloth and weapon movement, seamless looping. Keep the exact same character scale and ground contact baseline across every frame. Every entire character and weapon stays within its own slot with transparent margins, no cut-off props, no overlaps. Recompose the sparse reference canvas into a wide horizontal strip with 4 identical square cells. Actual transparent background, no floor shadows, no scenery, no labels, no separators, no numbers, no text. Production game animation sprite sheet, crisp readable at small scale."
+    },
+    {
+      "id": "enemy-elite-run",
+      "seed": "public/assets/v2/enemy-elite.png",
+      "frames": 4,
+      "size": 128,
+      "description": "violet black armored knight with shield and long halberd; deliberate heavy gait",
+      "reference": "work/art-v5/enemy-elite-run-reference.png",
+      "prompt": "Edit the supplied reference canvas into ONE horizontal animation strip of exactly 4 equally spaced frames, a single row. Character reference: violet black armored knight with shield and long halberd; deliberate heavy gait. Preserve the reference's exact identity, palette, chibi proportions, costume, weapons and thick hand-painted dark fantasy outlines. All frames face RIGHT in three-quarter top-down game view. Show one full alternating walking cycle with visibly different leg positions, subtle cloth and weapon movement, seamless looping. Keep the exact same character scale and ground contact baseline across every frame. Every entire character and weapon stays within its own slot with transparent margins, no cut-off props, no overlaps. Recompose the sparse reference canvas into a wide horizontal strip with 4 identical square cells. Actual transparent background, no floor shadows, no scenery, no labels, no separators, no numbers, no text. Production game animation sprite sheet, crisp readable at small scale."
+    },
+    {
+      "id": "enemy-boss-run",
+      "seed": "public/assets/v2/enemy-boss.png",
+      "frames": 4,
+      "size": 192,
+      "description": "huge molten bronze crowned armored warden with warhammer; imposing slow heavy stomp, hammer remains readable",
+      "reference": "work/art-v5/enemy-boss-run-reference.png",
+      "prompt": "Edit the supplied reference canvas into ONE horizontal animation strip of exactly 4 equally spaced frames, a single row. Character reference: huge molten bronze crowned armored warden with warhammer; imposing slow heavy stomp, hammer remains readable. Preserve the reference's exact identity, palette, chibi proportions, costume, weapons and thick hand-painted dark fantasy outlines. All frames face RIGHT in three-quarter top-down game view. Show one full alternating walking cycle with visibly different leg positions, subtle cloth and weapon movement, seamless looping. Keep the exact same character scale and ground contact baseline across every frame. Every entire character and weapon stays within its own slot with transparent margins, no cut-off props, no overlaps. Recompose the sparse reference canvas into a wide horizontal strip with 4 identical square cells. Actual transparent background, no floor shadows, no scenery, no labels, no separators, no numbers, no text. Production game animation sprite sheet, crisp readable at small scale."
+    },
+    {
+      "id": "turret",
+      "prompt": "A single original compact clockwork sentry turret game sprite, top-down three-quarter perspective. Dark fantasy hand-painted chibi style, thick dark outlines, matching olive-and-bronze engineer hero. Squat bronze armored tripod base, cogwheel platform, glowing amber core, short twin cannon barrels pointing RIGHT, mechanical rivets and leather cables. Entire turret fully within canvas with generous transparent margins. Strong recognizable silhouette at 48 pixels. No scenery, no floor shadows, no text, no watermark, actual transparent background. Game production prop sprite."
+    },
+    {
+      "id": "new-skill-icons",
+      "prompt": "Create one transparent game UI icon atlas, EXACTLY 3 columns by 3 rows, 9 equally sized square cells. Each cell contains ONE centered hand-painted fantasy skill icon with thick dark outlines, readable at 40 pixels, consistent detailed illustrated style with bronze accents, isolated on actual transparent background. No circular backgrounds or badges, no lettering, no labels, no numbers, no watermark, generous empty margins so icons never overlap cell boundaries. Row1 left-to-right: icy winged boot with cyan speed streaks; blue crystalline ice field with snowflake rune; tall three-shard ice crown. Row2 left-to-right: two bronze cogwheel rings connected by curved swap arrows; bronze tripod sentry turret with amber core; three tiny bronze sentry turrets in formation with orange energy. Row3 left-to-right: crimson curved dagger with crimson motion streak; ruby-red droplet surrounded by a silver crescent blade; crossed crimson twin daggers with ruby energy burst. Exactly this 3x3 ordering."
+    }
+  ],
+  "transparencyRepair": {
+    "prompt": "Remove the colored background and broad fog from this 3x3 skill icon atlas. Keep all nine exact icon designs and their exact 3-column 3-row order. The background between icons and around every icon must be truly transparent, not semi-transparent color fields. Each icon must be independently isolated with dark outline, no filled rectangle, no scenery, no shared glow spanning cells. Reduce each icon slightly to provide generous transparent padding inside its equal-sized cell. Preserve the cyan, bronze and crimson hand-painted designs, no text, no labels. Deliver a genuinely transparent PNG 3x3 game icon atlas.",
+    "path": "/Users/sym/.codex/generated_images/01a0f190-19f6-7db0-b2e3-f3323972e76f/exec-0027efd2-d595-4c58-bf09-7b6f4f4168d7.png"
+  }
+}

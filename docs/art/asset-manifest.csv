@@ -1,0 +1,68 @@
+key,source,license_or_provenance,status,path,notes
+arena-floor,built-in imagegen,generated in this session,active-v0.2,public/assets/v2/arena-floor.webp,normalized generated image
+enemy-archer,built-in imagegen,generated in this session,archived-v0.5,public/assets/v2/enemy-archer.png,normalized generated image
+enemy-boss,built-in imagegen,generated in this session,archived-v0.5,public/assets/v2/enemy-boss.png,normalized generated image
+enemy-elite,built-in imagegen,generated in this session,archived-v0.5,public/assets/v2/enemy-elite.png,normalized generated image
+enemy-husk,built-in imagegen,generated in this session,archived-v0.5,public/assets/v2/enemy-husk.png,normalized generated image
+enemy-runner,built-in imagegen,generated in this session,archived-v0.5,public/assets/v2/enemy-runner.png,normalized generated image
+gunner-idle,built-in imagegen,generated in this session,active-v0.2,public/assets/v2/gunner-idle.png,normalized generated image
+gunner-portrait,built-in imagegen,generated in this session,active-v0.2,public/assets/v2/gunner-portrait.png,normalized generated image
+gunner-run,built-in imagegen,generated in this session,active-v0.2,public/assets/v2/gunner-run.png,six-frame shared-scale strip
+icon-blink,built-in imagegen,generated in this session,active-v0.2,public/assets/v2/icon-blink.png,normalized generated image
+icon-feather,built-in imagegen,generated in this session,active-v0.2,public/assets/v2/icon-feather.png,normalized generated image
+icon-leech,built-in imagegen,generated in this session,active-v0.2,public/assets/v2/icon-leech.png,normalized generated image
+icon-magnet,built-in imagegen,generated in this session,active-v0.2,public/assets/v2/icon-magnet.png,normalized generated image
+icon-parry,built-in imagegen,generated in this session,active-v0.2,public/assets/v2/icon-parry.png,normalized generated image
+icon-pulse,built-in imagegen,generated in this session,active-v0.2,public/assets/v2/icon-pulse.png,normalized generated image
+icon-recall,built-in imagegen,generated in this session,active-v0.2,public/assets/v2/icon-recall.png,normalized generated image
+icon-roll,built-in imagegen,generated in this session,active-v0.2,public/assets/v2/icon-roll.png,normalized generated image
+icon-ruby,built-in imagegen,generated in this session,active-v0.2,public/assets/v2/icon-ruby.png,normalized generated image
+icon-stone,built-in imagegen,generated in this session,active-v0.2,public/assets/v2/icon-stone.png,normalized generated image
+icon-storm,built-in imagegen,generated in this session,active-v0.2,public/assets/v2/icon-storm.png,normalized generated image
+icon-wall,built-in imagegen,generated in this session,active-v0.2,public/assets/v2/icon-wall.png,normalized generated image
+knight-idle,built-in imagegen,generated in this session,active-v0.2,public/assets/v2/knight-idle.png,normalized generated image
+knight-portrait,built-in imagegen,generated in this session,active-v0.2,public/assets/v2/knight-portrait.png,normalized generated image
+knight-run,built-in imagegen,generated in this session,active-v0.2,public/assets/v2/knight-run.png,six-frame shared-scale strip
+audio,web-audio,project code,active,src,procedural synthesized effects
+font-space-grotesk,fontsource,OFL,active,local dependency,bundled font
+engineer-idle,built-in imagegen,project generated,archived-v0.5,public/assets/v4/engineer-idle.png,normalized static seed
+engineer-portrait,built-in imagegen,project generated,active-v0.4,public/assets/v4/engineer-portrait.png,normalized static seed
+frost-idle,built-in imagegen,project generated,archived-v0.5,public/assets/v4/frost-idle.png,normalized static seed
+frost-portrait,built-in imagegen,project generated,active-v0.4,public/assets/v4/frost-portrait.png,normalized static seed
+icon-engineer-army,project vector code,project generated,archived-v0.5,public/assets/v4/icon-engineer-army.svg,original vector icon
+icon-engineer-swap,project vector code,project generated,archived-v0.5,public/assets/v4/icon-engineer-swap.svg,original vector icon
+icon-engineer-turret,project vector code,project generated,archived-v0.5,public/assets/v4/icon-engineer-turret.svg,original vector icon
+icon-frost-bolt,project vector code,project generated,archived-v0.5,public/assets/v4/icon-frost-bolt.svg,original vector icon
+icon-frost-step,project vector code,project generated,archived-v0.5,public/assets/v4/icon-frost-step.svg,original vector icon
+icon-frost-zone,project vector code,project generated,archived-v0.5,public/assets/v4/icon-frost-zone.svg,original vector icon
+icon-reaper-dash,project vector code,project generated,archived-v0.5,public/assets/v4/icon-reaper-dash.svg,original vector icon
+icon-reaper-drain,project vector code,project generated,archived-v0.5,public/assets/v4/icon-reaper-drain.svg,original vector icon
+icon-reaper-harvest,project vector code,project generated,archived-v0.5,public/assets/v4/icon-reaper-harvest.svg,original vector icon
+reaper-idle,built-in imagegen,project generated,archived-v0.5,public/assets/v4/reaper-idle.png,normalized static seed
+reaper-portrait,built-in imagegen,project generated,active-v0.4,public/assets/v4/reaper-portrait.png,normalized static seed
+enemy-archer-idle,built-in imagegen,generated in this session,active-v0.5,public/assets/v5/enemy-archer-idle.png,normalized transparent artwork; source art/source/v5
+enemy-archer-run,built-in imagegen,generated in this session,active-v0.5,public/assets/v5/enemy-archer-run.png,normalized transparent artwork; source art/source/v5
+enemy-boss-idle,built-in imagegen,generated in this session,active-v0.5,public/assets/v5/enemy-boss-idle.png,normalized transparent artwork; source art/source/v5
+enemy-boss-run,built-in imagegen,generated in this session,active-v0.5,public/assets/v5/enemy-boss-run.png,normalized transparent artwork; source art/source/v5
+enemy-elite-idle,built-in imagegen,generated in this session,active-v0.5,public/assets/v5/enemy-elite-idle.png,normalized transparent artwork; source art/source/v5
+enemy-elite-run,built-in imagegen,generated in this session,active-v0.5,public/assets/v5/enemy-elite-run.png,normalized transparent artwork; source art/source/v5
+enemy-husk-idle,built-in imagegen,generated in this session,active-v0.5,public/assets/v5/enemy-husk-idle.png,normalized transparent artwork; source art/source/v5
+enemy-husk-run,built-in imagegen,generated in this session,active-v0.5,public/assets/v5/enemy-husk-run.png,normalized transparent artwork; source art/source/v5
+enemy-runner-idle,built-in imagegen,generated in this session,active-v0.5,public/assets/v5/enemy-runner-idle.png,normalized transparent artwork; source art/source/v5
+enemy-runner-run,built-in imagegen,generated in this session,active-v0.5,public/assets/v5/enemy-runner-run.png,normalized transparent artwork; source art/source/v5
+engineer-idle,built-in imagegen,generated in this session,active-v0.5,public/assets/v5/engineer-idle.png,normalized transparent artwork; source art/source/v5
+engineer-run,built-in imagegen,generated in this session,active-v0.5,public/assets/v5/engineer-run.png,normalized transparent artwork; source art/source/v5
+frost-idle,built-in imagegen,generated in this session,active-v0.5,public/assets/v5/frost-idle.png,normalized transparent artwork; source art/source/v5
+frost-run,built-in imagegen,generated in this session,active-v0.5,public/assets/v5/frost-run.png,normalized transparent artwork; source art/source/v5
+icon-engineer-army,built-in imagegen,generated in this session,active-v0.5,public/assets/v5/icon-engineer-army.png,normalized transparent artwork; source art/source/v5
+icon-engineer-swap,built-in imagegen,generated in this session,active-v0.5,public/assets/v5/icon-engineer-swap.png,normalized transparent artwork; source art/source/v5
+icon-engineer-turret,built-in imagegen,generated in this session,active-v0.5,public/assets/v5/icon-engineer-turret.png,normalized transparent artwork; source art/source/v5
+icon-frost-bolt,built-in imagegen,generated in this session,active-v0.5,public/assets/v5/icon-frost-bolt.png,normalized transparent artwork; source art/source/v5
+icon-frost-step,built-in imagegen,generated in this session,active-v0.5,public/assets/v5/icon-frost-step.png,normalized transparent artwork; source art/source/v5
+icon-frost-zone,built-in imagegen,generated in this session,active-v0.5,public/assets/v5/icon-frost-zone.png,normalized transparent artwork; source art/source/v5
+icon-reaper-dash,built-in imagegen,generated in this session,active-v0.5,public/assets/v5/icon-reaper-dash.png,normalized transparent artwork; source art/source/v5
+icon-reaper-drain,built-in imagegen,generated in this session,active-v0.5,public/assets/v5/icon-reaper-drain.png,normalized transparent artwork; source art/source/v5
+icon-reaper-harvest,built-in imagegen,generated in this session,active-v0.5,public/assets/v5/icon-reaper-harvest.png,normalized transparent artwork; source art/source/v5
+reaper-idle,built-in imagegen,generated in this session,active-v0.5,public/assets/v5/reaper-idle.png,normalized transparent artwork; source art/source/v5
+reaper-run,built-in imagegen,generated in this session,active-v0.5,public/assets/v5/reaper-run.png,normalized transparent artwork; source art/source/v5
+turret,built-in imagegen,generated in this session,active-v0.5,public/assets/v5/turret.png,normalized transparent artwork; source art/source/v5

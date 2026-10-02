@@ -1,0 +1,7 @@
+Kenney audio samples, Creative Commons CC0 1.0.
+Sources:
+https://kenney.nl/assets/impact-sounds
+https://kenney.nl/assets/rpg-audio
+https://kenney.nl/assets/sci-fi-sounds
+https://creativecommons.org/publicdomain/zero/1.0/
+Trimmed, filtered, resampled and gain matched by this project.

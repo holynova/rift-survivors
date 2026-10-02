@@ -1,0 +1,1092 @@
+:root {
+  font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+  color: #e5dfcb;
+  background: #121a17;
+  font-synthesis: none;
+  --gold: #d4b77a;
+  --ink: #17211c;
+  --muted: #98a496;
+  --line: #414b3e;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+button {
+  font: inherit;
+  cursor: pointer;
+  background: #28332a;
+  color: #dddcc9;
+  border: 1px solid #525c4a;
+  border-radius: 3px;
+  padding: 10px 16px;
+  transition:
+    background 0.15s,
+    transform 0.12s;
+}
+button:hover {
+  background: #364434;
+  border-color: #aa9d74;
+}
+button:active {
+  transform: scale(0.97);
+}
+button:disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
+}
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid #80c4b1;
+  outline-offset: 4px;
+}
+.app {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 44px;
+}
+.masthead {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+  color: #e4d6b4;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+.brand small {
+  display: block;
+  font-family: "Space Grotesk", monospace;
+  font-size: 9px;
+  letter-spacing: 4px;
+  color: #8b9988;
+  margin-top: 4px;
+}
+.brand-mark {
+  font-size: 46px;
+  font-weight: 400;
+  color: var(--gold);
+}
+.edition {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #b3b8a8;
+  font-size: 12px;
+}
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #92bba0;
+}
+.version {
+  color: #778875;
+  margin-left: 8px;
+}
+.tools {
+  display: flex;
+  gap: 8px;
+}
+.tools button {
+  background: transparent;
+  border-color: #374334;
+  padding: 7px 10px;
+  font-size: 12px;
+  color: #a9b3a2;
+}
+.game-shell {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1100/650;
+  border: 1px solid #5b6249;
+  box-shadow: 0 18px 55px #050b0866;
+  overflow: hidden;
+  background: #242b2a;
+}
+.canvas {
+  position: absolute;
+  inset: 0;
+}
+.canvas canvas {
+  display: block;
+}
+.menu {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 6%;
+  padding: 5% 6%;
+  background: linear-gradient(90deg, #1b231ee8, #202923ed);
+}
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+.intro h1 {
+  font-size: clamp(30px, 4.2vw, 61px);
+  font-weight: 900;
+  line-height: 1.22;
+  letter-spacing: -2px;
+  margin: 0 0 24px;
+}
+.intro h1 span {
+  color: #bdc5ac;
+}
+.intro p {
+  font-size: 13px;
+  line-height: 2;
+  color: #a4b19d;
+}
+.run-facts {
+  display: flex;
+  gap: 35px;
+  margin-top: 32px;
+}
+.run-facts b {
+  display: block;
+  font-family: "Space Grotesk", monospace;
+  font-size: 29px;
+  font-weight: 500;
+  color: #d2c39b;
+}
+.run-facts span {
+  font-size: 10px;
+  color: #85957f;
+}
+.record {
+  font-size: 10px;
+  color: #7d8b77;
+  margin-top: 30px;
+}
+.select-title {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  margin-bottom: 14px;
+  color: #c2c9b4;
+}
+.select-title small {
+  font:
+    10px "Space Grotesk",
+    monospace;
+  color: #7f907a;
+}
+.hero-options {
+  display: grid;
+  gap: 10px;
+}
+.hero-option {
+  position: relative;
+  display: flex;
+  align-items: center;
+  text-align: left;
+  padding: 8px 18px 8px 6px;
+  min-height: 104px;
+  background: #263127;
+  border-color: #404e3c;
+}
+.hero-option img {
+  width: 94px;
+  height: 94px;
+  object-fit: contain;
+  filter: drop-shadow(0 5px 3px #10181166);
+}
+.hero-option div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-left: 10px;
+}
+.hero-option small {
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: #87967f;
+}
+.hero-option b {
+  font-size: 19px;
+  color: #dad9bf;
+  letter-spacing: 1px;
+}
+.hero-option div > span {
+  font-size: 10px;
+  color: #a0ad95;
+}
+.hero-option.selected {
+  background: #354032;
+  border-color: #bda56c;
+}
+.selection-dot {
+  margin-left: auto;
+  color: #d6b97c;
+}
+.hero-detail {
+  padding: 18px 0;
+}
+.hero-detail > span {
+  font-size: 10px;
+  color: var(--gold);
+}
+.hero-detail p {
+  font-size: 11px;
+  color: #a5b09a;
+  line-height: 1.8;
+  min-height: 40px;
+  margin: 7px 0 12px;
+}
+.hero-detail div {
+  font-size: 10px;
+  color: #9aa990;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+kbd {
+  font:
+    9px "Space Grotesk",
+    monospace;
+  padding: 3px 5px;
+  border: 1px solid #58614c;
+  color: #ccceb7;
+  border-radius: 2px;
+  background: #202c22;
+}
+.primary {
+  background: #d2b477;
+  color: #20291e;
+  border-color: #d2b477;
+  font-weight: 700;
+  min-height: 44px;
+}
+.primary:hover {
+  background: #e5c68c;
+  border-color: #e5c68c;
+}
+.start {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  font-size: 15px;
+  padding: 14px 20px;
+}
+.start span {
+  font-size: 23px;
+}
+.start-hint {
+  font-size: 9px;
+  color: #819279;
+  text-align: center;
+  margin: 10px 0 0;
+}
+.hud {
+  position: absolute;
+  top: 22px;
+  left: 25px;
+  right: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  pointer-events: none;
+}
+.hud-left {
+  width: 190px;
+  background: #18221cdd;
+  padding: 12px 14px;
+  border: 1px solid #46513d;
+}
+.hero-label {
+  font-size: 12px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.hero-label span {
+  font:
+    12px "Space Grotesk",
+    monospace;
+  color: #b7c594;
+}
+.meter {
+  height: 12px;
+  position: relative;
+  background: #111a15;
+  border: 1px solid #4a5540;
+  overflow: hidden;
+}
+.meter i {
+  display: block;
+  height: 100%;
+  background: #a9b878;
+}
+.meter span {
+  position: absolute;
+  inset: 0;
+  text-align: center;
+  font:
+    9px "Space Grotesk",
+    monospace;
+  color: #f1e7cb;
+}
+.meter.xp {
+  height: 3px;
+  border: 0;
+  margin-top: 6px;
+}
+.meter.xp i {
+  background: #67ad9b;
+}
+.wave {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #18221cdd;
+  padding: 8px 15px;
+  border: 1px solid #46513d;
+}
+.wave small {
+  font-size: 10px;
+  color: #bdc6aa;
+}
+.wave b {
+  font:
+    28px "Space Grotesk",
+    monospace;
+  color: #e7cd96;
+}
+.wave em {
+  font-style: normal;
+  font-size: 11px;
+  color: #929f86;
+  margin-left: 3px;
+}
+.wave > span {
+  font:
+    14px "Space Grotesk",
+    monospace;
+  color: #bdc7ab;
+  min-width: 32px;
+}
+.hud-right {
+  background: #18221cdd;
+  padding: 10px 14px;
+  border: 1px solid #46513d;
+  display: grid;
+  gap: 5px;
+  min-width: 95px;
+  text-align: right;
+}
+.hud-right strong {
+  color: #e5c17b;
+  font:
+    17px "Space Grotesk",
+    monospace;
+}
+.hud-right span {
+  font-size: 10px;
+  color: #b4bea7;
+}
+.abilities {
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+}
+.abilities button {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 5px 9px;
+  min-width: 123px;
+  padding: 9px 12px;
+  background: #1b251feb;
+  border-color: #69664b;
+  text-align: left;
+}
+.abilities span {
+  font-size: 11px;
+}
+.abilities b {
+  grid-column: 2;
+  font:
+    10px "Space Grotesk",
+    monospace;
+  color: #a5caac;
+}
+.abilities kbd {
+  grid-row: span 2;
+  align-self: center;
+}
+.abilities .cooling {
+  opacity: 0.65;
+}
+.combat-note {
+  position: absolute;
+  top: 105px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  color: #e5c17b;
+  pointer-events: none;
+  text-shadow: 0 2px 4px #111;
+}
+.boss {
+  position: absolute;
+  top: 105px;
+  left: 30%;
+  right: 30%;
+  font-size: 10px;
+  text-align: center;
+  color: #e7c391;
+}
+.boss .meter {
+  margin-top: 5px;
+  height: 7px;
+}
+.boss i {
+  background: #cf8264;
+}
+.boss ~ .combat-note {
+  top: 143px;
+}
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #101912cc;
+  padding: 25px;
+}
+.dialog {
+  width: 410px;
+  background: #222e23;
+  border: 1px solid #8b8660;
+  padding: 32px;
+  box-shadow: 0 14px 40px #0005;
+  text-align: center;
+  max-height: 100%;
+  overflow: auto;
+}
+.dialog.wide {
+  width: 770px;
+  text-align: left;
+}
+.dialog .eyebrow {
+  margin-bottom: 12px;
+}
+.dialog h2 {
+  font-size: 25px;
+  line-height: 1.4;
+  margin: 0 0 12px;
+  color: #e0d4b4;
+  letter-spacing: -0.5px;
+}
+.dialog > p {
+  font-size: 11px;
+  line-height: 1.8;
+  color: #a2b196;
+  margin-bottom: 22px;
+}
+.dialog > .primary,
+.quiet {
+  width: 100%;
+  margin-top: 10px;
+}
+.quiet {
+  border: 0;
+  background: transparent;
+  color: #a6b698;
+  font-size: 12px;
+}
+.choice-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.choice {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  min-height: 210px;
+  background: #2c382b;
+  padding: 22px 18px;
+  border-color: #5b664b;
+}
+.choice-icon {
+  font-size: 32px;
+  color: #d4b77a;
+  height: 48px;
+}
+.choice small {
+  color: #839d81;
+  font-size: 9px;
+  margin-bottom: 5px;
+  letter-spacing: 2px;
+}
+.choice b {
+  font-size: 18px;
+  color: #dedac0;
+}
+.choice p {
+  font-size: 11px;
+  color: #aab69c;
+  line-height: 1.7;
+  margin: 12px 0 22px;
+}
+.choose-label {
+  margin-top: auto;
+  font-size: 11px;
+  color: #d5bf8b;
+}
+.gold {
+  float: right;
+  font:
+    20px "Space Grotesk",
+    monospace;
+  color: #d9bc7d;
+}
+.shop-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+.shop-actions button {
+  font-size: 11px;
+}
+.shop-actions .primary {
+  margin-left: auto;
+}
+.build-strip {
+  display: flex;
+  gap: 9px;
+  flex-wrap: wrap;
+  color: #a6b199;
+  font-size: 10px;
+  border-top: 1px solid #4a553e;
+  margin-top: 20px;
+  padding-top: 15px;
+}
+.build-strip span {
+  color: #c6c9a9;
+}
+.control-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  font-size: 11px;
+  padding: 18px 0;
+  text-align: left;
+}
+.setting {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  color: #b0bda3;
+  gap: 8px;
+  margin: 15px 0;
+}
+.result-stats {
+  display: flex;
+  justify-content: space-around;
+  margin: 28px 0;
+}
+.result-stats b {
+  display: block;
+  font:
+    35px "Space Grotesk",
+    monospace;
+  color: #e1c388;
+}
+.result-stats small {
+  font-size: 12px;
+  color: #85977a;
+}
+.result-stats span {
+  font-size: 10px;
+  color: #a5b499;
+}
+footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px 0;
+  font-size: 10px;
+  color: #81937c;
+}
+footer kbd {
+  font-size: 9px;
+}
+.sep {
+  margin: 0 10px;
+  color: #56654f;
+}
+.perf {
+  font-family: "Space Grotesk", monospace;
+}
+.mobile-note {
+  display: none;
+}
+.asset-warning {
+  position: absolute;
+  bottom: 75px;
+  left: 20px;
+  color: #e4b984;
+  font-size: 11px;
+  background: #17201b;
+  padding: 5px;
+}
+
+/* Art v2: the arena remains visible; bronze frames support painted icons. */
+.menu {
+  background: linear-gradient(
+    90deg,
+    rgba(19, 28, 22, 0.87),
+    rgba(24, 33, 25, 0.93)
+  );
+}
+.hero-option {
+  min-height: 116px;
+  background: #293429;
+}
+.hero-option img {
+  width: 108px;
+  height: 108px;
+  filter: drop-shadow(0 6px 3px #0a110a80);
+}
+.choice {
+  min-height: 232px;
+  background: #2c3729;
+  border-color: #6a7050;
+}
+.choice-icon {
+  display: flex;
+  align-items: center;
+  height: 70px;
+  margin-bottom: 6px;
+}
+.choice-icon-art {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  filter: drop-shadow(0 3px 2px #0e160d66);
+}
+.abilities {
+  left: 25px;
+  transform: none;
+  gap: 8px;
+}
+.abilities button {
+  grid-template-columns: 30px auto auto;
+  min-width: 150px;
+  padding: 9px 12px;
+  background: #1a251bed;
+  border-color: #80704c;
+}
+.skill-icon-art {
+  grid-column: 1;
+  grid-row: span 2;
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  align-self: center;
+}
+.abilities kbd {
+  grid-column: 2;
+  grid-row: span 2;
+}
+.abilities span,
+.abilities b {
+  grid-column: 3;
+}
+
+/* Five-hero roster: bounded height on desktop, complete list on narrow screens. */
+.hero-options {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+.hero-option {
+  min-height: 88px;
+  padding: 6px 16px 6px 4px;
+}
+.hero-option img {
+  width: 64px;
+  height: 74px;
+  flex-shrink: 0;
+}
+.hero-option b {
+  font-size: 15px;
+}
+.hero-option div > span {
+  font-size: 9px;
+  line-height: 1.5;
+}
+.hero-option small {
+  font-size: 9px;
+  letter-spacing: 1px;
+}
+.hero-option .selection-dot {
+  position: absolute;
+  right: 7px;
+  top: 7px;
+  font-size: 10px;
+}
+.hero-resource {
+  position: absolute;
+  left: 0;
+  top: 88px;
+  max-width: 235px;
+  color: #e3d8b5;
+  background: #17231bd9;
+  border-radius: 5px;
+  padding: 6px 10px;
+  font-size: 11px;
+}
+.hero-resource:empty {
+  display: none;
+}
+.blood-meter {
+  height: 3px;
+  margin-top: 5px;
+  background: #4b2834;
+}
+.blood-meter i {
+  display: block;
+  height: 100%;
+  background: #ef648c;
+}
+
+.audio-setting {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin: 12px 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+.audio-setting input {
+  width: 180px;
+  accent-color: #b8c586;
+}
+
+/* One fitted composition: chrome, arena and DOM overlays share one scale.
+   The logical canvas stays 1100 × 650; portrait menus use a taller frame. */
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+#root {
+  position: relative;
+  height: 100dvh;
+}
+.viewport-frame {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform-origin: center;
+}
+.app {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 12px;
+}
+.masthead {
+  height: 64px;
+  gap: 16px;
+}
+.game-shell {
+  width: 1100px;
+  height: 650px;
+  aspect-ratio: auto;
+}
+.canvas canvas {
+  position: absolute;
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  object-fit: contain;
+}
+.intro h1 {
+  font-size: 54px;
+}
+.menu {
+  position: absolute;
+  grid-template-columns: 0.9fr 1.1fr;
+  padding: 40px 48px;
+  gap: 36px;
+}
+.hero-option {
+  min-height: 88px;
+}
+.hero-option div {
+  min-width: 0;
+}
+.hero-option b {
+  font-size: 15px;
+}
+.hero-detail {
+  padding: 16px 0;
+}
+.hero-detail p {
+  min-height: 40px;
+}
+footer {
+  height: 42px;
+  align-items: center;
+  padding: 0;
+  flex-wrap: nowrap;
+}
+.mobile-note {
+  display: none;
+}
+.overlay {
+  position: absolute;
+  min-height: 0;
+  padding: 25px;
+}
+.dialog {
+  overflow: visible;
+  max-height: none;
+}
+
+.compact .masthead {
+  gap: 8px;
+}
+.compact .brand {
+  font-size: 16px;
+  gap: 8px;
+  letter-spacing: 1px;
+}
+.compact .brand-mark {
+  font-size: 32px;
+}
+.compact .brand small {
+  font-size: 7px;
+  letter-spacing: 2px;
+}
+.compact .edition {
+  display: none;
+}
+.compact .tools {
+  gap: 5px;
+}
+.compact .tools button {
+  font-size: 11px;
+  padding: 7px;
+}
+.compact .game-shell {
+  width: 500px;
+  height: 760px;
+}
+.compact .menu {
+  grid-template-columns: 1fr;
+  gap: 22px;
+  padding: 24px;
+}
+.compact .intro .eyebrow {
+  margin-bottom: 10px;
+}
+.compact .intro h1 {
+  font-size: 30px;
+  letter-spacing: -1px;
+  margin-bottom: 10px;
+}
+.compact .intro h1 br {
+  display: none;
+}
+.compact .intro h1 span {
+  margin-left: 8px;
+}
+.compact .intro p {
+  font-size: 11px;
+  line-height: 1.7;
+  margin: 8px 0;
+}
+.compact .run-facts {
+  margin-top: 10px;
+  gap: 36px;
+}
+.compact .run-facts b {
+  font-size: 22px;
+}
+.compact .record {
+  margin-top: 10px;
+}
+.compact .select-title {
+  margin-bottom: 10px;
+}
+.compact .hero-option {
+  min-height: 76px;
+  padding-right: 12px;
+}
+.compact .hero-option img {
+  width: 48px;
+  height: 60px;
+}
+.compact .hero-option div {
+  margin-left: 6px;
+  gap: 4px;
+}
+.compact .hero-option b {
+  font-size: 13px;
+}
+.compact .hero-option small {
+  font-size: 8px;
+}
+.compact .hero-option div > span {
+  font-size: 9px;
+}
+.compact .hero-detail {
+  padding: 12px 0;
+}
+.compact .hero-detail p {
+  min-height: 40px;
+  margin-bottom: 10px;
+}
+.compact .start {
+  padding: 10px 16px;
+}
+.compact .hud {
+  top: 14px;
+  left: 14px;
+  right: 14px;
+}
+.compact .hud-left {
+  width: 150px;
+  padding: 9px;
+}
+.compact .wave {
+  padding: 8px;
+  gap: 6px;
+}
+.compact .wave small {
+  display: none;
+}
+.compact .wave b {
+  font-size: 22px;
+}
+.compact .hud-right {
+  min-width: 75px;
+  padding: 9px;
+}
+.compact .hero-resource {
+  top: 78px;
+}
+.compact .abilities {
+  left: 14px;
+  right: 14px;
+  gap: 6px;
+}
+.compact .abilities button {
+  min-width: 0;
+  flex: 1;
+  grid-template-columns: 24px auto auto;
+  padding: 8px;
+  gap: 4px;
+}
+.compact .skill-icon-art {
+  width: 24px;
+  height: 24px;
+}
+.compact .abilities span {
+  font-size: 10px;
+}
+.compact .overlay {
+  padding: 20px;
+}
+.compact .dialog {
+  width: 100%;
+  padding: 22px;
+}
+.compact .choice-grid {
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+.compact .choice {
+  min-height: 110px;
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 4px 10px;
+  padding: 12px;
+}
+.compact .choice-icon {
+  grid-row: span 4;
+  height: 44px;
+}
+.compact .choice-icon-art {
+  width: 44px;
+  height: 44px;
+}
+.compact .choice p {
+  margin: 0;
+}
+.compact .choose-label {
+  grid-column: 2;
+}
+.compact .shop-actions {
+  flex-wrap: wrap;
+}
+.compact .build-strip {
+  margin-top: 12px;
+  padding-top: 10px;
+}
+.compact footer {
+  font-size: 9px;
+}
+.compact footer > span:nth-child(2) {
+  display: none;
+}
+.compact .mobile-note {
+  display: block;
+  height: 24px;
+  font-size: 11px;
+  padding: 0;
+  text-align: center;
+}
+
+.tools a {
+  text-decoration: none;
+  border: 1px solid #374334;
+  border-radius: 3px;
+  padding: 7px 10px;
+  font-size: 12px;
+  color: #a9b3a2;
+  align-self: center;
+  white-space: nowrap;
+}
+.tools a:hover {
+  background: #364434;
+  border-color: #aa9d74;
+}
+.compact .tools a {
+  font-size: 11px;
+  padding: 7px;
+}
