@@ -24,3 +24,6 @@ v0.7.1：首屏适配上线，8种窗口动态切换通过，最新完整性证�
 本次将v0.8构筑重构与v0.9资源升级一起正式发布：三角色、六武器、12种武器四级合成、30道具八机制联动、12波、四格商店与锁定/买卖/合成；42个绘制图标及四阶段原创16小节配乐。GitHub main为唯一源码与发布来源，手动发布rift-survivors Worker与xiaosang-portfolio Worker。
 验收：52项Vitest、8项串行Playwright、类型检查和生产构建通过。dist/release.json记录165个部署文件；发布后逐文件公网SHA校验、真实浏览器与音频验证结果及提交/部署ID存入evidence/v09-published.json等发布证据。
 正式地址 https://rift-survivors.xiaosang.cc/ ，资源与音乐图鉴 https://rift-survivors.xiaosang.cc/build-gallery.html ，源码 https://github.com/holynova/rift-survivors 。本节替代早期当前状态；前面的记录为历史发布。
+
+## v0.9.1 正式发布（2026-10-03）
+近战判定与武器实体共用轨迹，加入起手/接触/收招、局部命中停顿与接触音效。58项规则、9项浏览器检查及生产构建通过。沿用 rift-survivors Worker、既有域名/Umami/二维码；实际源码提交、部署ID、公网文件与声音验证记录在 evidence/v091-published.json。

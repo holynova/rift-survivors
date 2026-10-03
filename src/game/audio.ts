@@ -276,7 +276,24 @@ export class AudioMixer {
       const v = this.variation(prefix, count);
       layer(v.key, gain, rate * v.rate, delay);
     };
-    if (verb === "attack" || verb === "turret") {
+    if (verb === "swing") {
+      varied(
+        "cloth",
+        0.2,
+        2,
+        hero === "hammer" ? 0.65 : hero === "dagger" ? 1.35 : 0.95,
+      );
+      varied("blade", 0.18, 2, hero === "hammer" ? 0.65 : 1.1);
+    } else if (verb === "contact") {
+      varied(
+        "punch",
+        hero === "hammer" ? 0.32 : 0.2,
+        3,
+        hero === "hammer" ? 0.7 : 1.1,
+      );
+      varied("metal", 0.14, 3, hero === "hammer" ? 0.72 : 1.05);
+      if (hero === "hammer") varied("heavy", 0.22, 2, 0.7);
+    } else if (verb === "attack" || verb === "turret") {
       if (verb === "turret" || hero === "engineer") {
         varied("gun", 0.2, 3, 1.18);
         varied("metal", 0.15, 3, 1.1, 0.015);

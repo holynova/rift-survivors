@@ -1,3 +1,4 @@
+import { meleePose, segmentContact, type MeleeSwing } from "./melee";
 import {
   Simulation,
   W,
@@ -72,6 +73,8 @@ export class BuildSimulation extends Simulation {
   bullets = new Map<number, Bullet>();
   turretWeapons = new Map<number, OwnedWeapon>();
   wallTimers = new Map<number, number>();
+  meleeSwings = new Map<number, MeleeSwing>();
+  meleeFlashes = new Map<number, number>();
   shield = 0;
   stationary = 0;
   coldTimer = 0;
@@ -230,10 +233,88 @@ export class BuildSimulation extends Simulation {
       this.msg("波次完成 · 剩余材料按80%结算，恢复12%生命");
     }
   }
+  tickMelee(dt: number) {
+    for (const [uid, swing] of this.meleeSwings) {
+      const w = this.weapons.find((w) => w.uid === uid);
+      if (!w) {
+        this.meleeSwings.delete(uid);
+        continue;
+      }
+      if (swing.pause > 0) {
+        swing.pause = Math.max(0, swing.pause - dt);
+        continue;
+      }
+      const previous = swing.age;
+      swing.age += dt;
+      // Sample the swept blade to avoid tunnelling between simulation frames.
+      const steps = Math.max(1, Math.ceil(dt / 0.004));
+      for (let i = 1; i <= steps; i++) {
+        const pose = meleePose(
+          swing,
+          this.p.x,
+          this.p.y,
+          previous + (dt * i) / steps,
+        );
+        if (!pose.active) continue;
+        if (!swing.sounded) {
+          this.sound?.("swing:" + w.id, this.p);
+          swing.sounded = true;
+        }
+        for (const e of [...this.enemies]) {
+          if (e.hp <= 0 || swing.seen.has(e.id)) continue;
+          if (w.id === "dagger" && swing.seen.size) continue;
+          const contact = segmentContact(e.x, e.y, pose);
+          if (contact.distance > e.r + pose.width) continue;
+          swing.seen.add(e.id);
+          this.meleeFlashes.set(e.id, this.elapsed + 0.1);
+          this.strike(
+            e,
+            swing.damage,
+            w,
+            swing.critical,
+            swing.seen.size === 1,
+          );
+          this.effect(
+            contact.x,
+            contact.y,
+            w.id === "hammer" ? 32 : 22,
+            weaponById[w.id].color,
+            0.16,
+            undefined,
+            "hit",
+            swing.angle,
+          );
+          if (swing.seen.size === 1) {
+            swing.pause = w.id === "hammer" ? 0.055 : 0.025;
+            this.sound?.("contact:" + w.id, contact);
+            if (w.id === "hammer")
+              this.effect(
+                contact.x,
+                contact.y,
+                42,
+                weaponById[w.id].color,
+                0.22,
+                undefined,
+                "impact",
+                swing.angle,
+              );
+          }
+        }
+        if (swing.pause > 0) {
+          swing.age = previous + (dt * i) / steps;
+          break;
+        }
+      }
+      if (swing.age >= swing.duration) this.meleeSwings.delete(uid);
+    }
+    for (const [id, until] of this.meleeFlashes)
+      if (until <= this.elapsed) this.meleeFlashes.delete(id);
+  }
   tickHeroSystems(dt: number) {
+    this.tickMelee(dt);
     for (const w of this.weapons) {
       w.cool -= dt;
-      if (w.cool > 0) continue;
+      if (w.cool > 0 || this.meleeSwings.has(w.uid)) continue;
       const d = weaponById[w.id];
       if (d.mode === "turret") {
         this.deploy(w);
@@ -257,45 +338,41 @@ export class BuildSimulation extends Simulation {
       w.fired++;
       const critical = this.rng.next() < this.p.crit,
         damage = this.weaponDamage(w) * (critical ? 2 : 1);
-      this.sound?.(
-        "attack:" +
-          (d.group === "melee"
-            ? "knight"
-            : d.group === "elemental"
-              ? "frost"
-              : "gunner"),
-        { x: this.p.x, y: this.p.y },
-      );
       if (d.mode === "melee") {
-        this.effect(
-          this.p.x,
-          this.p.y,
-          d.range,
-          d.color,
-          0.22,
-          undefined,
-          d.id === "dagger" || d.id === "spear"
-            ? "thrust"
-            : d.id === "hammer"
-              ? "quake"
-              : d.id === "scythe"
-                ? "blood"
-                : "slash",
-          w.angle,
-        );
-        const targets =
-          d.id === "dagger"
-            ? [target]
-            : this.enemies.filter((e) => {
-                const a = Math.atan2(e.y - this.p.y, e.x - this.p.x) - w.angle;
-                return (
-                  Math.hypot(e.x - this.p.x, e.y - this.p.y) < d.range + e.r &&
-                  Math.abs(Math.atan2(Math.sin(a), Math.cos(a))) <
-                    (d.id === "spear" ? 0.3 : 1.3)
-                );
-              });
-        targets.forEach((e, i) => this.strike(e, damage, w, critical, i === 0));
+        this.meleeSwings.set(w.uid, {
+          uid: w.uid,
+          id: w.id,
+          age: 0,
+          duration: Math.max(
+            0.13,
+            Math.min(
+              d.id === "hammer" ? 0.42 : 0.3,
+              this.weaponInterval(w) * 0.8,
+            ),
+          ),
+          angle: w.angle,
+          reach:
+            d.id === "hammer" || d.id === "scythe"
+              ? Math.min(
+                  d.range,
+                  Math.max(
+                    54,
+                    Math.hypot(target.x - this.p.x, target.y - this.p.y) +
+                      target.r * 0.5,
+                  ),
+                )
+              : d.range,
+          damage,
+          critical,
+          seen: new Set(),
+          pause: 0,
+          sounded: false,
+        });
       } else {
+        this.sound?.(
+          "attack:" + (d.group === "elemental" ? "frost" : "gunner"),
+          this.p,
+        );
         const volley = { used: false };
         for (let i = 0; i < (d.pellets ?? 1); i++) {
           const angle = w.angle + (i - ((d.pellets ?? 1) - 1) / 2) * 0.12;
@@ -724,6 +801,8 @@ export class BuildSimulation extends Simulation {
   nextWave() {
     if (this.phase !== "shop" || this.wave >= 12) return;
     super.nextWave();
+    this.meleeSwings.clear();
+    this.meleeFlashes.clear();
     this.time = waveSeconds(this.wave);
     this.turrets = [];
     this.turretWeapons.clear();

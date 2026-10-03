@@ -1,3 +1,4 @@
+import { meleePose } from "../game/melee";
 import { updateAudio } from "../game/audio";
 import Phaser from "phaser";
 import { BuildSimulation } from "../game/build-simulation";
@@ -19,6 +20,7 @@ export class Arena extends Phaser.Scene {
   g!: Phaser.GameObjects.Graphics;
   keys = new Set<string>();
   acc = 0;
+  meleeShakeAt = -1;
   weaponViews = new Map<number, Phaser.GameObjects.Image>();
   heroSprite?: Phaser.GameObjects.Sprite;
   ground!: Phaser.GameObjects.Graphics;
@@ -209,6 +211,7 @@ export class Arena extends Phaser.Scene {
   reset() {
     for (const v of this.weaponViews.values()) v.destroy();
     this.weaponViews.clear();
+    this.meleeShakeAt = -1;
     this.keys.clear();
     this.acc = 0;
     this.heroSprite?.destroy();
@@ -247,6 +250,16 @@ export class Arena extends Phaser.Scene {
       }
       this.renderSim(sim);
       if (sim instanceof BuildSimulation) {
+        if (
+          !runtime.reduceMotion &&
+          sim.elapsed - this.meleeShakeAt > 0.12 &&
+          [...sim.meleeSwings.values()].some(
+            (s) => s.id === "hammer" && s.pause > 0.04,
+          )
+        ) {
+          this.cameras.main.shake(55, 0.0015);
+          this.meleeShakeAt = sim.elapsed;
+        }
         const ids = new Set(sim.weapons.map((w) => w.uid));
         for (const [id, v] of this.weaponViews)
           if (!ids.has(id)) {
@@ -261,6 +274,44 @@ export class Arena extends Phaser.Scene {
               .setDisplaySize(34, 34)
               .setDepth(30);
             this.weaponViews.set(w.uid, v);
+          }
+          const swing = sim.meleeSwings.get(w.uid);
+          if (swing) {
+            const pose = meleePose(swing, sim.p.x, sim.p.y);
+            const length = Math.hypot(pose.x2 - pose.x1, pose.y2 - pose.y1);
+            v.setPosition((pose.x1 + pose.x2) / 2, (pose.y1 + pose.y2) / 2)
+              .setDisplaySize(length * 0.92, length * 0.92)
+              .setRotation(pose.angle + Math.PI / 4)
+              .setAlpha(1);
+            if (pose.active) {
+              this.g.lineStyle(pose.width * 2, weaponById[w.id].color, 0.18);
+              this.g.lineBetween(pose.x1, pose.y1, pose.x2, pose.y2);
+              this.g.lineStyle(2, 0xfff3ce, 0.8);
+              this.g.lineBetween(pose.x1, pose.y1, pose.x2, pose.y2);
+              if (
+                !runtime.reduceMotion &&
+                w.id !== "dagger" &&
+                w.id !== "spear"
+              ) {
+                const past = meleePose(
+                  swing,
+                  sim.p.x,
+                  sim.p.y,
+                  Math.max(0, swing.age - 0.024),
+                );
+                this.g.lineStyle(4, weaponById[w.id].color, 0.45);
+                this.g.beginPath();
+                this.g.arc(
+                  sim.p.x,
+                  sim.p.y,
+                  swing.reach,
+                  past.angle,
+                  pose.angle,
+                );
+                this.g.strokePath();
+              }
+            }
+            return;
           }
           const a = (i / 6) * Math.PI * 2 - Math.PI / 2;
           const firing = w.cool > sim.weaponInterval(w) * 0.88;
@@ -475,6 +526,10 @@ export class Arena extends Phaser.Scene {
         floor.lineStyle(1.5, 0xa6dce5, 0.7);
         floor.strokeEllipse(e.x, e.y + e.r * 0.7, e.r * 2.1, e.r * 0.8);
       }
+      const meleeFlash =
+        sim instanceof BuildSimulation &&
+        (sim.meleeFlashes.get(e.id) ?? 0) > sim.elapsed;
+      if (meleeFlash) view.setTintFill(0xffeed5);
       const health = this.enemyHealth.get(e.id);
       if (!health) this.enemyHealth.set(e.id, { hp: e.hp, flash: 0 });
       else {

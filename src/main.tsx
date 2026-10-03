@@ -197,7 +197,7 @@ function App() {
             </span>
           </a>
           <div className="edition">
-            六武器构筑 <span className="version">v0.9.0</span>
+            六武器构筑 <span className="version">v0.9.1</span>
           </div>
           <div className="tools">
             <a
@@ -747,6 +747,12 @@ if (import.meta.env.DEV) {
             id,
             texture: v.texture.key,
             frame: v.frame.name,
+          })),
+          weapons: [...(scene?.weaponViews.entries() ?? [])].map(([id, v]) => ({
+            id,
+            x: v.x,
+            y: v.y,
+            rotation: v.rotation,
           })),
           turrets: scene?.turretViews.size ?? 0,
         };

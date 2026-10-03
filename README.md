@@ -6,7 +6,7 @@ English: v0.9 is a six-weapon build arena: three roles, twelve weapons, four upg
 
 [新增资源图鉴与音乐试听](https://rift-survivors.xiaosang.cc/build-gallery.html) · [美术与音乐制作记录](docs/art/resources-v09.md)
 
-**正式版本：v0.9.0。**
+**正式版本：v0.9.1。近战按武器轨迹接触命中，新增白闪、接触火花、局部停顿与分武器音效。**
 
 ![游戏截图 / Game screenshot](./assets/screenshot.png)
 

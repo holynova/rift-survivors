@@ -11,3 +11,5 @@
 新增：balance/difficulty-v6.md 记录难度曲线与调参验收；technical/audio.md 记录音频设计和试听导出。
 
 公网发布及复现：production/deployment.md。
+
+当前正式版本 v0.9.1：近战接触判定与打击反馈，详见 [近战技术记录](technical/melee-contact.md)。
