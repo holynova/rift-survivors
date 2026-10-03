@@ -1,0 +1,181 @@
+{
+  "source": "art/generated/v9/weapons-raw.png",
+  "grid": [
+    4,
+    3
+  ],
+  "sourceSize": [
+    1448,
+    1086
+  ],
+  "sprites": [
+    {
+      "id": "dagger",
+      "alphaBounds": [
+        29,
+        19,
+        362,
+        357
+      ],
+      "size": [
+        106,
+        108
+      ],
+      "file": "dagger.png"
+    },
+    {
+      "id": "spear",
+      "alphaBounds": [
+        0,
+        31,
+        362,
+        361
+      ],
+      "size": [
+        108,
+        98
+      ],
+      "file": "spear.png"
+    },
+    {
+      "id": "hammer",
+      "alphaBounds": [
+        0,
+        31,
+        359,
+        362
+      ],
+      "size": [
+        108,
+        100
+      ],
+      "file": "hammer.png"
+    },
+    {
+      "id": "boomerang",
+      "alphaBounds": [
+        9,
+        19,
+        349,
+        362
+      ],
+      "size": [
+        107,
+        108
+      ],
+      "file": "boomerang.png"
+    },
+    {
+      "id": "pistol",
+      "alphaBounds": [
+        15,
+        1,
+        361,
+        362
+      ],
+      "size": [
+        104,
+        108
+      ],
+      "file": "pistol.png"
+    },
+    {
+      "id": "smg",
+      "alphaBounds": [
+        13,
+        0,
+        362,
+        362
+      ],
+      "size": [
+        104,
+        108
+      ],
+      "file": "smg.png"
+    },
+    {
+      "id": "shotgun",
+      "alphaBounds": [
+        0,
+        0,
+        362,
+        362
+      ],
+      "size": [
+        108,
+        108
+      ],
+      "file": "shotgun.png"
+    },
+    {
+      "id": "crossbow",
+      "alphaBounds": [
+        0,
+        0,
+        348,
+        362
+      ],
+      "size": [
+        104,
+        108
+      ],
+      "file": "crossbow.png"
+    },
+    {
+      "id": "ice",
+      "alphaBounds": [
+        0,
+        0,
+        362,
+        334
+      ],
+      "size": [
+        108,
+        100
+      ],
+      "file": "ice.png"
+    },
+    {
+      "id": "bomb",
+      "alphaBounds": [
+        9,
+        0,
+        360,
+        338
+      ],
+      "size": [
+        108,
+        104
+      ],
+      "file": "bomb.png"
+    },
+    {
+      "id": "scythe",
+      "alphaBounds": [
+        13,
+        0,
+        362,
+        330
+      ],
+      "size": [
+        108,
+        102
+      ],
+      "file": "scythe.png"
+    },
+    {
+      "id": "deployer",
+      "alphaBounds": [
+        0,
+        0,
+        346,
+        330
+      ],
+      "size": [
+        108,
+        103
+      ],
+      "file": "deployer.png"
+    }
+  ]
+}

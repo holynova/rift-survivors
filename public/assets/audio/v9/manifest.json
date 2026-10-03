@@ -1,0 +1,46 @@
+{
+  "tracks": [
+    {
+      "id": "first-light",
+      "bpm": 108,
+      "bars": 16,
+      "duration": 35.55555555555556,
+      "peak": 0.7200000000000001,
+      "rms": 0.15497609041887345,
+      "bytes": 682260,
+      "composer": "Original code-authored score and synthesized instrument samples"
+    },
+    {
+      "id": "iron-march",
+      "bpm": 118,
+      "bars": 16,
+      "duration": 32.54237288135593,
+      "peak": 0.72,
+      "rms": 0.15476956701764494,
+      "bytes": 621906,
+      "composer": "Original code-authored score and synthesized instrument samples"
+    },
+    {
+      "id": "rift-storm",
+      "bpm": 128,
+      "bars": 16,
+      "duration": 30.0,
+      "peak": 0.7200000000000001,
+      "rms": 0.15261632206553052,
+      "bytes": 568884,
+      "composer": "Original code-authored score and synthesized instrument samples"
+    },
+    {
+      "id": "last-guardian",
+      "bpm": 136,
+      "bars": 16,
+      "duration": 28.235294117647058,
+      "peak": 0.72,
+      "rms": 0.15186242075770723,
+      "bytes": 538912,
+      "composer": "Original code-authored score and synthesized instrument samples"
+    }
+  ],
+  "source": "scripts/compose-music-v9.py",
+  "license": "Original project composition; no external music samples."
+}

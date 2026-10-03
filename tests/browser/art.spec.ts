@@ -6,7 +6,7 @@ test("animated art advances, pauses, respects reduced motion and gallery loads",
   const errors: string[] = [];
   page.on("pageerror", (e) => errors.push(e.message));
   await page.goto("/");
-  for (const hero of ["frost", "engineer", "reaper"]) {
+  for (const hero of ["gunner", "knight", "engineer"]) {
     await page.evaluate((hero) => {
       const api = (window as any).__rift;
       const s = api.start(hero);
@@ -62,7 +62,7 @@ test("animated art advances, pauses, respects reduced motion and gallery loads",
   );
   await page.reload();
   await page.evaluate(() => {
-    const s = (window as any).__rift.start("frost");
+    const s = (window as any).__rift.start("gunner");
     s.spawnTimer = 100;
     s.attackTimer = 100;
     const e = s.spawn(4);
@@ -71,8 +71,8 @@ test("animated art advances, pauses, respects reduced motion and gallery loads",
     e.cool = 100;
   });
   // Reload starts Phaser asset loading again; wait for the scene before input.
-  await page.waitForFunction(() =>
-    (window as any).__rift.artSnapshot().hero?.texture === "hero-frost",
+  await page.waitForFunction(
+    () => (window as any).__rift.artSnapshot().hero?.texture === "hero-gunner",
   );
   await page.keyboard.down("KeyD");
   await page.waitForTimeout(250);

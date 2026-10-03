@@ -82,6 +82,89 @@ function sparks(
 export function drawWeaponShot(g: Graphics, shot: Shot, time: number) {
   const a = Math.atan2(shot.vy, shot.vx),
     color = shot.hostile ? 0xef7646 : (shot.color ?? 0x51e8db);
+  if (!shot.hostile && shot.weapon === "boomerang") {
+    const spin = time * 18,
+      r = 12 + (shot.tier ?? 1);
+    glow(g, shot.x, shot.y, r * 1.3, color, 0.8);
+    for (let i = 0; i < 3; i++) {
+      const turn = spin + (i * TAU) / 3;
+      arc(g, shot.x, shot.y, r, turn, turn + 1.25, 5, color, 0.8);
+      arc(g, shot.x, shot.y, r + 1, turn, turn + 1.05, 1.5, WHITE, 1);
+      ray(g, shot.x, shot.y, turn + 0.25, 3, r, 2, 0x8dbba0, 0.9);
+    }
+    g.fillStyle(0xe3c78a, 1);
+    g.fillCircle(shot.x, shot.y, 3);
+    return;
+  }
+  if (!shot.hostile && shot.weapon === "bomb") {
+    glow(g, shot.x, shot.y, 15, 0xf8984b, 0.8);
+    ray(g, shot.x, shot.y, a, -22, -5, 7, 0xef984f, 0.16);
+    g.fillStyle(0x4a3b28, 1);
+    g.fillCircle(shot.x, shot.y, 7);
+    g.lineStyle(2, 0xeac072, 0.9);
+    g.strokeCircle(shot.x, shot.y, 7);
+    g.fillStyle(0xffe4a2, 1);
+    g.fillCircle(shot.x + Math.cos(a) * 4, shot.y + Math.sin(a) * 4, 3);
+    for (let i = 0; i < 3; i++)
+      ray(
+        g,
+        shot.x - Math.cos(a) * 10,
+        shot.y - Math.sin(a) * 10,
+        a + Math.PI + (i - 1) * 0.2,
+        0,
+        7 + ((shot.id + i) % 5),
+        1,
+        0xffd080,
+        0.7,
+      );
+    return;
+  }
+  if (!shot.hostile && shot.weapon === "ice") {
+    glow(g, shot.x, shot.y, 18, color, 0.8);
+    const points = [
+      [-17, -4],
+      [0, -7],
+      [14, 0],
+      [0, 7],
+      [-17, 4],
+      [-9, 0],
+    ].map(([x, y]) => ({
+      x: shot.x + x * Math.cos(a) - y * Math.sin(a),
+      y: shot.y + x * Math.sin(a) + y * Math.cos(a),
+    }));
+    g.fillStyle(0x78c9e8, 0.85);
+    g.fillPoints(points, true);
+    g.lineStyle(1.5, 0xe1faff, 1);
+    g.strokePoints(points, true);
+    ray(g, shot.x, shot.y, a, -12, 12, 2, 0xffffff, 0.9);
+    for (let i = 1; i < 4; i++) {
+      g.fillStyle(color, 0.3 / i);
+      g.fillCircle(
+        shot.x - Math.cos(a) * i * 11,
+        shot.y - Math.sin(a) * i * 11,
+        3 / i,
+      );
+    }
+    return;
+  }
+  if (!shot.hostile && shot.weapon === "crossbow") {
+    ray(g, shot.x, shot.y, a, -28, 5, 5, color, 0.15);
+    ray(g, shot.x, shot.y, a, -21, 5, 2.5, 0xc5b689, 1);
+    ray(g, shot.x, shot.y, a, -20, -14, 5, 0x80ae87, 0.9);
+    for (const o of [-0.7, 0.7])
+      ray(
+        g,
+        shot.x + Math.cos(a) * 7,
+        shot.y + Math.sin(a) * 7,
+        a + Math.PI + o,
+        0,
+        9,
+        2,
+        WHITE,
+        1,
+      );
+    return;
+  }
   const length = shot.hostile ? 14 : 26;
   ray(g, shot.x, shot.y, a, -length, 0, shot.hostile ? 8 : 7, color, 0.13);
   ray(g, shot.x, shot.y, a, -length * 0.7, 0, 3, color, 0.7);
@@ -105,7 +188,110 @@ export function drawCombatEffect(
     a = f.angle || 0;
   const countScale = reduceMotion ? 0.4 : 1;
   const radius = f.r * (0.2 + 0.8 * (1 - Math.pow(alpha, 3)));
-  if (f.kind === "chain") {
+  if (f.kind === "thrust") {
+    const travel =
+      f.r * (0.25 + 0.65 * Math.sin((Math.min(1, p * 1.5) * Math.PI) / 2));
+    for (const [width, opacity] of [
+      [18, 0.06],
+      [8, 0.25],
+      [2.5, 0.95],
+    ])
+      ray(g, f.x, f.y, a, 15, travel, width, f.color, alpha * opacity);
+    for (const side of [-1, 1])
+      ray(
+        g,
+        f.x + Math.cos(a) * travel,
+        f.y + Math.sin(a) * travel,
+        a + Math.PI + side * 0.38,
+        0,
+        22,
+        2,
+        WHITE,
+        alpha,
+      );
+    for (let i = 0; i < 4; i++)
+      ray(
+        g,
+        f.x,
+        f.y,
+        a + (i - 1.5) * 0.035,
+        travel * 0.65,
+        travel * (0.8 + i * 0.05),
+        1,
+        WHITE,
+        alpha * 0.5,
+      );
+  } else if (f.kind === "quake") {
+    const cx = f.x + Math.cos(a) * f.r * 0.6,
+      cy = f.y + Math.sin(a) * f.r * 0.6;
+    glow(floor, cx, cy, f.r * 0.5, f.color, alpha);
+    g.lineStyle(6, f.color, alpha * 0.3);
+    g.strokeEllipse(cx, cy, 24 + f.r * p, 12 + f.r * p * 0.45);
+    g.lineStyle(2, WHITE, alpha * 0.65);
+    g.strokeEllipse(cx, cy, 24 + f.r * p, 12 + f.r * p * 0.45);
+    for (let i = 0; i < 6; i++) {
+      const turn = (i * TAU) / 6,
+        distance = f.r * p * 0.6;
+      floor.lineStyle(3, 0x181f19, alpha * 0.9);
+      floor.lineBetween(
+        cx,
+        cy,
+        cx + Math.cos(turn) * distance,
+        cy + Math.sin(turn) * distance * 0.65,
+      );
+      floor.lineStyle(1, f.color, alpha * 0.7);
+      floor.lineBetween(
+        cx + Math.cos(turn) * 9,
+        cy + Math.sin(turn) * 6,
+        cx + Math.cos(turn + 0.12) * distance,
+        cy + Math.sin(turn + 0.12) * distance * 0.65,
+      );
+    }
+    sparks(
+      g,
+      { ...f, x: cx, y: cy, r: f.r * 0.65 },
+      reduceMotion ? 5 : 12,
+      p,
+      alpha,
+    );
+  } else if (f.kind === "detonate") {
+    const blast = f.r * (0.25 + 0.75 * Math.sqrt(p));
+    glow(floor, f.x, f.y, blast, 0xe88440, alpha);
+    for (let i = 0; i < 7; i++) {
+      const turn = i * 2.39996;
+      const rr = blast * 0.45;
+      g.fillStyle(i % 2 ? 0xee8b39 : 0xffc477, alpha * 0.45);
+      g.fillCircle(
+        f.x + Math.cos(turn) * rr,
+        f.y + Math.sin(turn) * rr,
+        blast * (0.2 + 0.04 * (i % 3)),
+      );
+    }
+    arc(floor, f.x, f.y, blast, 0, TAU, 4, 0xffc36a, alpha * 0.65);
+    arc(g, f.x, f.y, blast * 0.9, 0, TAU, 1.5, WHITE, alpha * 0.6);
+    sparks(g, f, reduceMotion ? 8 : 20, p, alpha);
+  } else if (f.kind === "shards") {
+    glow(floor, f.x, f.y, f.r * p, 0x8e62c6, alpha);
+    for (let i = 0; i < (reduceMotion ? 5 : 10); i++) {
+      const turn = i * 2.39996,
+        rr = f.r * p * (0.45 + (i % 3) * 0.15),
+        cx = f.x + Math.cos(turn) * rr,
+        cy = f.y + Math.sin(turn) * rr;
+      const points = [
+        [-4, 0],
+        [0, -11],
+        [5, 0],
+        [0, 5],
+      ].map(([x, y]) => ({
+        x: cx + x * Math.cos(turn) - y * Math.sin(turn),
+        y: cy + x * Math.sin(turn) + y * Math.cos(turn),
+      }));
+      g.fillStyle(i % 2 ? 0xab78d6 : 0xe4c6ff, alpha * 0.8);
+      g.fillPoints(points, true);
+      g.lineStyle(1, 0xe4d7ff, alpha);
+      g.strokePoints(points, true);
+    }
+  } else if (f.kind === "chain") {
     const ex = f.endX ?? f.x,
       ey = f.endY ?? f.y;
     const dx = ex - f.x,

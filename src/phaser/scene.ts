@@ -1,5 +1,7 @@
 import { updateAudio } from "../game/audio";
 import Phaser from "phaser";
+import { BuildSimulation } from "../game/build-simulation";
+import { weapons, iconFor, weaponById } from "../game/build-content";
 import { Simulation, W, H } from "../game/simulation";
 import { heroes } from "../game/content";
 import { bindings, movement } from "../game/input";
@@ -17,6 +19,7 @@ export class Arena extends Phaser.Scene {
   g!: Phaser.GameObjects.Graphics;
   keys = new Set<string>();
   acc = 0;
+  weaponViews = new Map<number, Phaser.GameObjects.Image>();
   heroSprite?: Phaser.GameObjects.Sprite;
   ground!: Phaser.GameObjects.Graphics;
   ghostViews: Phaser.GameObjects.Image[] = [];
@@ -30,6 +33,7 @@ export class Arena extends Phaser.Scene {
     super("Arena");
   }
   preload() {
+    for (const w of weapons) this.load.image("build-" + w.id, iconFor(w.id));
     for (const [key, path] of Object.entries(manifest.images))
       this.load.image(key, path);
     for (const [key, sheet] of Object.entries(manifest.sheets))
@@ -203,6 +207,8 @@ export class Arena extends Phaser.Scene {
   }
 
   reset() {
+    for (const v of this.weaponViews.values()) v.destroy();
+    this.weaponViews.clear();
     this.keys.clear();
     this.acc = 0;
     this.heroSprite?.destroy();
@@ -240,6 +246,36 @@ export class Arena extends Phaser.Scene {
         this.acc = 0;
       }
       this.renderSim(sim);
+      if (sim instanceof BuildSimulation) {
+        const ids = new Set(sim.weapons.map((w) => w.uid));
+        for (const [id, v] of this.weaponViews)
+          if (!ids.has(id)) {
+            v.destroy();
+            this.weaponViews.delete(id);
+          }
+        sim.weapons.forEach((w, i) => {
+          let v = this.weaponViews.get(w.uid);
+          if (!v) {
+            v = this.add
+              .image(0, 0, "build-" + w.id)
+              .setDisplaySize(34, 34)
+              .setDepth(30);
+            this.weaponViews.set(w.uid, v);
+          }
+          const a = (i / 6) * Math.PI * 2 - Math.PI / 2;
+          const firing = w.cool > sim.weaponInterval(w) * 0.88;
+          const recoil = runtime.reduceMotion ? 0 : firing ? -5 : 0;
+          v.setPosition(
+            sim.p.x + Math.cos(a) * 44 + Math.cos(w.angle) * recoil,
+            sim.p.y + Math.sin(a) * 37 + Math.sin(w.angle) * recoil,
+          )
+            .setDisplaySize(43 + w.tier * 2, 43 + w.tier * 2)
+            .setRotation(w.angle + Math.PI / 4)
+            .setAlpha(1);
+          this.ground.lineStyle(1, weaponById[w.id].color, 0.22);
+          this.ground.strokeCircle(v.x, v.y, 14 + w.tier);
+        });
+      }
     } else {
       this.g.clear();
       this.ground.clear();
@@ -368,7 +404,12 @@ export class Arena extends Phaser.Scene {
         .setPosition(t.x - Math.cos(t.angle) * recoil, t.y - 4)
         .setDepth(20 + t.y / 1000)
         .setFlipX(Math.cos(t.angle) < 0);
-      if (sim.overload > 0) {
+      if (
+        sim.overload > 0 ||
+        (sim instanceof BuildSimulation &&
+          sim.inventory.siege &&
+          sim.stationary >= 0.8)
+      ) {
         g.lineStyle(2, 0xffba5e, 0.7);
         g.strokeCircle(t.x, t.y, 28);
         floor.fillStyle(0xf6ac49, 0.08);
@@ -428,7 +469,8 @@ export class Arena extends Phaser.Scene {
         .setDisplaySize(size, size)
         .setPosition(e.x, e.y + e.r * 0.7)
         .setDepth(20 + e.y / 1000)
-        .setFlipX(e.x > sim.p.x);
+        .setFlipX(e.x > sim.p.x)
+        .setTint(e.stun > 0 ? 0xaee9ff : 0xffffff);
       if (e.stun > 0) {
         floor.lineStyle(1.5, 0xa6dce5, 0.7);
         floor.strokeEllipse(e.x, e.y + e.r * 0.7, e.r * 2.1, e.r * 0.8);
@@ -518,6 +560,23 @@ export class Arena extends Phaser.Scene {
     } else {
       g.fillStyle(heroes[sim.hero].color);
       g.fillCircle(sim.p.x, sim.p.y, 17);
+    }
+    if (sim instanceof BuildSimulation && sim.shield > 0) {
+      const strength = Math.min(1, sim.shield / 25);
+      g.lineStyle(2, 0xf0c570, 0.25 + strength * 0.4);
+      g.strokeEllipse(sim.p.x, sim.p.y - 8, 56, 70);
+      floor.fillStyle(0xe2af4a, 0.06);
+      floor.fillCircle(sim.p.x, sim.p.y, 28);
+      for (let i = 0; i < 4; i++) {
+        const a = (i * Math.PI) / 2;
+        g.lineStyle(2, 0xffe2a0, 0.6);
+        g.lineBetween(
+          sim.p.x + Math.cos(a) * 23,
+          sim.p.y - 8 + Math.sin(a) * 30,
+          sim.p.x + Math.cos(a + 0.13) * 27,
+          sim.p.y - 8 + Math.sin(a + 0.13) * 33,
+        );
+      }
     }
     if (sim.parry > 0) {
       g.lineStyle(5, 0xf5d49a);

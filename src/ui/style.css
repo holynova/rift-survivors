@@ -1090,3 +1090,590 @@ footer {
   font-size: 11px;
   padding: 7px;
 }
+/* v0.8: build choices and six-slot inventory */
+.build-menu .hero-option {
+  min-height: 76px;
+}
+.build-menu .hero-option img {
+  width: 56px;
+  height: 70px;
+}
+.build-menu .intro h1 {
+  font-size: 52px;
+}
+.build-guide {
+  margin: 30px 0;
+  border-left: 2px solid #aa9d74;
+  padding-left: 16px;
+}
+.build-guide p {
+  font-size: 13px;
+}
+.role-description {
+  font-size: 12px;
+  line-height: 1.7;
+  min-height: 42px;
+  margin: 14px 0;
+}
+.starter-options {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.starter-options button {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px;
+  font-size: 11px;
+  border: 1px solid #52634b;
+  background: #202e24;
+}
+.starter-options .selected {
+  border-color: #d8c48d;
+  background: #394831;
+}
+.starter-options img {
+  width: 36px;
+  height: 36px;
+}
+.starter-description {
+  font-size: 11px;
+  color: #bdc5b2;
+  margin: 10px 0;
+}
+.loadout-hud {
+  position: absolute;
+  bottom: 16px;
+  left: 20px;
+  right: 20px;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 6px;
+  pointer-events: none;
+}
+.weapon-slot {
+  background: #16221be8;
+  border: 1px solid #51634b;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px;
+  min-width: 0;
+}
+.weapon-slot img {
+  width: 32px;
+  height: 32px;
+}
+.weapon-slot div {
+  min-width: 0;
+}
+.weapon-slot b {
+  display: block;
+  font-size: 10px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.weapon-slot small {
+  display: block;
+  font-size: 9px;
+  color: #aebca6;
+  white-space: nowrap;
+}
+.weapon-slot em {
+  font-style: normal;
+  color: #e1c787;
+}
+.empty-slot {
+  border: 1px dashed #53604b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #a5af9b;
+  font-size: 10px;
+  background: #17221980;
+}
+.tier-2 {
+  border-color: #71b8a9 !important;
+}
+.tier-3 {
+  border-color: #b396d1 !important;
+}
+.tier-4 {
+  border-color: #e7bb66 !important;
+}
+.dialog.build-shop {
+  width: 1000px;
+  padding: 22px;
+  max-width: 100%;
+}
+.shop-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.shop-heading h2 {
+  font-size: 25px;
+  margin: 4px 0;
+}
+.shop-heading > .gold {
+  font-size: 24px;
+}
+.shop-layout {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 18px;
+}
+.offer-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+.offer {
+  background: #253429;
+  border: 1px solid #56654d;
+  padding: 12px;
+  min-height: 165px;
+  display: flex;
+  flex-direction: column;
+}
+.offer-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.offer-title img,
+.item-symbol {
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+.item-symbol {
+  font-size: 32px;
+  color: #d9c68d;
+  text-align: center;
+}
+.offer-title div {
+  flex: 1;
+}
+.offer-title small {
+  font-size: 10px;
+  color: #a9baa1;
+  display: block;
+}
+.offer-title b {
+  font-size: 13px;
+  display: block;
+}
+.offer-title button {
+  padding: 4px;
+  font-size: 10px;
+}
+.offer-title .locked {
+  background: #8b7841;
+  color: #fff;
+}
+.offer p {
+  font-size: 11px;
+  line-height: 1.5;
+  margin: 8px 0;
+  flex: 1;
+}
+.offer > small {
+  font-size: 10px;
+  color: #bbd5af;
+}
+.buy-button {
+  margin-top: 9px;
+  width: 100%;
+  padding: 7px;
+  font-size: 12px;
+}
+.sold-offer {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 13px;
+  color: #85987e;
+}
+.sold-offer small {
+  margin-top: 8px;
+  font-size: 10px;
+}
+.build-shop .shop-actions {
+  margin-top: 12px;
+  gap: 8px;
+  justify-content: space-between;
+}
+.build-shop .shop-actions button {
+  font-size: 12px;
+  padding: 9px 12px;
+}
+.shop-help {
+  display: block;
+  font-size: 10px;
+  color: #a8b79e;
+  margin-top: 8px;
+}
+.equipment-label {
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+.equipment-label small {
+  font-size: 9px;
+  color: #a8b79e;
+  float: right;
+}
+.equipment-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+}
+.equipment-grid .weapon-slot {
+  flex-wrap: wrap;
+  min-height: 72px;
+}
+.slot-actions {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  gap: 5px;
+}
+.slot-actions button {
+  font-size: 9px;
+  padding: 3px 7px;
+}
+.family-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  margin: 9px 0;
+  font-size: 9px;
+  color: #d7c18c;
+}
+.family-strip span {
+  background: #35412d;
+  padding: 3px 5px;
+}
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3px 10px;
+  border-top: 1px solid #53634c;
+  padding-top: 8px;
+  font-size: 10px;
+}
+.stat-grid span {
+  display: flex;
+  justify-content: space-between;
+  color: #adbca4;
+}
+.stat-grid b {
+  color: #e0e7d6;
+}
+.items-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  margin-top: 10px;
+  max-height: 72px;
+  overflow: auto;
+  font-size: 10px;
+  color: #b9c5aa;
+}
+.items-strip span {
+  padding: 3px;
+  background: #39462e;
+}
+.result-weapons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 5px;
+  margin: 12px 0;
+}
+.combat-note {
+  pointer-events: none;
+}
+.compact .build-menu .intro h1 {
+  font-size: 30px;
+}
+.compact .build-guide {
+  display: none;
+}
+.compact .build-menu .hero-option {
+  min-height: 70px;
+}
+.compact .role-description {
+  font-size: 11px;
+  margin: 9px 0;
+  min-height: 40px;
+}
+.compact .starter-options img {
+  width: 28px;
+  height: 28px;
+}
+.compact .starter-options button {
+  padding: 6px;
+}
+.compact .build-menu .intro > small {
+  font-size: 10px;
+}
+.compact .loadout-hud {
+  grid-template-columns: repeat(3, 1fr);
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+}
+.compact .loadout-hud .weapon-slot {
+  padding: 3px;
+}
+.compact .loadout-hud .weapon-slot img {
+  width: 24px;
+  height: 24px;
+}
+.compact .dialog.build-shop {
+  padding: 12px;
+}
+.compact .shop-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.compact .shop-heading {
+  margin-bottom: 7px;
+}
+.compact .shop-heading h2 {
+  font-size: 20px;
+}
+.compact .offer {
+  padding: 8px;
+  min-height: 138px;
+}
+.compact .offer-grid {
+  gap: 6px;
+}
+.compact .offer-title img,
+.compact .item-symbol {
+  width: 28px;
+  height: 28px;
+}
+.compact .offer-title b {
+  font-size: 11px;
+}
+.compact .offer p {
+  font-size: 10px;
+  margin: 5px 0;
+}
+.compact .offer > small {
+  font-size: 9px;
+}
+.compact .buy-button {
+  margin-top: 5px;
+  padding: 5px;
+}
+.compact .shop-help {
+  font-size: 9px;
+}
+.compact .equipment-grid {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+}
+.compact .equipment-grid .weapon-slot {
+  min-height: 64px;
+  padding: 3px;
+  gap: 2px;
+}
+.compact .equipment-grid .weapon-slot img {
+  width: 22px;
+  height: 22px;
+}
+.compact .equipment-grid .weapon-slot b {
+  font-size: 9px;
+}
+.compact .equipment-grid .weapon-slot small {
+  font-size: 8px;
+}
+.compact .slot-actions button {
+  font-size: 8px;
+  padding: 2px 4px;
+}
+.compact .stat-grid {
+  grid-template-columns: repeat(4, 1fr);
+  font-size: 9px;
+  gap: 3px 7px;
+}
+.compact .family-strip {
+  font-size: 8px;
+  margin: 5px 0;
+}
+.compact .items-strip {
+  margin-top: 6px;
+  max-height: 40px;
+  font-size: 9px;
+}
+.compact .build-shop .shop-actions {
+  margin-top: 7px;
+}
+.compact .build-shop .shop-actions button {
+  padding: 6px 10px;
+  font-size: 11px;
+}
+.build-shop .items-strip {
+  overflow: visible;
+  max-height: none;
+}
+.build-shop .items-strip span {
+  font-size: 9px;
+  white-space: nowrap;
+  padding: 2px 3px;
+}
+.build-app .intro .record {
+  font-size: 11px;
+  margin-top: 16px;
+}
+.compact .build-app .intro .record {
+  font-size: 9px;
+  margin-top: 8px;
+}
+.compact .build-shop .shop-heading .eyebrow {
+  font-size: 10px;
+  margin: 0;
+}
+.compact .build-shop .shop-heading h2 {
+  line-height: 1.1;
+  margin: 5px 0 0;
+}
+.compact .build-shop .offer {
+  min-height: 124px;
+}
+.compact .build-shop .shop-layout {
+  gap: 6px;
+}
+.compact .build-shop .items-strip {
+  gap: 2px;
+  margin-top: 4px;
+}
+.compact .build-shop .items-strip span {
+  font-size: 8px;
+  padding: 1px 3px;
+}
+.compact .build-shop .family-strip {
+  line-height: 1.25;
+}
+/* Painted v0.9 inventory resources */
+.build-app .starter-options img {
+  width: 48px;
+  height: 48px;
+  filter: drop-shadow(0 2px 3px #080e0c);
+}
+.build-app .weapon-slot img {
+  width: 38px;
+  height: 38px;
+  filter: drop-shadow(0 1px 2px #030805);
+}
+.build-app .offer-title img {
+  width: 48px;
+  height: 48px;
+  filter: drop-shadow(0 2px 3px #080e0c);
+}
+.build-app .offer {
+  background:
+    radial-gradient(ellipse at 20% 10%, #49513a50, transparent 75%), #233229;
+}
+.build-shop .items-strip {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 3px;
+}
+.build-shop .items-strip span {
+  position: relative;
+  background: #1a281e;
+  border: 1px solid #4b5d40;
+  padding: 1px;
+  min-width: 0;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.build-shop .items-strip img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+.build-shop .items-strip b {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  font-size: 8px;
+  line-height: 10px;
+  background: #142116d9;
+  padding: 0 2px;
+  font-weight: 400;
+  color: #d7ddc7;
+}
+.compact .build-app .starter-options img {
+  width: 32px;
+  height: 32px;
+}
+.compact .build-app .offer-title img {
+  width: 32px;
+  height: 32px;
+}
+.compact .build-app .weapon-slot img {
+  width: 26px;
+  height: 26px;
+}
+.compact .build-shop .equipment-grid .weapon-slot img {
+  width: 24px;
+  height: 24px;
+}
+.compact .build-shop .items-strip {
+  grid-template-columns: repeat(15, 1fr);
+  gap: 2px;
+}
+.compact .build-shop .items-strip span {
+  height: 24px;
+  padding: 0;
+}
+.compact .build-shop .items-strip img {
+  width: 22px;
+  height: 22px;
+}
+.compact .build-shop .items-strip b {
+  font-size: 7px;
+  line-height: 8px;
+}
+.build-app .loadout-hud .weapon-slot {
+  background: linear-gradient(125deg, #263725f0, #13221deb);
+  border-bottom-width: 2px;
+}
+.build-app .starter-options .selected {
+  box-shadow:
+    inset 0 0 20px #baa57620,
+    0 0 10px #d5bd8030;
+}
+.build-shop .shop-heading .eyebrow {
+  margin: 0;
+  font-size: 12px;
+}
+.build-shop .shop-heading h2 {
+  line-height: 1.15;
+  margin: 6px 0 0;
+}
+.build-shop .stat-grid {
+  grid-template-columns: repeat(4, 1fr);
+  font-size: 9px;
+  gap: 4px 8px;
+}
+.compact .build-shop .shop-heading .eyebrow {
+  font-size: 10px;
+}
+.compact .build-shop .shop-heading h2 {
+  font-size: 20px;
+}

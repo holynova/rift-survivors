@@ -1,4 +1,4 @@
-import { audioSamples } from "./audio-bank";
+import { audioSamples, musicTracks } from "./audio-bank";
 import type { HeroId } from "./content";
 import type { Phase } from "./simulation";
 
@@ -14,6 +14,10 @@ export class AudioMixer {
   readonly effects: GainNode;
   readonly music: GainNode;
   private noise: AudioBuffer;
+  private scoreBuffers = new Map<string, AudioBuffer>();
+  private failedMusicTracks: string[] = [];
+  private musicLoops = new Map<AudioBufferSourceNode, GainNode>();
+  private musicTrack = "";
   private buffers = new Map<string, AudioBuffer>();
   private sampleLoading?: Promise<void>;
   private failedSamples: string[] = [];
@@ -69,24 +73,35 @@ export class AudioMixer {
   }
   loadSamples() {
     this.sampleLoading ??= (async () => {
-      const entries = Object.entries(audioSamples);
+      const entries = [
+        ...Object.entries(audioSamples).map(([key, path]) => ({
+          key,
+          path,
+          music: false,
+        })),
+        ...Object.entries(musicTracks).map(([key, path]) => ({
+          key,
+          path,
+          music: true,
+        })),
+      ];
       let cursor = 0;
       await Promise.all(
         Array.from({ length: 4 }, async () => {
           while (cursor < entries.length) {
-            const [key, path] = entries[cursor++];
+            const { key, path, music } = entries[cursor++];
             try {
               const response = await fetch(import.meta.env.BASE_URL + path, {
                 signal: AbortSignal.timeout(8000),
               });
               if (!response.ok)
                 throw new Error(`Audio HTTP ${response.status}`);
-              this.buffers.set(
+              (music ? this.scoreBuffers : this.buffers).set(
                 key,
                 await this.ctx.decodeAudioData(await response.arrayBuffer()),
               );
             } catch {
-              this.failedSamples.push(key);
+              (music ? this.failedMusicTracks : this.failedSamples).push(key);
             }
           }
         }),
@@ -281,6 +296,9 @@ export class AudioMixer {
     } else if (verb === "hit") {
       if (hero === "metal") varied("metal", 0.19, 3, 0.84);
       else varied("punch", 0.14, 3, 0.95);
+    } else if (verb === "bomb") {
+      layer("boom-0", 0.24, 1.05);
+      layer("boom-1", 0.08, 1.2, 0.06);
     } else if (verb === "kill") {
       varied("heavy", 0.12, 2, 1.06);
     } else if (verb === "hurt") {
@@ -362,6 +380,42 @@ export class AudioMixer {
       }
     }
     this.musicVoices.clear();
+    this.musicLoops.clear();
+    this.musicTrack = "";
+  }
+  private startScore(id: string, at: number) {
+    if (this.musicTrack === id) return;
+    const buffer = this.scoreBuffers.get(id);
+    if (!buffer) return;
+    for (const [source, gain] of this.musicLoops) {
+      gain.gain.cancelAndHoldAtTime(at);
+      gain.gain.linearRampToValueAtTime(0, at + 0.65);
+      try {
+        source.stop(at + 0.7);
+      } catch {}
+    }
+    const source = this.ctx.createBufferSource(),
+      gain = this.ctx.createGain();
+    source.buffer = buffer;
+    source.loop = true;
+    source.loopStart = 0;
+    source.loopEnd = buffer.duration;
+    gain.gain.setValueAtTime(0, at);
+    gain.gain.linearRampToValueAtTime(0.85, at + 0.65);
+    source.connect(gain);
+    gain.connect(this.music);
+    this.musicLoops.set(source, gain);
+    this.voices.add(source);
+    this.musicVoices.add(source);
+    source.onended = () => {
+      this.musicLoops.delete(source);
+      this.voices.delete(source);
+      this.musicVoices.delete(source);
+      source.disconnect();
+      gain.disconnect();
+    };
+    source.start(at);
+    this.musicTrack = id;
   }
   update(scene: AudioScene, now = this.ctx.currentTime) {
     const active = scene.phase === "battle" && this.musicVolume > 0;
@@ -382,15 +436,33 @@ export class AudioMixer {
       this.music.gain.setTargetAtTime(this.musicVolume, now, 0.15);
     }
     this.scene = scene;
+    const track =
+      scene.wave >= 12
+        ? "last-guardian"
+        : scene.wave >= 8
+          ? "rift-storm"
+          : scene.wave >= 4
+            ? "iron-march"
+            : "first-light";
+    this.startScore(track, now);
     if (this.nextBeat < now - 0.2) this.nextBeat = now;
     while (this.nextBeat < now + 0.14) {
-      this.score(this.nextBeat, this.beat++);
+      if (!this.scoreBuffers.has(track)) this.score(this.nextBeat, this.beat);
+      this.beat++;
       this.nextBeat +=
-        60 / (scene.wave === 8 ? 132 : scene.wave >= 4 ? 120 : 108) / 4;
+        60 /
+        (scene.wave >= 12
+          ? 136
+          : scene.wave >= 8
+            ? 128
+            : scene.wave >= 4
+              ? 118
+              : 108) /
+        4;
     }
   }
   private score(at: number, step: number) {
-    const boss = this.scene.wave === 8,
+    const boss = this.scene.wave >= 12,
       intensity = boss || this.scene.wave >= 4 || this.scene.danger;
     const bar = Math.floor(step / 16) % 4,
       p = step % 16,
@@ -434,6 +506,9 @@ export class AudioMixer {
       samplesLoaded: this.buffers.size,
       failedSamples: [...this.failedSamples],
       musicVoices: this.musicVoices.size,
+      musicTrack: this.musicTrack,
+      musicTracksLoaded: this.scoreBuffers.size,
+      failedMusicTracks: [...this.failedMusicTracks],
       playing: this.playing,
       beat: this.beat,
       effectsVolume: this.effectsVolume,

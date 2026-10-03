@@ -1,0 +1,433 @@
+{
+  "source": "art/generated/v9/items-raw.png",
+  "grid": [
+    6,
+    5
+  ],
+  "sourceSize": [
+    1374,
+    1145
+  ],
+  "sprites": [
+    {
+      "id": "coldcrit",
+      "alphaBounds": [
+        17,
+        39,
+        228,
+        229
+      ],
+      "size": [
+        108,
+        97
+      ],
+      "file": "coldcrit.png"
+    },
+    {
+      "id": "shards",
+      "alphaBounds": [
+        12,
+        14,
+        229,
+        229
+      ],
+      "size": [
+        108,
+        107
+      ],
+      "file": "shards.png"
+    },
+    {
+      "id": "wallbang",
+      "alphaBounds": [
+        0,
+        33,
+        229,
+        228
+      ],
+      "size": [
+        108,
+        92
+      ],
+      "file": "wallbang.png"
+    },
+    {
+      "id": "overheal",
+      "alphaBounds": [
+        21,
+        0,
+        212,
+        229
+      ],
+      "size": [
+        90,
+        108
+      ],
+      "file": "overheal.png"
+    },
+    {
+      "id": "siege",
+      "alphaBounds": [
+        2,
+        11,
+        218,
+        229
+      ],
+      "size": [
+        107,
+        108
+      ],
+      "file": "siege.png"
+    },
+    {
+      "id": "pierce",
+      "alphaBounds": [
+        16,
+        34,
+        202,
+        229
+      ],
+      "size": [
+        103,
+        108
+      ],
+      "file": "pierce.png"
+    },
+    {
+      "id": "ricochet",
+      "alphaBounds": [
+        0,
+        0,
+        229,
+        229
+      ],
+      "size": [
+        108,
+        108
+      ],
+      "file": "ricochet.png"
+    },
+    {
+      "id": "shatter",
+      "alphaBounds": [
+        0,
+        0,
+        229,
+        229
+      ],
+      "size": [
+        108,
+        108
+      ],
+      "file": "shatter.png"
+    },
+    {
+      "id": "edge",
+      "alphaBounds": [
+        0,
+        6,
+        229,
+        227
+      ],
+      "size": [
+        108,
+        104
+      ],
+      "file": "edge.png"
+    },
+    {
+      "id": "scope",
+      "alphaBounds": [
+        1,
+        0,
+        229,
+        221
+      ],
+      "size": [
+        108,
+        105
+      ],
+      "file": "scope.png"
+    },
+    {
+      "id": "ember",
+      "alphaBounds": [
+        0,
+        0,
+        202,
+        229
+      ],
+      "size": [
+        95,
+        108
+      ],
+      "file": "ember.png"
+    },
+    {
+      "id": "gear",
+      "alphaBounds": [
+        4,
+        0,
+        229,
+        229
+      ],
+      "size": [
+        106,
+        108
+      ],
+      "file": "gear.png"
+    },
+    {
+      "id": "boots",
+      "alphaBounds": [
+        12,
+        0,
+        229,
+        229
+      ],
+      "size": [
+        102,
+        108
+      ],
+      "file": "boots.png"
+    },
+    {
+      "id": "plate",
+      "alphaBounds": [
+        0,
+        0,
+        225,
+        229
+      ],
+      "size": [
+        106,
+        108
+      ],
+      "file": "plate.png"
+    },
+    {
+      "id": "heart",
+      "alphaBounds": [
+        6,
+        7,
+        229,
+        227
+      ],
+      "size": [
+        108,
+        107
+      ],
+      "file": "heart.png"
+    },
+    {
+      "id": "trigger",
+      "alphaBounds": [
+        1,
+        7,
+        218,
+        229
+      ],
+      "size": [
+        106,
+        108
+      ],
+      "file": "trigger.png"
+    },
+    {
+      "id": "power",
+      "alphaBounds": [
+        2,
+        0,
+        229,
+        220
+      ],
+      "size": [
+        108,
+        105
+      ],
+      "file": "power.png"
+    },
+    {
+      "id": "lens",
+      "alphaBounds": [
+        0,
+        5,
+        215,
+        229
+      ],
+      "size": [
+        104,
+        108
+      ],
+      "file": "lens.png"
+    },
+    {
+      "id": "cloak",
+      "alphaBounds": [
+        0,
+        0,
+        229,
+        229
+      ],
+      "size": [
+        108,
+        108
+      ],
+      "file": "cloak.png"
+    },
+    {
+      "id": "sap",
+      "alphaBounds": [
+        0,
+        0,
+        212,
+        229
+      ],
+      "size": [
+        100,
+        108
+      ],
+      "file": "sap.png"
+    },
+    {
+      "id": "fang",
+      "alphaBounds": [
+        4,
+        3,
+        229,
+        229
+      ],
+      "size": [
+        108,
+        108
+      ],
+      "file": "fang.png"
+    },
+    {
+      "id": "basket",
+      "alphaBounds": [
+        0,
+        0,
+        229,
+        216
+      ],
+      "size": [
+        108,
+        102
+      ],
+      "file": "basket.png"
+    },
+    {
+      "id": "coin",
+      "alphaBounds": [
+        0,
+        5,
+        229,
+        229
+      ],
+      "size": [
+        108,
+        106
+      ],
+      "file": "coin.png"
+    },
+    {
+      "id": "magnet",
+      "alphaBounds": [
+        0,
+        0,
+        229,
+        229
+      ],
+      "size": [
+        108,
+        108
+      ],
+      "file": "magnet.png"
+    },
+    {
+      "id": "medal",
+      "alphaBounds": [
+        0,
+        0,
+        229,
+        229
+      ],
+      "size": [
+        108,
+        108
+      ],
+      "file": "medal.png"
+    },
+    {
+      "id": "ammo",
+      "alphaBounds": [
+        0,
+        0,
+        229,
+        205
+      ],
+      "size": [
+        108,
+        97
+      ],
+      "file": "ammo.png"
+    },
+    {
+      "id": "battery",
+      "alphaBounds": [
+        0,
+        0,
+        229,
+        213
+      ],
+      "size": [
+        108,
+        100
+      ],
+      "file": "battery.png"
+    },
+    {
+      "id": "brick",
+      "alphaBounds": [
+        0,
+        4,
+        229,
+        197
+      ],
+      "size": [
+        108,
+        91
+      ],
+      "file": "brick.png"
+    },
+    {
+      "id": "clover",
+      "alphaBounds": [
+        0,
+        0,
+        218,
+        201
+      ],
+      "size": [
+        108,
+        100
+      ],
+      "file": "clover.png"
+    },
+    {
+      "id": "contract",
+      "alphaBounds": [
+        1,
+        0,
+        229,
+        201
+      ],
+      "size": [
+        108,
+        95
+      ],
+      "file": "contract.png"
+    }
+  ]
+}

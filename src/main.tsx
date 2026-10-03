@@ -1,27 +1,32 @@
 import React, { useEffect, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
-import { Simulation, type Action } from "./game/simulation";
+import { BuildSimulation, type OwnedWeapon } from "./game/build-simulation";
+import { type HeroId, heroes } from "./game/content";
 import {
-  heroes,
-  heroIds,
-  heroDetails,
-  upgrades,
-  specials,
-  relics,
-  type HeroId,
-} from "./game/content";
+  buildHeroes,
+  roster,
+  weaponById,
+  items,
+  iconFor,
+  itemIconFor,
+  statNames,
+  familyNames,
+  familyBenefits,
+  type Stat,
+  type Family,
+} from "./game/build-content";
 import { createGame, runtime } from "./phaser/scene";
 import { loadSave, writeSave } from "./game/save";
 import { sound, unlockAudio, configureAudio, audioStats } from "./game/audio";
 import "@fontsource/space-grotesk/latin-400.css";
 import "@fontsource/space-grotesk/latin-600.css";
 import "./ui/style.css";
-import { iconKeys, iconUrl, skillIcons } from "./phaser/manifest";
+const roman = ["I", "II", "III", "IV"];
 function App() {
-  const [viewport, setViewport] = useState(() => ({
-    width: window.visualViewport?.width ?? window.innerWidth,
-    height: window.visualViewport?.height ?? window.innerHeight,
-  }));
+  const [viewport, setViewport] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
   useEffect(() => {
     const resize = () =>
       setViewport({
@@ -30,26 +35,56 @@ function App() {
       });
     window.addEventListener("resize", resize);
     window.visualViewport?.addEventListener("resize", resize);
+    resize();
     return () => {
       window.removeEventListener("resize", resize);
       window.visualViewport?.removeEventListener("resize", resize);
     };
   }, []);
-  const compact = viewport.width < 700 && viewport.height > viewport.width;
-  const frameWidth = compact ? 524 : 1124;
-  const frameHeight = compact ? 914 : 780;
-  const frameScale = Math.min(
-    (viewport.width - 16) / frameWidth,
-    (viewport.height - 16) / frameHeight,
-  );
-  const canvas = useRef<HTMLDivElement>(null);
-  const [hero, setHero] = useState<HeroId>("gunner");
   const [revision, render] = useState(0);
-  const [save, setSave] = useState(loadSave);
-  const savedRun = useRef<Simulation | null>(null);
-  const [, setFullscreen] = useState(false);
-  const refresh = () => render((x) => x + 1);
-  const sim = runtime.sim;
+  const [records, setRecords] = useState(() => {
+    try {
+      const r = JSON.parse(
+        localStorage.getItem("rift-build-records-v1") ?? "null",
+      );
+      if (
+        r &&
+        [r.wave, r.kills, r.wins].every(
+          (n: unknown) => typeof n === "number" && Number.isFinite(n),
+        )
+      )
+        return r as { wave: number; kills: number; wins: number };
+    } catch {}
+    return { wave: 0, kills: 0, wins: 0 };
+  });
+  const savedRun = useRef<BuildSimulation | null>(null);
+  useEffect(() => {
+    const s = runtime.sim as BuildSimulation | null;
+    if (s && ["won", "lost"].includes(s.phase) && savedRun.current !== s) {
+      savedRun.current = s;
+      setRecords((r) => {
+        const next = {
+          wave: Math.max(r.wave, s.wave),
+          kills: Math.max(r.kills, s.kills),
+          wins: r.wins + (s.phase === "won" ? 1 : 0),
+        };
+        try {
+          localStorage.setItem("rift-build-records-v1", JSON.stringify(next));
+        } catch {}
+        return next;
+      });
+    }
+  }, [revision]);
+  const compact = viewport.width < 700 && viewport.height > viewport.width,
+    frameWidth = compact ? 524 : 1124,
+    frameHeight = compact ? 914 : 780;
+  const canvas = useRef<HTMLDivElement>(null);
+  const [hero, setHero] = useState<HeroId>("gunner"),
+    [starter, setStarter] = useState("pistol");
+  const [save, setSave] = useState(loadSave),
+    [audioLoading, setAudioLoading] = useState(false);
+  const refresh = () => render((v) => v + 1);
+  const sim = runtime.sim as BuildSimulation | null;
   useEffect(() => {
     const game = createGame(canvas.current!);
     const timer = setInterval(refresh, 100);
@@ -68,35 +103,14 @@ function App() {
     runtime.reduceMotion = save.reduceMotion;
     writeSave(save);
   }, [save]);
-  useEffect(() => {
-    if (
-      sim &&
-      (sim.phase === "won" || sim.phase === "lost") &&
-      savedRun.current !== sim
-    ) {
-      savedRun.current = sim;
-      setSave((s) => ({
-        ...s,
-        bestWave: Math.max(s.bestWave, sim.wave),
-        bestKills: Math.max(s.bestKills, sim.kills),
-        wins: s.wins + (sim.phase === "won" ? 1 : 0),
-      }));
-    }
-  }, [revision]);
-  const [audioLoading, setAudioLoading] = useState(false);
-  const audioStarting = useRef(false);
   async function start() {
-    if (audioStarting.current) return;
-    audioStarting.current = true;
+    if (audioLoading) return;
     setAudioLoading(true);
     try {
       await unlockAudio();
-    } catch {
-      /* Keep the game playable on devices without audio. */
-    }
-    audioStarting.current = false;
+    } catch {}
     setAudioLoading(false);
-    const s = new Simulation(hero);
+    const s = new BuildSimulation(hero, Date.now(), starter);
     s.sound = sound;
     runtime.sim = s;
     runtime.scene?.reset();
@@ -107,21 +121,63 @@ function App() {
     runtime.scene?.reset();
     refresh();
   }
-  function act(action: Action) {
-    sim?.action(action);
+  function act(fn: () => unknown) {
+    fn();
     refresh();
   }
-  function toggleFull() {
-    if (document.fullscreenElement) void document.exitFullscreen();
-    else void document.documentElement.requestFullscreen();
-    setFullscreen((v) => !v);
+  function weaponSlot(w: OwnedWeapon, editing = false) {
+    const d = weaponById[w.id];
+    return (
+      <div
+        className={`weapon-slot tier-${w.tier}`}
+        key={w.uid}
+        title={d.description}
+      >
+        <img src={iconFor(w.id)} alt="" />
+        <div>
+          <b>
+            {d.name} <em>{roman[w.tier - 1]}</em>
+          </b>
+          <small>
+            {sim!.weaponDamage(w).toFixed(1)}伤害 ·{" "}
+            {sim!.weaponInterval(w).toFixed(2)}s
+          </small>
+        </div>
+        {editing && (
+          <div className="slot-actions">
+            <button
+              disabled={!sim!.mergeable(w.uid)}
+              onClick={() => act(() => sim!.merge(w.uid))}
+            >
+              合成
+            </button>
+            <button
+              disabled={sim!.weapons.length <= 1}
+              onClick={() => act(() => sim!.sell(w.uid))}
+            >
+              售◆{sim!.sellPrice(w)}
+            </button>
+          </div>
+        )}
+      </div>
+    );
   }
-  const h = heroes[sim?.hero || hero];
   const boss = sim?.enemies.find((e) => e.type === 4);
-  const all = [
-    ...upgrades,
-    ...heroIds.flatMap((id) => specials[id]),
-    ...relics,
+  const displayed: Stat[] = [
+    "damage",
+    "attack",
+    "melee",
+    "ranged",
+    "elemental",
+    "engineering",
+    "crit",
+    "armor",
+    "dodge",
+    "regen",
+    "lifesteal",
+    "harvest",
+    "luck",
+    "speed",
   ];
   return (
     <div
@@ -129,33 +185,25 @@ function App() {
       style={{
         width: frameWidth,
         height: frameHeight,
-        transform: `translate(-50%, -50%) scale(${Math.max(0.05, frameScale)})`,
+        transform: `translate(-50%, -50%) scale(${Math.max(0.05, Math.min((viewport.width - 16) / frameWidth, (viewport.height - 16) / frameHeight))})`,
       }}
     >
-      <main className={`app${compact ? " compact" : ""}`}>
+      <main className={`app build-app${compact ? " compact" : ""}`}>
         <header className="masthead">
-          <a
-            href="#"
-            className="brand"
-            onClick={(e) => {
-              e.preventDefault();
-              if (!sim) home();
-            }}
-          >
+          <a className="brand" href="#" onClick={(e) => e.preventDefault()}>
             <span className="brand-mark">✧</span>
             <span>
               裂隙幸存者<small>RIFT SURVIVORS</small>
             </span>
           </a>
           <div className="edition">
-            <span className="dot" /> 八波竞技场{" "}
-            <span className="version">v0.7.2 · 自适应视窗</span>
+            六武器构筑 <span className="version">v0.9.0</span>
           </div>
           <div className="tools">
             <a
               href="https://github.com/holynova/rift-survivors"
               target="_blank"
-              rel="noopener noreferrer"
+              rel="noreferrer"
               aria-label="GitHub 源码仓库"
             >
               GitHub ↗
@@ -164,25 +212,33 @@ function App() {
               aria-label={save.sound ? "关闭音效" : "打开音效"}
               onClick={() => setSave((s) => ({ ...s, sound: !s.sound }))}
             >
-              {save.sound ? "♪ 音效" : "♪ 静音"}
+              ♪ {save.sound ? "音效" : "静音"}
             </button>
             <button
               aria-label={save.music ? "关闭音乐" : "打开音乐"}
               onClick={() => {
-                unlockAudio();
+                void unlockAudio();
                 setSave((s) => ({ ...s, music: !s.music }));
               }}
             >
               ♫ {save.music ? "音乐" : "音乐关"}
             </button>
-            <button onClick={toggleFull}>⛶ 全屏</button>
+            <button
+              onClick={() => {
+                if (document.fullscreenElement) void document.exitFullscreen();
+                else void document.documentElement.requestFullscreen();
+              }}
+            >
+              ⛶ 全屏
+            </button>
             {sim && (
               <button
                 disabled={!["battle", "paused"].includes(sim.phase)}
-                onClick={() => {
-                  sim.phase === "paused" ? sim.resume() : sim.pause();
-                  refresh();
-                }}
+                onClick={() =>
+                  act(() =>
+                    sim.phase === "paused" ? sim.resume() : sim.pause(),
+                  )
+                }
               >
                 Ⅱ 暂停
               </button>
@@ -190,18 +246,19 @@ function App() {
           </div>
         </header>
         <section className="game-shell" aria-label="游戏竞技场">
-          <div ref={canvas} className="canvas" />
+          <div className="canvas" ref={canvas} />
           {sim && (
             <div className="hud">
               <div className="hud-left">
                 <div className="hero-label">
-                  {h.name}
+                  {heroes[sim.hero].name}
                   <span>LV.{sim.level}</span>
                 </div>
                 <div className="meter health">
                   <i style={{ width: `${(sim.p.hp / sim.p.maxHp) * 100}%` }} />
                   <span>
                     {Math.ceil(sim.p.hp)} / {sim.p.maxHp}
+                    {sim.shield > 0 ? ` +盾${Math.floor(sim.shield)}` : ""}
                   </span>
                 </div>
                 <div className="meter xp">
@@ -212,155 +269,112 @@ function App() {
                   />
                 </div>
               </div>
-              <div className="hero-resource">
-                {sim.hero === "frost" &&
-                  `寒霜领域 ${sim.zones.length} · 冰箭连锁 ${sim.special.has("shatter") ? 5 : 3}`}
-                {sim.hero === "engineer" &&
-                  `炮台 ${sim.turrets.length}/${sim.special.has("assembly") ? 4 : 3} ${sim.overload > 0 ? `· 超载 ${sim.overload.toFixed(1)}s` : ""}`}
-                {sim.hero === "reaper" && (
-                  <>
-                    血能 <b>{sim.blood}/100</b> · 收割需
-                    {sim.special.has("harvest") ? 40 : 60}
-                    <div className="blood-meter">
-                      <i style={{ width: `${sim.blood}%` }} />
-                    </div>
-                  </>
-                )}
-              </div>
               <div className="wave">
-                <small>生存波次</small>
+                <small>波次</small>
                 <b>
-                  {String(sim.wave).padStart(2, "0")}
-                  <em>/ 08</em>
+                  {sim.wave}
+                  <small>/12</small>
                 </b>
-                <span>
-                  {sim.time > 0
-                    ? `${Math.ceil(sim.time)}s`
-                    : sim.wave === 8
-                      ? "击败领主"
-                      : "结算中"}
-                </span>
+                <span>{Math.ceil(sim.time)}s</span>
               </div>
               <div className="hud-right">
-                <strong>◆ {sim.coins}</strong>
+                <b>◆ {Math.floor(sim.coins)}</b>
                 <span>击杀 {sim.kills}</span>
               </div>
             </div>
           )}
           {boss && sim?.phase === "battle" && (
             <div className="boss">
-              <span>
-                {boss.hp < boss.maxHp / 2 ? "裂隙领主 · 狂暴" : "裂隙领主"}
-              </span>
+              <span>裂隙领主{boss.hp < boss.maxHp / 2 ? " · 狂暴" : ""}</span>
               <div className="meter">
                 <i style={{ width: `${(boss.hp / boss.maxHp) * 100}%` }} />
               </div>
             </div>
           )}
-          {sim && sim.phase === "battle" && (
+          {sim?.phase === "battle" && (
             <>
-              <div className="combat-note" key={sim.lastMessage}>
-                {sim.lastMessage}
-              </div>
-              <div className="abilities">
-                {(["core", "skill", "ultimate"] as const).map((a, i) => {
-                  const cd =
-                    a === "core"
-                      ? sim.hero === "gunner"
-                        ? sim.charges
-                          ? 0
-                          : 3 * sim.haste - sim.chargeTimer
-                        : sim.coreCd
-                      : a === "skill"
-                        ? sim.skillCd
-                        : sim.ultCd;
-                  const bloodLocked =
-                    a === "ultimate" &&
-                    sim.hero === "reaper" &&
-                    sim.blood < (sim.special.has("harvest") ? 40 : 60);
-                  return (
-                    <button
-                      key={a}
-                      className={cd > 0 || bloodLocked ? "cooling" : ""}
-                      onClick={() => act(a)}
-                      disabled={cd > 0 || bloodLocked}
-                    >
-                      <img
-                        className="skill-icon-art"
-                        src={iconUrl(skillIcons[sim.hero][a])}
-                        alt=""
-                      />
-                      <kbd>{["SPACE", "E", "Q"][i]}</kbd>
-                      <span>{[h.core, h.skill, h.ultimate][i]}</span>
-                      <b>
-                        {bloodLocked
-                          ? "血能不足"
-                          : cd > 0
-                            ? `${cd.toFixed(1)}s`
-                            : a === "core" && sim.hero === "gunner"
-                              ? `×${sim.charges}`
-                              : "就绪"}
-                      </b>
-                    </button>
-                  );
-                })}
+              <div className="combat-note">{sim.lastMessage}</div>
+              <div className="loadout-hud">
+                {sim.weapons.map((w) => weaponSlot(w))}
+                {Array.from({ length: 6 - sim.weapons.length }, (_, i) => (
+                  <div className="empty-slot" key={i}>
+                    空槽
+                  </div>
+                ))}
               </div>
             </>
           )}
           {!sim && (
-            <div className="menu">
+            <div className="menu build-menu">
               <div className="intro">
-                <div className="eyebrow">异世界交汇 · 生存试炼</div>
+                <div className="eyebrow">六个武器槽 · 无数种打法</div>
                 <h1>
-                  穿过裂隙。
+                  这一局，
                   <br />
-                  <span>活到最后。</span>
+                  <span>由装备决定。</span>
                 </h1>
                 <p>
-                  自动火力，主动出击。
+                  穿透弩把怪潮串成一线，重锤把敌人推向墙角。
                   <br />
-                  操控时间、冻结怪潮、部署炮台，或以刀锋直面深渊。
+                  也可以布下炮台，用冰链守住阵地。
                 </p>
                 <div className="run-facts">
                   <div>
-                    <b>05</b>
-                    <span>英雄机制</span>
+                    <b>12</b>
+                    <span>武器种类</span>
                   </div>
                   <div>
-                    <b>08</b>
-                    <span>战斗波次</span>
+                    <b>30</b>
+                    <span>构筑道具</span>
                   </div>
                   <div>
-                    <b>01</b>
-                    <span>最终领主</span>
+                    <b>12</b>
+                    <span>生存波次</span>
                   </div>
                 </div>
+                <div className="build-guide">
+                  <b>移动 → 收集 → 采购 → 合成</b>
+                  <p>
+                    同类同级武器二合一，最高 IV 级。
+                    <br />
+                    同族装备提供额外加成，道具改变攻击联动。
+                  </p>
+                </div>
+                <small>约10–15分钟 · 键盘操作 · 自动瞄准攻击</small>
                 <div className="record">
-                  最佳波次 {save.bestWave} / 8　·　最高击杀 {save.bestKills}
-                  　·　通关 {save.wins}
+                  最佳波次 {records.wave}/12 · 最高击杀 {records.kills} · 通关{" "}
+                  {records.wins}
                 </div>
               </div>
               <div className="hero-select">
                 <div className="select-title">
-                  <span>选择你的英雄</span>
-                  <small>01 / 起点</small>
+                  <span>选择构筑起点</span>
+                  <small>角色 × 初始武器</small>
                 </div>
                 <div className="hero-options">
-                  {heroIds.map((id) => (
+                  {roster.map((id) => (
                     <button
-                      key={id}
                       className={`hero-option ${hero === id ? "selected" : ""}`}
-                      onClick={() => setHero(id)}
+                      key={id}
                       aria-pressed={hero === id}
+                      onClick={() => {
+                        setHero(id);
+                        setStarter(buildHeroes[id].start[0]);
+                      }}
                     >
                       <img
-                        src={`${import.meta.env.BASE_URL}assets/${id === "gunner" || id === "knight" ? "v2" : "v4"}/${id}-portrait.png`}
+                        src={`${import.meta.env.BASE_URL}assets/${id === "engineer" ? "v4" : "v2"}/${id}-portrait.png`}
                         alt={heroes[id].name}
                       />
                       <div>
-                        <small>{heroDetails[id].subtitle}</small>
                         <b>{heroes[id].name}</b>
-                        <span>{heroes[id].tag}</span>
+                        <span>
+                          {id === "gunner"
+                            ? "远程火力"
+                            : id === "knight"
+                              ? "近战搏杀"
+                              : "工程阵地"}
+                        </span>
                       </div>
                       <span className="selection-dot">
                         {hero === id ? "●" : "○"}
@@ -368,85 +382,68 @@ function App() {
                     </button>
                   ))}
                 </div>
-                <div className="hero-detail">
-                  <span>核心能力</span>
-                  <p>{heroDetails[hero].description}</p>
-                  <div>
-                    <kbd>SPACE</kbd> {h.core} <kbd>E</kbd> {h.skill}{" "}
-                    <kbd>Q</kbd> {h.ultimate}
-                  </div>
+                <p className="role-description">
+                  {buildHeroes[hero].description}
+                </p>
+                <div className="starter-options">
+                  {buildHeroes[hero].start.map((id) => (
+                    <button
+                      key={id}
+                      className={starter === id ? "selected" : ""}
+                      aria-pressed={starter === id}
+                      onClick={() => setStarter(id)}
+                      title={weaponById[id].description}
+                    >
+                      <img src={iconFor(id)} alt="" />
+                      <span>{weaponById[id].name}</span>
+                    </button>
+                  ))}
                 </div>
+                <p className="starter-description">
+                  {weaponById[starter].description}
+                </p>
                 <button
                   className="primary start"
-                  onClick={start}
                   disabled={audioLoading}
+                  onClick={start}
                 >
                   {audioLoading ? "准备音效…" : "进入竞技场"} <span>↗</span>
                 </button>
-                <p className="start-hint">
-                  WASD 移动 · 普通攻击自动释放 · 约 6–9 分钟
-                </p>
+                <p className="start-hint">WASD / 方向键移动 · ESC 暂停</p>
               </div>
             </div>
           )}
           {sim && sim.phase !== "battle" && (
             <div className="overlay" data-phase={sim.phase}>
               <div
-                className={`dialog ${sim.phase === "upgrade" || sim.phase === "shop" ? "wide" : ""}`}
+                className={`dialog ${sim.phase === "shop" ? "build-shop" : sim.phase === "upgrade" ? "wide" : ""}`}
               >
                 {sim.phase === "paused" && (
                   <>
                     <div className="eyebrow">时间已停驻</div>
                     <h2>休息片刻</h2>
-                    <p>战斗、冷却与波次计时均已暂停。</p>
-                    <div className="control-grid">
-                      <span>
-                        <kbd>WASD</kbd> 移动
-                      </span>
-                      <span>
-                        <kbd>SPACE</kbd> {h.core}
-                      </span>
-                      <span>
-                        <kbd>E</kbd> {h.skill}
-                      </span>
-                      <span>
-                        <kbd>Q</kbd> {h.ultimate}
-                      </span>
-                    </div>
-                    <label className="audio-setting">
-                      音效音量{" "}
-                      <input
-                        aria-label="音效音量"
-                        type="range"
-                        min="0"
-                        max="1"
-                        step="0.05"
-                        value={save.effectsVolume}
-                        onChange={(e) =>
-                          setSave((s) => ({
-                            ...s,
-                            effectsVolume: Number(e.target.value),
-                          }))
-                        }
-                      />
-                    </label>
-                    <label className="audio-setting">
-                      音乐音量{" "}
-                      <input
-                        aria-label="音乐音量"
-                        type="range"
-                        min="0"
-                        max="1"
-                        step="0.05"
-                        value={save.musicVolume}
-                        onChange={(e) =>
-                          setSave((s) => ({
-                            ...s,
-                            musicVolume: Number(e.target.value),
-                          }))
-                        }
-                      />
-                    </label>
+                    <p>WASD / 方向键移动 · 武器自动攻击 · 波间购买构筑。</p>
+                    {(["effectsVolume", "musicVolume"] as const).map(
+                      (key, i) => (
+                        <label className="audio-setting" key={key}>
+                          {i ? "音乐音量" : "音效音量"}
+                          <input
+                            type="range"
+                            aria-label={i ? "音乐音量" : "音效音量"}
+                            min="0"
+                            max="1"
+                            step=".05"
+                            value={save[key]}
+                            onChange={(e) =>
+                              setSave((s) => ({
+                                ...s,
+                                [key]: Number(e.target.value),
+                              }))
+                            }
+                          />
+                        </label>
+                      ),
+                    )}
                     <label className="setting">
                       <input
                         type="checkbox"
@@ -462,10 +459,7 @@ function App() {
                     </label>
                     <button
                       className="primary"
-                      onClick={() => {
-                        sim.resume();
-                        refresh();
-                      }}
+                      onClick={() => act(() => sim.resume())}
                     >
                       继续战斗
                     </button>
@@ -477,34 +471,22 @@ function App() {
                 {sim.phase === "upgrade" && (
                   <>
                     <div className="eyebrow">
-                      火种成长 · LEVEL {sim.level + 1}
+                      波间训练 · LEVEL {sim.level + 1}
                     </div>
-                    <h2>选择一项强化</h2>
-                    <p>战斗暂停。每一个选择，都改变下一波。</p>
+                    <h2>强化你的构筑</h2>
+                    <p>选择对应武器属性，装备伤害会立即重新结算。</p>
                     <div className="choice-grid">
                       {sim.choices.map((c) => (
                         <button
                           className="choice"
                           key={c.id}
-                          onClick={() => {
-                            sim.choose(c.id);
-                            refresh();
-                          }}
+                          onClick={() => act(() => sim.choose(c.id))}
                         >
-                          <span className="choice-icon">
-                            <img
-                              className="choice-icon-art"
-                              src={iconUrl(iconKeys[c.id])}
-                              alt=""
-                            />
-                          </span>
-                          <small>
-                            {specials[sim.hero].some((s) => s.id === c.id)
-                              ? "英雄专属"
-                              : "通用强化"}
-                          </small>
+                          <span className="choice-icon">✦</span>
                           <b>{c.name}</b>
-                          <p>{c.desc}</p>
+                          <p>
+                            {statNames[c.id as Stat]} +{c.desc.split("+")[1]}
+                          </p>
                           <span className="choose-label">选择强化 ↗</span>
                         </button>
                       ))}
@@ -513,85 +495,162 @@ function App() {
                 )}
                 {sim.phase === "shop" && (
                   <>
-                    <div className="eyebrow">
-                      第 {sim.wave} 波完成 · 行旅商店
+                    <div className="shop-heading">
+                      <div>
+                        <div className="eyebrow">
+                          第 {sim.wave} 波完成 · 行旅商店
+                        </div>
+                        <h2>武装下一波</h2>
+                      </div>
+                      <b className="gold">◆ {Math.floor(sim.coins)}</b>
                     </div>
-                    <h2>
-                      为下一波做好准备{" "}
-                      <span className="gold">◆ {sim.coins}</span>
-                    </h2>
-                    <p>遗物效果可以叠加。离开商店后开始下一波。</p>
-                    <div className="choice-grid">
-                      {sim.shop.map((r, i) => (
-                        <button
-                          className="choice"
-                          key={i}
-                          disabled={sim.bought.has(i) || sim.coins < r.price}
-                          onClick={() => {
-                            sim.buy(i);
-                            refresh();
-                          }}
-                        >
-                          <span className="choice-icon">
-                            <img
-                              className="choice-icon-art"
-                              src={iconUrl(iconKeys[r.id])}
-                              alt=""
-                            />
-                          </span>
-                          <small>遗物</small>
-                          <b>{r.name}</b>
-                          <p>{r.desc}</p>
-                          <span className="choose-label">
-                            {sim.bought.has(i) ? "已购买" : `◆ ${r.price}`}
-                          </span>
-                        </button>
-                      ))}
-                    </div>
-                    <div className="shop-actions">
-                      <button
-                        disabled={
-                          sim.healed ||
-                          sim.coins < 18 ||
-                          sim.p.hp >= sim.p.maxHp
-                        }
-                        onClick={() => {
-                          sim.heal();
-                          refresh();
-                        }}
-                      >
-                        {sim.healed
-                          ? "本波已恢复"
-                          : "恢复30%生命 · ◆18（每波一次）"}
-                      </button>
-                      <button
-                        disabled={sim.coins < 8 + sim.rerolls * 4}
-                        onClick={() => {
-                          sim.reroll();
-                          refresh();
-                        }}
-                      >
-                        刷新商品 · ◆{8 + sim.rerolls * 4}
-                      </button>
-                      <button
-                        className="primary"
-                        onClick={() => {
-                          sim.nextWave();
-                          refresh();
-                        }}
-                      >
-                        第 {sim.wave + 1} 波 →
-                      </button>
-                    </div>
-                    <div className="build-strip">
-                      当前构筑：
-                      {Object.entries(sim.inventory).length
-                        ? Object.entries(sim.inventory).map(([id, n]) => (
-                            <span key={id}>
-                              {all.find((c) => c.id === id)?.name || id} ×{n}
+                    <div className="shop-layout">
+                      <div>
+                        <div className="offer-grid">
+                          {sim.offers.map((o, i) => {
+                            const d =
+                              o?.kind === "weapon"
+                                ? weaponById[o.id]
+                                : items.find((it) => it.id === o?.id);
+                            return (
+                              <article
+                                className={`offer tier-${o?.tier ?? 1}`}
+                                key={i}
+                              >
+                                {o && d ? (
+                                  <>
+                                    <div className="offer-title">
+                                      {o.kind === "weapon" ? (
+                                        <img src={iconFor(o.id)} alt="" />
+                                      ) : (
+                                        <img
+                                          className="item-art"
+                                          src={itemIconFor(o.id)}
+                                          alt=""
+                                        />
+                                      )}
+                                      <div>
+                                        <small>
+                                          {o.kind === "weapon"
+                                            ? `${familyNames[weaponById[o.id].family]} · ${roman[o.tier - 1]}`
+                                            : "构筑道具"}
+                                        </small>
+                                        <b>{d.name}</b>
+                                      </div>
+                                      <button
+                                        className={o.locked ? "locked" : ""}
+                                        aria-label={`${o.locked ? "解锁" : "锁定"}商品 ${i + 1}`}
+                                        onClick={() => act(() => sim.lock(i))}
+                                      >
+                                        {o.locked ? "锁定" : "锁"}
+                                      </button>
+                                    </div>
+                                    <p>{d.description}</p>
+                                    {o.kind === "weapon" && (
+                                      <small>
+                                        {sim.weaponDamage(o).toFixed(1)}伤害 ·{" "}
+                                        {sim.weaponInterval(o).toFixed(2)}s
+                                        {sim.weapons.some(
+                                          (w) =>
+                                            w.id === o.id && w.tier === o.tier,
+                                        ) && o.tier < 4
+                                          ? " · 可合成"
+                                          : ""}
+                                      </small>
+                                    )}
+                                    <button
+                                      className="buy-button"
+                                      disabled={!sim.canBuy(i)}
+                                      onClick={() => act(() => sim.buy(i))}
+                                    >
+                                      {sim.weapons.length === 6 &&
+                                      o.kind === "weapon" &&
+                                      sim.canBuy(i)
+                                        ? "购买并合成"
+                                        : "购买"}{" "}
+                                      · ◆{o.price}
+                                    </button>
+                                  </>
+                                ) : (
+                                  <div className="sold-offer">
+                                    已购入
+                                    <br />
+                                    <small>刷新以补充商品</small>
+                                  </div>
+                                )}
+                              </article>
+                            );
+                          })}
+                        </div>
+                        <div className="shop-actions">
+                          <button
+                            disabled={
+                              sim.coins < sim.rerollPrice ||
+                              sim.offers.every((o) => o?.locked)
+                            }
+                            onClick={() => act(() => sim.reroll())}
+                          >
+                            刷新商品 · ◆{sim.rerollPrice}
+                          </button>
+                          <button
+                            className="primary"
+                            onClick={() => act(() => sim.nextWave())}
+                          >
+                            第 {sim.wave + 1} 波 →
+                          </button>
+                        </div>
+                        <small className="shop-help">
+                          锁定跨波保留 · 二合一释放武器槽 · 至少保留一把武器
+                        </small>
+                      </div>
+                      <aside>
+                        <div className="equipment-label">
+                          武器 {sim.weapons.length}/6{" "}
+                          <small>伤害已包含角色与属性加成</small>
+                        </div>
+                        <div className="equipment-grid">
+                          {sim.weapons.map((w) => weaponSlot(w, true))}
+                        </div>
+                        <div className="family-strip">
+                          {Object.entries(sim.families())
+                            .filter(([, n]) => n > 0)
+                            .map(([key, n]) => (
+                              <span
+                                title={familyBenefits[key as Family]}
+                                key={key}
+                              >
+                                {familyNames[key as Family]} ×{n} ·{" "}
+                                {familyBenefits[key as Family]}
+                              </span>
+                            ))}
+                        </div>
+                        <div className="stat-grid">
+                          {displayed.map((key) => (
+                            <span key={key}>
+                              {statNames[key]}{" "}
+                              <b>{Number(sim.value(key).toFixed(2))}</b>
                             </span>
-                          ))
-                        : "尚未获得强化"}
+                          ))}
+                        </div>
+                        <div className="items-strip">
+                          {Object.keys(sim.inventory).length
+                            ? Object.entries(sim.inventory).map(([id, n]) => (
+                                <span
+                                  key={id}
+                                  title={`${items.find((i) => i.id === id)?.name}：${items.find((i) => i.id === id)?.description}`}
+                                >
+                                  <img
+                                    src={itemIconFor(id)}
+                                    alt={
+                                      items.find((i) => i.id === id)?.name ?? id
+                                    }
+                                  />
+                                  <b>×{n}</b>
+                                </span>
+                              ))
+                            : "尚无构筑道具"}
+                        </div>
+                      </aside>
                     </div>
                   </>
                 )}
@@ -603,18 +662,14 @@ function App() {
                     <h2>
                       {sim.phase === "won"
                         ? "你活到了最后。"
-                        : "这一次，到此为止。"}
+                        : "这一局，到此为止。"}
                     </h2>
-                    <p>
-                      {sim.phase === "won"
-                        ? "八波试炼完成，下一场选择另一种战斗方式。"
-                        : "保留经验，尝试另一种构筑与技能节奏。"}
-                    </p>
+                    <p>换一种武器组合，再试一次。</p>
                     <div className="result-stats">
                       <div>
                         <b>
                           {sim.wave}
-                          <small>/8</small>
+                          <small>/12</small>
                         </b>
                         <span>到达波次</span>
                       </div>
@@ -624,8 +679,11 @@ function App() {
                       </div>
                       <div>
                         <b>{sim.level}</b>
-                        <span>英雄等级</span>
+                        <span>等级</span>
                       </div>
+                    </div>
+                    <div className="result-weapons">
+                      {sim.weapons.map((w) => weaponSlot(w))}
                     </div>
                     <button className="primary" onClick={start}>
                       再战一局
@@ -639,29 +697,26 @@ function App() {
             </div>
           )}
           {runtime.assetError && (
-            <div className="asset-warning">
-              部分角色素材加载失败，使用临时图形。刷新可重试。
-            </div>
+            <div className="asset-warning">部分素材加载失败，刷新可重试。</div>
           )}
         </section>
         <footer>
           <span>
-            <kbd>WASD</kbd> 移动 <span className="sep">/</span> <kbd>ESC</kbd>{" "}
-            暂停
+            <kbd>WASD</kbd> 移动 / <kbd>ESC</kbd> 暂停
           </span>
-          <span>自动攻击 · 主动技能 · 构筑成长</span>
+          <span>六武器 · 波间商店 · 装备联动</span>
           <span className="perf">
-            {sim ? `${Math.round(runtime.fps)} FPS` : "原创角色 · 2D 生存试炼"}
+            {sim ? `${Math.round(runtime.fps)} FPS` : "原创角色 · 构筑生存"}
           </span>
         </footer>
         <div className="mobile-note">
-          当前版本采用桌面键鼠操作。请在电脑浏览器开始战斗。
+          当前采用键盘操作，请在电脑浏览器开始战斗。
         </div>
-        <style>
-          {save.reduceMotion
-            ? "*{animation:none!important;transition:none!important}"
-            : ""}
-        </style>
+        {save.reduceMotion && (
+          <style>
+            {"*{animation:none!important;transition:none!important}"}
+          </style>
+        )}
       </main>
     </div>
   );
@@ -674,7 +729,7 @@ if (import.meta.env.DEV) {
         return runtime.sim;
       },
       start(hero: HeroId = "gunner", seed = 42) {
-        runtime.sim = new Simulation(hero, seed);
+        runtime.sim = new BuildSimulation(hero, seed);
         runtime.scene?.reset();
         return runtime.sim;
       },

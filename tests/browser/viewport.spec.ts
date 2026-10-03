@@ -21,7 +21,7 @@ test("menus, combat and dialogs fit the first screen and resize live", async ({
         page.evaluate(() => {
           const elements = Array.from(
             document.querySelectorAll(
-              ".masthead, .game-shell, footer, .menu > *, .hero-option, .hero-detail, .start, .hud-left, .hud-right, .wave, .hero-resource, .abilities, .dialog, .choice, .shop-actions, .mobile-note",
+              ".masthead, .game-shell, footer, .menu > *, .hero-option, .hero-detail, .start, .hud-left, .hud-right, .wave, .hero-resource, .loadout-hud, .dialog, .choice, .shop-actions, .mobile-note, .offer, .weapon-slot, .equipment-grid, .stat-grid, .items-strip",
             ),
           );
           return elements
@@ -49,7 +49,7 @@ test("menus, combat and dialogs fit the first screen and resize live", async ({
   for (const [width, height] of sizes) {
     await page.setViewportSize({ width, height });
     await assertFits();
-    await page.getByRole("button", { name: /血刃猎手/ }).click();
+    await page.getByRole("button", { name: /灰烬骑士/ }).click();
     await assertFits();
   }
   await page.getByRole("button", { name: /进入竞技场/ }).click();
@@ -59,18 +59,59 @@ test("menus, combat and dialogs fit the first screen and resize live", async ({
     s.invuln = 10000;
     s.spawnTimer = 10000;
     s.attackTimer = 10000;
+    for (let i = 0; i < 5; i++) s.addWeapon("ice");
+    s.inventory = Object.fromEntries(
+      [
+        "coldcrit",
+        "shards",
+        "wallbang",
+        "overheal",
+        "siege",
+        "pierce",
+        "ricochet",
+        "shatter",
+        "edge",
+        "scope",
+        "ember",
+        "gear",
+        "boots",
+        "plate",
+        "heart",
+        "trigger",
+        "power",
+        "lens",
+        "cloak",
+        "sap",
+        "fang",
+        "basket",
+        "coin",
+        "magnet",
+        "medal",
+        "ammo",
+        "battery",
+        "brick",
+        "clover",
+        "contract",
+      ].map((id) => [id, 1]),
+    );
   });
   for (const [width, height] of sizes) {
     await page.setViewportSize({ width, height });
     await page.evaluate(() => {
-      (window as any).__rift.sim.phase = "battle";
+      const s = (window as any).__rift.sim;
+      s.phase = "battle";
+      s.pendingShop = false;
+      s.xp = 0;
     });
-    await expect(page.locator(".abilities")).toBeVisible();
+    await expect(page.locator(".loadout-hud")).toBeVisible();
     await assertFits();
     for (const phase of ["paused", "upgrade", "shop", "won", "lost"]) {
       await page.evaluate((phase) => {
         const s = (window as any).__rift.sim;
-        if (phase === "upgrade") s.openUpgrade();
+        if (phase === "upgrade") {
+          s.pendingShop = true;
+          s.openUpgrade();
+        }
         if (phase === "shop") s.openShop();
         s.phase = phase;
       }, phase);

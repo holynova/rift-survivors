@@ -32,6 +32,8 @@ export type Shot = {
   damage: number;
   hostile: boolean;
   color?: number;
+  weapon?: string;
+  tier?: number;
   ttl: number;
 };
 export type Gem = { id: number; x: number; y: number; value: number };
@@ -51,7 +53,11 @@ export type FxKind =
   | "ice"
   | "chain"
   | "blood"
-  | "gear";
+  | "gear"
+  | "thrust"
+  | "quake"
+  | "detonate"
+  | "shards";
 export type Fx = {
   x: number;
   y: number;
@@ -193,6 +199,32 @@ export class Simulation {
   resume() {
     if (this.phase === "paused") this.phase = "battle";
   }
+  get finalWave() {
+    return 8;
+  }
+  get encounter(): {
+    health: number;
+    speed: number;
+    spawn: number;
+    runners: number;
+    archers: number;
+    elites: number;
+  } {
+    return waves[this.wave - 1];
+  }
+  collectUnclaimed(value: number) {
+    this.xp += value;
+  }
+  collectMaterial(value: number) {
+    this.xp += value;
+  }
+  canProjectileHit(_shot: Shot, _enemy: Enemy) {
+    return true;
+  }
+  projectileHit(shot: Shot, enemy: Enemy) {
+    this.hit(enemy, shot.damage);
+    shot.ttl = 0;
+  }
   step(dt: number) {
     if (this.phase !== "battle") return;
     this.elapsed += dt;
@@ -226,25 +258,27 @@ export class Simulation {
     });
     while (this.history.length && this.history[0].t < this.elapsed - 2.1)
       this.history.shift();
-    const encounter = waves[this.wave - 1];
+    const encounter = this.encounter;
     if (!this.bossSpawned) {
-      if (this.wave === 8) this.spawn(4);
+      if (this.wave === this.finalWave) this.spawn(4);
       for (let i = 0; i < encounter.elites; i++) this.spawn(3);
       this.bossSpawned = true;
       if (this.wave >= 4) {
-        this.msg(this.wave === 8 ? "裂隙领主降临" : "精英：深渊守卫");
+        this.msg(
+          this.wave === this.finalWave ? "裂隙领主降临" : "精英：深渊守卫",
+        );
         this.sound?.("warning");
       }
     }
     if (this.time < 15 && !this.reinforcements) {
       this.reinforcements = true;
       this.msg("末段怪潮 · 保持移动");
-      if (this.wave === 8) this.spawn(3);
+      if (this.wave === this.finalWave) this.spawn(3);
       this.sound?.("warning");
     }
     this.spawnTimer -= dt;
     if (
-      (this.time > 0 || this.wave === 8) &&
+      (this.time > 0 || this.wave === this.finalWave) &&
       this.spawnTimer <= 0 &&
       this.enemies.length < 300
     ) {
@@ -320,9 +354,13 @@ export class Simulation {
         }
       } else {
         for (const e of this.enemies)
-          if (e.hp > 0 && Math.hypot(s.x - e.x, s.y - e.y) < e.r + 5) {
-            this.hit(e, s.damage);
-            s.ttl = 0;
+          if (
+            s.ttl > 0 &&
+            e.hp > 0 &&
+            this.canProjectileHit(s, e) &&
+            Math.hypot(s.x - e.x, s.y - e.y) < e.r + 5
+          ) {
+            this.projectileHit(s, e);
             break;
           }
       }
@@ -350,7 +388,7 @@ export class Simulation {
         g.y += dy * dt * 9;
       }
       if (dist < 22) {
-        this.xp += g.value;
+        this.collectMaterial(g.value);
         g.value = 0;
       }
     }
@@ -371,7 +409,7 @@ export class Simulation {
       return;
     }
     if (
-      this.wave === 8 &&
+      this.wave === this.finalWave &&
       this.bossSpawned &&
       !this.enemies.some((e) => e.type === 4)
     ) {
@@ -379,8 +417,8 @@ export class Simulation {
       this.msg("裂隙已封印");
       return;
     }
-    if (this.time <= 0 && this.wave !== 8) {
-      this.xp += this.gems.reduce((a, g) => a + g.value, 0);
+    if (this.time <= 0 && this.wave !== this.finalWave) {
+      this.collectUnclaimed(this.gems.reduce((a, g) => a + g.value, 0));
       this.gems = [];
       this.enemies = [];
       this.shots = [];
@@ -395,7 +433,7 @@ export class Simulation {
   spawn(type?: number) {
     const side = Math.floor(this.rng.next() * 4),
       pos = this.rng.next();
-    const encounter = waves[this.wave - 1];
+    const encounter = this.encounter;
     const roll = this.rng.next();
     type ??=
       roll < encounter.archers
@@ -667,8 +705,22 @@ export class Simulation {
     text?: string,
     kind: FxKind = "ring",
     angle = 0,
+    endX?: number,
+    endY?: number,
   ) {
-    this.fx.push({ x, y, r, color, ttl, max: ttl, text, kind, angle });
+    this.fx.push({
+      x,
+      y,
+      r,
+      color,
+      ttl,
+      max: ttl,
+      text,
+      kind,
+      angle,
+      endX,
+      endY,
+    });
   }
   action(action: Action) {
     if (this.phase !== "battle") return false;

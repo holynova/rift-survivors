@@ -16,6 +16,9 @@ test("music starts on gesture, freezes in overlays and restores saved separate v
   expect(playing.state).toBe("running");
   expect(playing.samplesLoaded).toBe(25);
   expect(playing.failedSamples).toEqual([]);
+  expect(playing.musicTracksLoaded).toBe(4);
+  expect(playing.failedMusicTracks).toEqual([]);
+  expect(playing.musicTrack).toBe("first-light");
   expect(playing.playing).toBe(true);
   expect(playing.beat).toBeGreaterThan(0);
   expect(playing.voices).toBeLessThanOrEqual(96);
@@ -52,4 +55,49 @@ test("music starts on gesture, freezes in overlays and restores saved separate v
   expect(saved.musicVolume).toBe(0.2);
   expect(saved.effectsVolume).toBe(0.4);
   expect(errors).toEqual([]);
+});
+
+test("score crossfades across four wave stages, final score starts at wave12", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "进入竞技场" }).click();
+  await page.waitForFunction(
+    () => (window as any).__rift.audioStats().musicTracksLoaded === 4,
+  );
+  for (const [wave, track] of [
+    [4, "iron-march"],
+    [8, "rift-storm"],
+    [12, "last-guardian"],
+  ] as const) {
+    await page.evaluate((wave) => {
+      const s = (window as any).__rift.sim;
+      s.wave = wave;
+      s.time = 1000;
+      s.invuln = 10000;
+      s.spawnTimer = 10000;
+      s.bossSpawned = true;
+      if (wave === 12) {
+        const e = s.spawn(4);
+        e.hp = e.maxHp = 1000000;
+      }
+    }, wave);
+    await expect
+      .poll(() =>
+        page.evaluate(() => (window as any).__rift.audioStats().musicTrack),
+      )
+      .toBe(track);
+    await page.waitForTimeout(850);
+    const audio = await page.evaluate(() =>
+      (window as any).__rift.audioStats(),
+    );
+    expect(audio.musicVoices).toBe(1);
+    expect(audio.voices).toBeLessThanOrEqual(96);
+  }
+  await page.keyboard.press("Escape");
+  await page.waitForTimeout(150);
+  expect(
+    (await page.evaluate(() => (window as any).__rift.audioStats()))
+      .musicVoices,
+  ).toBe(0);
 });

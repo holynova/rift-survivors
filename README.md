@@ -1,8 +1,12 @@
 # 裂隙幸存者 / Rift Survivors
 
-中文：五名原创英雄，在八波怪潮中生存。自动攻击，主动释放位移、技能与终极技；通过升级、商店和遗物组合构筑，挑战精英与最终领主。包含角色动画、分层特效、采样音效及战斗音乐；根据浏览器窗口自动缩放，首屏完整展示。桌面键鼠操作，无需账号。
+中文：v0.9 多武器构筑竞技场。三类原创角色、12种武器、6个独立攻击槽、4级合成和30件道具；用冰冻碎裂、击杀爆炸、穿透弹射、炮台阵地等联动挑战12波怪潮。波间商店支持购买、锁定、出售、合成与付费刷新。首屏适配，桌面键盘操作，无需账号。
 
-English: A browser survival arena with five original heroes and eight enemy waves. Combine automatic attacks with active movement, skills, upgrades and relics to face elites and the final boss. Animated characters, layered effects, sampled combat audio and music; the interface fits the browser viewport. Desktop keyboard and mouse required; no account needed.
+English: v0.9 is a six-weapon build arena: three roles, twelve weapons, four upgrade tiers and thirty items. Combine freezing, shattering, kill explosions, piercing and turret builds across twelve waves. Shop, lock, sell, merge and reroll between waves. Desktop keyboard controls; viewport-fit interface.
+
+[新增资源图鉴与音乐试听](https://rift-survivors.xiaosang.cc/build-gallery.html) · [美术与音乐制作记录](docs/art/resources-v09.md)
+
+**正式版本：v0.9.0。**
 
 ![游戏截图 / Game screenshot](./assets/screenshot.png)
 
@@ -15,9 +19,9 @@ English: A browser survival arena with five original heroes and eight enemy wave
 
 ## 操作 / Controls
 
-WASD / 方向键移动，Space 核心动作，E 技能，Q 终极技，Esc 暂停。普通攻击自动释放；切换标签页自动暂停。
+WASD / 方向键移动，Esc 暂停。六个武器独立自动瞄准攻击；升级与购物在波间进行，切换标签页自动暂停。
 
-WASD / arrow keys: move; Space: core action; E: skill; Q: ultimate; Esc: pause. Attacks are automatic. Switching tabs pauses the game.
+WASD / arrows: move; Esc: pause. All equipped weapons attack automatically. Upgrade and shop between waves; switching tabs pauses the game.
 
 ## 本地运行 / Run locally
 

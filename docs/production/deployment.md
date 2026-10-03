@@ -18,3 +18,9 @@ v0.7.1：首屏适配上线，8种窗口动态切换通过，最新完整性证�
 
 ## v0.7.2 源码发布与入口补齐
 公开源码仓库 https://github.com/holynova/rift-survivors，唯一主分支main。页面增加GitHub链接，生产环境接入一次指定Umami统计；作品集master已补上Repo字段，Profile main同步游戏条目。30项规则测试、6项串行浏览器测试通过；动画测试刷新后等待Phaser素材就绪再发送按键，避免初始化期间输入丢失。生产构建仅上传dist，源码及原始素材保留在GitHub。部署ID和线上校验记录写入本地evidence/github-publish-completed.json。
+
+
+## v0.9.0 正式发布（2026-10-03）
+本次将v0.8构筑重构与v0.9资源升级一起正式发布：三角色、六武器、12种武器四级合成、30道具八机制联动、12波、四格商店与锁定/买卖/合成；42个绘制图标及四阶段原创16小节配乐。GitHub main为唯一源码与发布来源，手动发布rift-survivors Worker与xiaosang-portfolio Worker。
+验收：52项Vitest、8项串行Playwright、类型检查和生产构建通过。dist/release.json记录165个部署文件；发布后逐文件公网SHA校验、真实浏览器与音频验证结果及提交/部署ID存入evidence/v09-published.json等发布证据。
+正式地址 https://rift-survivors.xiaosang.cc/ ，资源与音乐图鉴 https://rift-survivors.xiaosang.cc/build-gallery.html ，源码 https://github.com/holynova/rift-survivors 。本节替代早期当前状态；前面的记录为历史发布。

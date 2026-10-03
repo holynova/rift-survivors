@@ -26,3 +26,11 @@ export const audioSamples = {
   coin: "assets/audio/v7/coin.wav",
   bell: "assets/audio/v7/bell.wav",
 } as const;
+
+// Original project score: pre-rendered stereo instrument arrangements, 16-bar loops.
+export const musicTracks = {
+  "first-light": "assets/audio/v9/first-light.m4a",
+  "iron-march": "assets/audio/v9/iron-march.m4a",
+  "rift-storm": "assets/audio/v9/rift-storm.m4a",
+  "last-guardian": "assets/audio/v9/last-guardian.m4a",
+} as const;
