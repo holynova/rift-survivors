@@ -7,6 +7,10 @@
   --ink: #17211c;
   --muted: #98a496;
   --line: #414b3e;
+  --fs-s: 10px;
+  --fs-m: 13px;
+  --fs-l: 20px;
+  --fs-xl: clamp(30px, 4.2vw, 61px);
 }
 * {
   box-sizing: border-box;
@@ -64,20 +68,20 @@ a:focus-visible {
   gap: 14px;
   text-decoration: none;
   color: #e4d6b4;
-  font-size: 20px;
+  font-size: var(--fs-l);
   font-weight: 700;
   letter-spacing: 2px;
 }
 .brand small {
   display: block;
   font-family: "Space Grotesk", monospace;
-  font-size: 9px;
+  font-size: var(--fs-s);
   letter-spacing: 4px;
   color: #8b9988;
   margin-top: 4px;
 }
 .brand-mark {
-  font-size: 46px;
+  font-size: font-size: 46px;
   font-weight: 400;
   color: var(--gold);
 }
@@ -86,7 +90,7 @@ a:focus-visible {
   align-items: center;
   gap: 10px;
   color: #b3b8a8;
-  font-size: 12px;
+  font-size: var(--fs-m);
 }
 .dot {
   width: 6px;
@@ -106,7 +110,7 @@ a:focus-visible {
   background: transparent;
   border-color: #374334;
   padding: 7px 10px;
-  font-size: 12px;
+  font-size: var(--fs-m);
   color: #a9b3a2;
 }
 .game-shell {
@@ -114,7 +118,6 @@ a:focus-visible {
   width: 100%;
   aspect-ratio: 1100/650;
   border: 1px solid #5b6249;
-  box-shadow: 0 18px 55px #050b0866;
   overflow: hidden;
   background: #242b2a;
 }
@@ -136,23 +139,22 @@ a:focus-visible {
   background: linear-gradient(90deg, #1b231ee8, #202923ed);
 }
 .eyebrow {
-  font-size: 11px;
-  letter-spacing: 3px;
+  font-size: var(--fs-m);
+  letter-spacing: 1px;
   color: var(--gold);
   margin-bottom: 20px;
 }
 .intro h1 {
-  font-size: clamp(30px, 4.2vw, 61px);
+  font-size: var(--fs-xl);
   font-weight: 900;
   line-height: 1.22;
-  letter-spacing: -2px;
   margin: 0 0 24px;
 }
 .intro h1 span {
   color: #bdc5ac;
 }
 .intro p {
-  font-size: 13px;
+  font-size: var(--fs-m);
   line-height: 2;
   color: #a4b19d;
 }
@@ -164,29 +166,29 @@ a:focus-visible {
 .run-facts b {
   display: block;
   font-family: "Space Grotesk", monospace;
-  font-size: 29px;
+  font-size: var(--fs-l);
   font-weight: 500;
   color: #d2c39b;
 }
 .run-facts span {
-  font-size: 10px;
+  font-size: var(--fs-s);
   color: #85957f;
 }
 .record {
-  font-size: 10px;
+  font-size: var(--fs-s);
   color: #7d8b77;
   margin-top: 30px;
 }
 .select-title {
   display: flex;
   justify-content: space-between;
-  font-size: 12px;
+  font-size: var(--fs-m);
   margin-bottom: 14px;
   color: #c2c9b4;
 }
 .select-title small {
   font:
-    10px "Space Grotesk",
+    var(--fs-s) "Space Grotesk",
     monospace;
   color: #7f907a;
 }
@@ -217,17 +219,17 @@ a:focus-visible {
   margin-left: 10px;
 }
 .hero-option small {
-  font-size: 9px;
+  font-size: var(--fs-s);
   letter-spacing: 2px;
   color: #87967f;
 }
 .hero-option b {
-  font-size: 19px;
+  font-size: var(--fs-l);
   color: #dad9bf;
   letter-spacing: 1px;
 }
 .hero-option div > span {
-  font-size: 10px;
+  font-size: var(--fs-s);
   color: #a0ad95;
 }
 .hero-option.selected {
@@ -238,36 +240,18 @@ a:focus-visible {
   margin-left: auto;
   color: #d6b97c;
 }
-.hero-detail {
-  padding: 18px 0;
-}
-.hero-detail > span {
-  font-size: 10px;
-  color: var(--gold);
-}
-.hero-detail p {
-  font-size: 11px;
-  color: #a5b09a;
-  line-height: 1.8;
-  min-height: 40px;
-  margin: 7px 0 12px;
-}
-.hero-detail div {
-  font-size: 10px;
-  color: #9aa990;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  flex-wrap: wrap;
-}
+
+
+
+
 kbd {
   font:
-    9px "Space Grotesk",
+    var(--fs-s) "Space Grotesk",
     monospace;
   padding: 3px 5px;
   border: 1px solid #58614c;
   color: #ccceb7;
-  border-radius: 2px;
+  border-radius: 3px;
   background: #202c22;
 }
 .primary {
@@ -286,14 +270,14 @@ kbd {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  font-size: 15px;
+  font-size: var(--fs-l);
   padding: 14px 20px;
 }
 .start span {
-  font-size: 23px;
+  font-size: var(--fs-l);
 }
 .start-hint {
-  font-size: 9px;
+  font-size: var(--fs-s);
   color: #819279;
   text-align: center;
   margin: 10px 0 0;
@@ -315,14 +299,14 @@ kbd {
   border: 1px solid #46513d;
 }
 .hero-label {
-  font-size: 12px;
+  font-size: var(--fs-m);
   display: flex;
   justify-content: space-between;
   margin-bottom: 8px;
 }
 .hero-label span {
   font:
-    12px "Space Grotesk",
+    var(--fs-m) "Space Grotesk",
     monospace;
   color: #b7c594;
 }
@@ -343,7 +327,7 @@ kbd {
   inset: 0;
   text-align: center;
   font:
-    9px "Space Grotesk",
+    var(--fs-s) "Space Grotesk",
     monospace;
   color: #f1e7cb;
 }
@@ -365,24 +349,24 @@ kbd {
   border: 1px solid #46513d;
 }
 .wave small {
-  font-size: 10px;
+  font-size: var(--fs-s);
   color: #bdc6aa;
 }
 .wave b {
   font:
-    28px "Space Grotesk",
+    var(--fs-l) "Space Grotesk",
     monospace;
   color: #e7cd96;
 }
 .wave em {
   font-style: normal;
-  font-size: 11px;
+  font-size: var(--fs-m);
   color: #929f86;
   margin-left: 3px;
 }
 .wave > span {
   font:
-    14px "Space Grotesk",
+    var(--fs-m) "Space Grotesk",
     monospace;
   color: #bdc7ab;
   min-width: 32px;
@@ -396,57 +380,28 @@ kbd {
   min-width: 95px;
   text-align: right;
 }
-.hud-right strong {
+.hud-right b {
   color: #e5c17b;
   font:
-    17px "Space Grotesk",
+    var(--fs-l) "Space Grotesk",
     monospace;
 }
 .hud-right span {
-  font-size: 10px;
+  font-size: var(--fs-s);
   color: #b4bea7;
 }
-.abilities {
-  position: absolute;
-  bottom: 18px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 8px;
-}
-.abilities button {
-  display: grid;
-  grid-template-columns: auto auto;
-  gap: 5px 9px;
-  min-width: 123px;
-  padding: 9px 12px;
-  background: #1b251feb;
-  border-color: #69664b;
-  text-align: left;
-}
-.abilities span {
-  font-size: 11px;
-}
-.abilities b {
-  grid-column: 2;
-  font:
-    10px "Space Grotesk",
-    monospace;
-  color: #a5caac;
-}
-.abilities kbd {
-  grid-row: span 2;
-  align-self: center;
-}
-.abilities .cooling {
-  opacity: 0.65;
-}
+
+
+
+
+
+
 .combat-note {
   position: absolute;
   top: 105px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 12px;
+  font-size: var(--fs-m);
   color: #e5c17b;
   pointer-events: none;
   text-shadow: 0 2px 4px #111;
@@ -456,7 +411,7 @@ kbd {
   top: 105px;
   left: 30%;
   right: 30%;
-  font-size: 10px;
+  font-size: var(--fs-s);
   text-align: center;
   color: #e7c391;
 }
@@ -497,14 +452,13 @@ kbd {
   margin-bottom: 12px;
 }
 .dialog h2 {
-  font-size: 25px;
+  font-size: var(--fs-l);
   line-height: 1.4;
   margin: 0 0 12px;
   color: #e0d4b4;
-  letter-spacing: -0.5px;
 }
 .dialog > p {
-  font-size: 11px;
+  font-size: var(--fs-m);
   line-height: 1.8;
   color: #a2b196;
   margin-bottom: 22px;
@@ -518,7 +472,7 @@ kbd {
   border: 0;
   background: transparent;
   color: #a6b698;
-  font-size: 12px;
+  font-size: var(--fs-m);
 }
 .choice-grid {
   display: grid;
@@ -535,35 +489,30 @@ kbd {
   border-color: #5b664b;
 }
 .choice-icon {
-  font-size: 32px;
+  font-size: font-size: 32px;
   color: #d4b77a;
   height: 48px;
 }
-.choice small {
-  color: #839d81;
-  font-size: 9px;
-  margin-bottom: 5px;
-  letter-spacing: 2px;
-}
+
 .choice b {
-  font-size: 18px;
+  font-size: var(--fs-l);
   color: #dedac0;
 }
 .choice p {
-  font-size: 11px;
+  font-size: var(--fs-m);
   color: #aab69c;
   line-height: 1.7;
   margin: 12px 0 22px;
 }
 .choose-label {
   margin-top: auto;
-  font-size: 11px;
+  font-size: var(--fs-m);
   color: #d5bf8b;
 }
 .gold {
   float: right;
   font:
-    20px "Space Grotesk",
+    var(--fs-l) "Space Grotesk",
     monospace;
   color: #d9bc7d;
 }
@@ -573,37 +522,19 @@ kbd {
   margin-top: 20px;
 }
 .shop-actions button {
-  font-size: 11px;
+  font-size: var(--fs-m);
 }
 .shop-actions .primary {
   margin-left: auto;
 }
-.build-strip {
-  display: flex;
-  gap: 9px;
-  flex-wrap: wrap;
-  color: #a6b199;
-  font-size: 10px;
-  border-top: 1px solid #4a553e;
-  margin-top: 20px;
-  padding-top: 15px;
-}
-.build-strip span {
-  color: #c6c9a9;
-}
-.control-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-  font-size: 11px;
-  padding: 18px 0;
-  text-align: left;
-}
+
+
+
 .setting {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 12px;
+  font-size: var(--fs-m);
   color: #b0bda3;
   gap: 8px;
   margin: 15px 0;
@@ -616,16 +547,16 @@ kbd {
 .result-stats b {
   display: block;
   font:
-    35px "Space Grotesk",
+    var(--fs-l) "Space Grotesk",
     monospace;
   color: #e1c388;
 }
 .result-stats small {
-  font-size: 12px;
+  font-size: var(--fs-m);
   color: #85977a;
 }
 .result-stats span {
-  font-size: 10px;
+  font-size: var(--fs-s);
   color: #a5b499;
 }
 footer {
@@ -633,16 +564,13 @@ footer {
   justify-content: space-between;
   gap: 20px;
   padding: 20px 0;
-  font-size: 10px;
+  font-size: var(--fs-s);
   color: #81937c;
 }
 footer kbd {
-  font-size: 9px;
+  font-size: var(--fs-s);
 }
-.sep {
-  margin: 0 10px;
-  color: #56654f;
-}
+
 .perf {
   font-family: "Space Grotesk", monospace;
 }
@@ -654,7 +582,7 @@ footer kbd {
   bottom: 75px;
   left: 20px;
   color: #e4b984;
-  font-size: 11px;
+  font-size: var(--fs-m);
   background: #17201b;
   padding: 5px;
 }
@@ -687,42 +615,14 @@ footer kbd {
   height: 70px;
   margin-bottom: 6px;
 }
-.choice-icon-art {
-  width: 64px;
-  height: 64px;
-  object-fit: contain;
-  filter: drop-shadow(0 3px 2px #0e160d66);
-}
-.abilities {
-  left: 25px;
-  transform: none;
-  gap: 8px;
-}
-.abilities button {
-  grid-template-columns: 30px auto auto;
-  min-width: 150px;
-  padding: 9px 12px;
-  background: #1a251bed;
-  border-color: #80704c;
-}
-.skill-icon-art {
-  grid-column: 1;
-  grid-row: span 2;
-  width: 30px;
-  height: 30px;
-  object-fit: contain;
-  align-self: center;
-}
-.abilities kbd {
-  grid-column: 2;
-  grid-row: span 2;
-}
-.abilities span,
-.abilities b {
-  grid-column: 3;
-}
 
-/* Five-hero roster: bounded height on desktop, complete list on narrow screens. */
+
+
+
+
+
+
+/* Three-hero roster: bounded height on desktop, complete list on narrow screens. */
 .hero-options {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 8px;
@@ -737,46 +637,26 @@ footer kbd {
   flex-shrink: 0;
 }
 .hero-option b {
-  font-size: 15px;
+  font-size: var(--fs-l);
 }
 .hero-option div > span {
-  font-size: 9px;
+  font-size: var(--fs-s);
   line-height: 1.5;
 }
 .hero-option small {
-  font-size: 9px;
+  font-size: var(--fs-s);
   letter-spacing: 1px;
 }
 .hero-option .selection-dot {
   position: absolute;
   right: 7px;
   top: 7px;
-  font-size: 10px;
+  font-size: var(--fs-s);
 }
-.hero-resource {
-  position: absolute;
-  left: 0;
-  top: 88px;
-  max-width: 235px;
-  color: #e3d8b5;
-  background: #17231bd9;
-  border-radius: 5px;
-  padding: 6px 10px;
-  font-size: 11px;
-}
-.hero-resource:empty {
-  display: none;
-}
-.blood-meter {
-  height: 3px;
-  margin-top: 5px;
-  background: #4b2834;
-}
-.blood-meter i {
-  display: block;
-  height: 100%;
-  background: #ef648c;
-}
+
+
+
+
 
 .audio-setting {
   display: flex;
@@ -785,7 +665,7 @@ footer kbd {
   gap: 24px;
   margin: 12px 0;
   color: var(--muted);
-  font-size: 13px;
+  font-size: var(--fs-m);
 }
 .audio-setting input {
   width: 180px;
@@ -834,9 +714,7 @@ body,
   margin: 0 !important;
   object-fit: contain;
 }
-.intro h1 {
-  font-size: 54px;
-}
+
 .menu {
   position: absolute;
   grid-template-columns: 0.9fr 1.1fr;
@@ -850,14 +728,10 @@ body,
   min-width: 0;
 }
 .hero-option b {
-  font-size: 15px;
+  font-size: var(--fs-l);
 }
-.hero-detail {
-  padding: 16px 0;
-}
-.hero-detail p {
-  min-height: 40px;
-}
+
+
 footer {
   height: 42px;
   align-items: center;
@@ -881,15 +755,15 @@ footer {
   gap: 8px;
 }
 .compact .brand {
-  font-size: 16px;
+  font-size: var(--fs-l);
   gap: 8px;
   letter-spacing: 1px;
 }
 .compact .brand-mark {
-  font-size: 32px;
+  font-size: font-size: 32px;
 }
 .compact .brand small {
-  font-size: 7px;
+  font-size: var(--fs-s);
   letter-spacing: 2px;
 }
 .compact .edition {
@@ -899,7 +773,7 @@ footer {
   gap: 5px;
 }
 .compact .tools button {
-  font-size: 11px;
+  font-size: var(--fs-m);
   padding: 7px;
 }
 .compact .game-shell {
@@ -915,8 +789,7 @@ footer {
   margin-bottom: 10px;
 }
 .compact .intro h1 {
-  font-size: 30px;
-  letter-spacing: -1px;
+  font-size: var(--fs-xl);
   margin-bottom: 10px;
 }
 .compact .intro h1 br {
@@ -926,7 +799,7 @@ footer {
   margin-left: 8px;
 }
 .compact .intro p {
-  font-size: 11px;
+  font-size: var(--fs-m);
   line-height: 1.7;
   margin: 8px 0;
 }
@@ -935,7 +808,7 @@ footer {
   gap: 36px;
 }
 .compact .run-facts b {
-  font-size: 22px;
+  font-size: var(--fs-l);
 }
 .compact .record {
   margin-top: 10px;
@@ -956,21 +829,16 @@ footer {
   gap: 4px;
 }
 .compact .hero-option b {
-  font-size: 13px;
+  font-size: var(--fs-m);
 }
 .compact .hero-option small {
-  font-size: 8px;
+  font-size: var(--fs-s);
 }
 .compact .hero-option div > span {
-  font-size: 9px;
+  font-size: var(--fs-s);
 }
-.compact .hero-detail {
-  padding: 12px 0;
-}
-.compact .hero-detail p {
-  min-height: 40px;
-  margin-bottom: 10px;
-}
+
+
 .compact .start {
   padding: 10px 16px;
 }
@@ -991,34 +859,17 @@ footer {
   display: none;
 }
 .compact .wave b {
-  font-size: 22px;
+  font-size: var(--fs-l);
 }
 .compact .hud-right {
   min-width: 75px;
   padding: 9px;
 }
-.compact .hero-resource {
-  top: 78px;
-}
-.compact .abilities {
-  left: 14px;
-  right: 14px;
-  gap: 6px;
-}
-.compact .abilities button {
-  min-width: 0;
-  flex: 1;
-  grid-template-columns: 24px auto auto;
-  padding: 8px;
-  gap: 4px;
-}
-.compact .skill-icon-art {
-  width: 24px;
-  height: 24px;
-}
-.compact .abilities span {
-  font-size: 10px;
-}
+
+
+
+
+
 .compact .overlay {
   padding: 20px;
 }
@@ -1041,10 +892,7 @@ footer {
   grid-row: span 4;
   height: 44px;
 }
-.compact .choice-icon-art {
-  width: 44px;
-  height: 44px;
-}
+
 .compact .choice p {
   margin: 0;
 }
@@ -1054,12 +902,9 @@ footer {
 .compact .shop-actions {
   flex-wrap: wrap;
 }
-.compact .build-strip {
-  margin-top: 12px;
-  padding-top: 10px;
-}
+
 .compact footer {
-  font-size: 9px;
+  font-size: var(--fs-s);
 }
 .compact footer > span:nth-child(2) {
   display: none;
@@ -1067,7 +912,7 @@ footer {
 .compact .mobile-note {
   display: block;
   height: 24px;
-  font-size: 11px;
+  font-size: var(--fs-m);
   padding: 0;
   text-align: center;
 }
@@ -1077,7 +922,7 @@ footer {
   border: 1px solid #374334;
   border-radius: 3px;
   padding: 7px 10px;
-  font-size: 12px;
+  font-size: var(--fs-m);
   color: #a9b3a2;
   align-self: center;
   white-space: nowrap;
@@ -1087,7 +932,7 @@ footer {
   border-color: #aa9d74;
 }
 .compact .tools a {
-  font-size: 11px;
+  font-size: var(--fs-m);
   padding: 7px;
 }
 /* v0.8: build choices and six-slot inventory */
@@ -1098,19 +943,17 @@ footer {
   width: 56px;
   height: 70px;
 }
-.build-menu .intro h1 {
-  font-size: 52px;
-}
+
 .build-guide {
   margin: 30px 0;
   border-left: 2px solid #aa9d74;
   padding-left: 16px;
 }
 .build-guide p {
-  font-size: 13px;
+  font-size: var(--fs-m);
 }
 .role-description {
-  font-size: 12px;
+  font-size: var(--fs-m);
   line-height: 1.7;
   min-height: 42px;
   margin: 14px 0;
@@ -1126,7 +969,7 @@ footer {
   flex-direction: column;
   gap: 4px;
   padding: 8px;
-  font-size: 11px;
+  font-size: var(--fs-m);
   border: 1px solid #52634b;
   background: #202e24;
 }
@@ -1139,7 +982,7 @@ footer {
   height: 36px;
 }
 .starter-description {
-  font-size: 11px;
+  font-size: var(--fs-m);
   color: #bdc5b2;
   margin: 10px 0;
 }
@@ -1171,13 +1014,13 @@ footer {
 }
 .weapon-slot b {
   display: block;
-  font-size: 10px;
+  font-size: var(--fs-s);
   font-weight: 600;
   white-space: nowrap;
 }
 .weapon-slot small {
   display: block;
-  font-size: 9px;
+  font-size: var(--fs-s);
   color: #aebca6;
   white-space: nowrap;
 }
@@ -1191,7 +1034,7 @@ footer {
   align-items: center;
   justify-content: center;
   color: #a5af9b;
-  font-size: 10px;
+  font-size: var(--fs-s);
   background: #17221980;
 }
 .tier-2 {
@@ -1215,11 +1058,11 @@ footer {
   margin-bottom: 12px;
 }
 .shop-heading h2 {
-  font-size: 25px;
+  font-size: var(--fs-l);
   margin: 4px 0;
 }
 .shop-heading > .gold {
-  font-size: 24px;
+  font-size: var(--fs-l);
 }
 .shop-layout {
   display: grid;
@@ -1244,53 +1087,48 @@ footer {
   align-items: center;
   gap: 8px;
 }
-.offer-title img,
-.item-symbol {
+.offer-title img {
   width: 38px;
   height: 38px;
   object-fit: contain;
   flex-shrink: 0;
 }
-.item-symbol {
-  font-size: 32px;
-  color: #d9c68d;
-  text-align: center;
-}
+
 .offer-title div {
   flex: 1;
 }
 .offer-title small {
-  font-size: 10px;
+  font-size: var(--fs-s);
   color: #a9baa1;
   display: block;
 }
 .offer-title b {
-  font-size: 13px;
+  font-size: var(--fs-m);
   display: block;
 }
 .offer-title button {
   padding: 4px;
-  font-size: 10px;
+  font-size: var(--fs-s);
 }
 .offer-title .locked {
   background: #8b7841;
   color: #fff;
 }
 .offer p {
-  font-size: 11px;
+  font-size: var(--fs-m);
   line-height: 1.5;
   margin: 8px 0;
   flex: 1;
 }
 .offer > small {
-  font-size: 10px;
+  font-size: var(--fs-s);
   color: #bbd5af;
 }
 .buy-button {
   margin-top: 9px;
   width: 100%;
   padding: 7px;
-  font-size: 12px;
+  font-size: var(--fs-m);
 }
 .sold-offer {
   flex: 1;
@@ -1298,12 +1136,12 @@ footer {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  font-size: 13px;
+  font-size: var(--fs-m);
   color: #85987e;
 }
 .sold-offer small {
   margin-top: 8px;
-  font-size: 10px;
+  font-size: var(--fs-s);
 }
 .build-shop .shop-actions {
   margin-top: 12px;
@@ -1311,21 +1149,21 @@ footer {
   justify-content: space-between;
 }
 .build-shop .shop-actions button {
-  font-size: 12px;
+  font-size: var(--fs-m);
   padding: 9px 12px;
 }
 .shop-help {
   display: block;
-  font-size: 10px;
+  font-size: var(--fs-s);
   color: #a8b79e;
   margin-top: 8px;
 }
 .equipment-label {
-  font-size: 13px;
+  font-size: var(--fs-m);
   margin-bottom: 8px;
 }
 .equipment-label small {
-  font-size: 9px;
+  font-size: var(--fs-s);
   color: #a8b79e;
   float: right;
 }
@@ -1345,7 +1183,7 @@ footer {
   gap: 5px;
 }
 .slot-actions button {
-  font-size: 9px;
+  font-size: var(--fs-s);
   padding: 3px 7px;
 }
 .family-strip {
@@ -1353,7 +1191,7 @@ footer {
   flex-wrap: wrap;
   gap: 3px;
   margin: 9px 0;
-  font-size: 9px;
+  font-size: var(--fs-s);
   color: #d7c18c;
 }
 .family-strip span {
@@ -1366,7 +1204,7 @@ footer {
   gap: 3px 10px;
   border-top: 1px solid #53634c;
   padding-top: 8px;
-  font-size: 10px;
+  font-size: var(--fs-s);
 }
 .stat-grid span {
   display: flex;
@@ -1383,7 +1221,7 @@ footer {
   margin-top: 10px;
   max-height: 72px;
   overflow: auto;
-  font-size: 10px;
+  font-size: var(--fs-s);
   color: #b9c5aa;
 }
 .items-strip span {
@@ -1399,9 +1237,7 @@ footer {
 .combat-note {
   pointer-events: none;
 }
-.compact .build-menu .intro h1 {
-  font-size: 30px;
-}
+
 .compact .build-guide {
   display: none;
 }
@@ -1409,7 +1245,7 @@ footer {
   min-height: 70px;
 }
 .compact .role-description {
-  font-size: 11px;
+  font-size: var(--fs-m);
   margin: 9px 0;
   min-height: 40px;
 }
@@ -1421,7 +1257,7 @@ footer {
   padding: 6px;
 }
 .compact .build-menu .intro > small {
-  font-size: 10px;
+  font-size: var(--fs-s);
 }
 .compact .loadout-hud {
   grid-template-columns: repeat(3, 1fr);
@@ -1448,7 +1284,7 @@ footer {
   margin-bottom: 7px;
 }
 .compact .shop-heading h2 {
-  font-size: 20px;
+  font-size: var(--fs-l);
 }
 .compact .offer {
   padding: 8px;
@@ -1457,27 +1293,26 @@ footer {
 .compact .offer-grid {
   gap: 6px;
 }
-.compact .offer-title img,
-.compact .item-symbol {
+.compact .offer-title img {
   width: 28px;
   height: 28px;
 }
 .compact .offer-title b {
-  font-size: 11px;
+  font-size: var(--fs-m);
 }
 .compact .offer p {
-  font-size: 10px;
+  font-size: var(--fs-s);
   margin: 5px 0;
 }
 .compact .offer > small {
-  font-size: 9px;
+  font-size: var(--fs-s);
 }
 .compact .buy-button {
   margin-top: 5px;
   padding: 5px;
 }
 .compact .shop-help {
-  font-size: 9px;
+  font-size: var(--fs-s);
 }
 .compact .equipment-grid {
   grid-template-columns: repeat(3, 1fr);
@@ -1493,55 +1328,55 @@ footer {
   height: 22px;
 }
 .compact .equipment-grid .weapon-slot b {
-  font-size: 9px;
+  font-size: var(--fs-s);
 }
 .compact .equipment-grid .weapon-slot small {
-  font-size: 8px;
+  font-size: var(--fs-s);
 }
 .compact .slot-actions button {
-  font-size: 8px;
+  font-size: var(--fs-s);
   padding: 2px 4px;
 }
 .compact .stat-grid {
   grid-template-columns: repeat(4, 1fr);
-  font-size: 9px;
+  font-size: var(--fs-s);
   gap: 3px 7px;
 }
 .compact .family-strip {
-  font-size: 8px;
+  font-size: var(--fs-s);
   margin: 5px 0;
 }
 .compact .items-strip {
   margin-top: 6px;
   max-height: 40px;
-  font-size: 9px;
+  font-size: var(--fs-s);
 }
 .compact .build-shop .shop-actions {
   margin-top: 7px;
 }
 .compact .build-shop .shop-actions button {
   padding: 6px 10px;
-  font-size: 11px;
+  font-size: var(--fs-m);
 }
 .build-shop .items-strip {
   overflow: visible;
   max-height: none;
 }
 .build-shop .items-strip span {
-  font-size: 9px;
+  font-size: var(--fs-s);
   white-space: nowrap;
   padding: 2px 3px;
 }
 .build-app .intro .record {
-  font-size: 11px;
+  font-size: var(--fs-m);
   margin-top: 16px;
 }
 .compact .build-app .intro .record {
-  font-size: 9px;
+  font-size: var(--fs-s);
   margin-top: 8px;
 }
 .compact .build-shop .shop-heading .eyebrow {
-  font-size: 10px;
+  font-size: var(--fs-s);
   margin: 0;
 }
 .compact .build-shop .shop-heading h2 {
@@ -1559,7 +1394,7 @@ footer {
   margin-top: 4px;
 }
 .compact .build-shop .items-strip span {
-  font-size: 8px;
+  font-size: var(--fs-s);
   padding: 1px 3px;
 }
 .compact .build-shop .family-strip {
@@ -1610,7 +1445,7 @@ footer {
   position: absolute;
   right: 0;
   bottom: 0;
-  font-size: 8px;
+  font-size: var(--fs-s);
   line-height: 10px;
   background: #142116d9;
   padding: 0 2px;
@@ -1646,7 +1481,7 @@ footer {
   height: 22px;
 }
 .compact .build-shop .items-strip b {
-  font-size: 7px;
+  font-size: var(--fs-s);
   line-height: 8px;
 }
 .build-app .loadout-hud .weapon-slot {
@@ -1660,7 +1495,7 @@ footer {
 }
 .build-shop .shop-heading .eyebrow {
   margin: 0;
-  font-size: 12px;
+  font-size: var(--fs-m);
 }
 .build-shop .shop-heading h2 {
   line-height: 1.15;
@@ -1668,12 +1503,12 @@ footer {
 }
 .build-shop .stat-grid {
   grid-template-columns: repeat(4, 1fr);
-  font-size: 9px;
+  font-size: var(--fs-s);
   gap: 4px 8px;
 }
 .compact .build-shop .shop-heading .eyebrow {
-  font-size: 10px;
+  font-size: var(--fs-s);
 }
 .compact .build-shop .shop-heading h2 {
-  font-size: 20px;
+  font-size: var(--fs-l);
 }

@@ -29,6 +29,7 @@ test("three role starts select different weapons and engineer auto-deploys", asy
       );
     await page.keyboard.press("Escape");
     await page.getByRole("button", { name: "返回英雄选择" }).click();
+    await page.getByRole("button", { name: "确认放弃本局？" }).click();
   }
   expect(errors).toEqual([]);
 });

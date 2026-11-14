@@ -53,7 +53,7 @@ test("menus, combat and dialogs fit the first screen and resize live", async ({
     await assertFits();
   }
   await page.getByRole("button", { name: /进入竞技场/ }).click();
-  await expect(page.getByRole("button", { name: "Ⅱ 暂停" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "❚❚ 暂停" })).toBeVisible();
   await page.evaluate(() => {
     const s = (window as any).__rift.sim;
     s.invuln = 10000;

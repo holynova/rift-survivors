@@ -4,7 +4,9 @@ import { BuildSimulation, type OwnedWeapon } from "./game/build-simulation";
 import { type HeroId, heroes } from "./game/content";
 import {
   buildHeroes,
+  buildWaves,
   roster,
+  weapons,
   weaponById,
   items,
   iconFor,
@@ -83,6 +85,7 @@ function App() {
     [starter, setStarter] = useState("pistol");
   const [save, setSave] = useState(loadSave),
     [audioLoading, setAudioLoading] = useState(false);
+  const [confirmQuit, setConfirmQuit] = useState(false);
   const refresh = () => render((v) => v + 1);
   const sim = runtime.sim as BuildSimulation | null;
   useEffect(() => {
@@ -125,6 +128,7 @@ function App() {
     fn();
     refresh();
   }
+  const fmtStat = (v: number) => (v > 0 ? `+${v}` : String(v));
   function weaponSlot(w: OwnedWeapon, editing = false) {
     const d = weaponById[w.id];
     return (
@@ -139,8 +143,8 @@ function App() {
             {d.name} <em>{roman[w.tier - 1]}</em>
           </b>
           <small>
-            {sim!.weaponDamage(w).toFixed(1)}伤害 ·{" "}
-            {sim!.weaponInterval(w).toFixed(2)}s
+            {sim!.weaponDamage(w).toFixed(1)}伤害，
+            {sim!.weaponInterval(w).toFixed(2)}秒/击
           </small>
         </div>
         {editing && (
@@ -235,12 +239,15 @@ function App() {
               <button
                 disabled={!["battle", "paused"].includes(sim.phase)}
                 onClick={() =>
-                  act(() =>
-                    sim.phase === "paused" ? sim.resume() : sim.pause(),
-                  )
+                  act(() => {
+                    if (sim.phase === "paused") {
+                      setConfirmQuit(false);
+                      sim.resume();
+                    } else sim.pause();
+                  })
                 }
               >
-                Ⅱ 暂停
+                {sim.phase === "paused" ? "继续" : "❚❚ 暂停"}
               </button>
             )}
           </div>
@@ -273,9 +280,9 @@ function App() {
                 <small>波次</small>
                 <b>
                   {sim.wave}
-                  <small>/12</small>
+                  <small>/{sim.finalWave}</small>
                 </b>
-                <span>{Math.ceil(sim.time)}s</span>
+                <span>{sim.wave === sim.finalWave && sim.time <= 0 ? "决战" : `${Math.ceil(sim.time)}s`}</span>
               </div>
               <div className="hud-right">
                 <b>◆ {Math.floor(sim.coins)}</b>
@@ -285,7 +292,7 @@ function App() {
           )}
           {boss && sim?.phase === "battle" && (
             <div className="boss">
-              <span>裂隙领主{boss.hp < boss.maxHp / 2 ? " · 狂暴" : ""}</span>
+              <span>裂隙领主{boss.hp < boss.maxHp / 2 ? "（狂暴）" : ""}</span>
               <div className="meter">
                 <i style={{ width: `${(boss.hp / boss.maxHp) * 100}%` }} />
               </div>
@@ -307,7 +314,7 @@ function App() {
           {!sim && (
             <div className="menu build-menu">
               <div className="intro">
-                <div className="eyebrow">六个武器槽 · 无数种打法</div>
+                <div className="eyebrow">六个武器槽，无数种打法</div>
                 <h1>
                   这一局，
                   <br />
@@ -320,15 +327,15 @@ function App() {
                 </p>
                 <div className="run-facts">
                   <div>
-                    <b>12</b>
+                    <b>{weapons.length}</b>
                     <span>武器种类</span>
                   </div>
                   <div>
-                    <b>30</b>
+                    <b>{items.length}</b>
                     <span>构筑道具</span>
                   </div>
                   <div>
-                    <b>12</b>
+                    <b>{buildWaves.length}</b>
                     <span>生存波次</span>
                   </div>
                 </div>
@@ -340,10 +347,10 @@ function App() {
                     同族装备提供额外加成，道具改变攻击联动。
                   </p>
                 </div>
-                <small>约10–15分钟 · 键盘操作 · 自动瞄准攻击</small>
+                <small>约10–15分钟，键盘操作，自动瞄准攻击</small>
                 <div className="record">
-                  最佳波次 {records.wave}/12 · 最高击杀 {records.kills} · 通关{" "}
-                  {records.wins}
+                  最佳波次 {records.wave}/{buildWaves.length}，最高击杀{" "}
+                  {records.kills}，通关 {records.wins}
                 </div>
               </div>
               <div className="hero-select">
@@ -368,13 +375,7 @@ function App() {
                       />
                       <div>
                         <b>{heroes[id].name}</b>
-                        <span>
-                          {id === "gunner"
-                            ? "远程火力"
-                            : id === "knight"
-                              ? "近战搏杀"
-                              : "工程阵地"}
-                        </span>
+                        <span>{buildHeroes[id].role}</span>
                       </div>
                       <span className="selection-dot">
                         {hero === id ? "●" : "○"}
@@ -409,7 +410,7 @@ function App() {
                 >
                   {audioLoading ? "准备音效…" : "进入竞技场"} <span>↗</span>
                 </button>
-                <p className="start-hint">WASD / 方向键移动 · ESC 暂停</p>
+                <p className="start-hint">WASD / 方向键移动，ESC 暂停</p>
               </div>
             </div>
           )}
@@ -422,11 +423,12 @@ function App() {
                   <>
                     <div className="eyebrow">时间已停驻</div>
                     <h2>休息片刻</h2>
-                    <p>WASD / 方向键移动 · 武器自动攻击 · 波间购买构筑。</p>
+                    <p>WASD / 方向键移动，武器自动攻击，波间购买构筑。</p>
                     {(["effectsVolume", "musicVolume"] as const).map(
                       (key, i) => (
                         <label className="audio-setting" key={key}>
-                          {i ? "音乐音量" : "音效音量"}
+                          {i ? "音乐音量" : "音效音量"}{" "}
+                          {Math.round(save[key] * 100)}%
                           <input
                             type="range"
                             aria-label={i ? "音乐音量" : "音效音量"}
@@ -459,19 +461,32 @@ function App() {
                     </label>
                     <button
                       className="primary"
-                      onClick={() => act(() => sim.resume())}
+                      onClick={() => {
+                        setConfirmQuit(false);
+                        act(() => sim.resume());
+                      }}
                     >
                       继续战斗
                     </button>
-                    <button className="quiet" onClick={home}>
-                      返回英雄选择
+                    <button
+                      className="quiet"
+                      onClick={() => {
+                        if (!confirmQuit) {
+                          setConfirmQuit(true);
+                          return;
+                        }
+                        setConfirmQuit(false);
+                        home();
+                      }}
+                    >
+                      {confirmQuit ? "确认放弃本局？" : "返回英雄选择"}
                     </button>
                   </>
                 )}
                 {sim.phase === "upgrade" && (
                   <>
                     <div className="eyebrow">
-                      波间训练 · LEVEL {sim.level + 1}
+                      波间训练 第 {sim.level + 1} 级
                     </div>
                     <h2>强化你的构筑</h2>
                     <p>选择对应武器属性，装备伤害会立即重新结算。</p>
@@ -498,7 +513,7 @@ function App() {
                     <div className="shop-heading">
                       <div>
                         <div className="eyebrow">
-                          第 {sim.wave} 波完成 · 行旅商店
+                          第 {sim.wave} 波完成，行旅商店
                         </div>
                         <h2>武装下一波</h2>
                       </div>
@@ -532,7 +547,7 @@ function App() {
                                       <div>
                                         <small>
                                           {o.kind === "weapon"
-                                            ? `${familyNames[weaponById[o.id].family]} · ${roman[o.tier - 1]}`
+                                            ? `${familyNames[weaponById[o.id].family]} ${roman[o.tier - 1]}`
                                             : "构筑道具"}
                                         </small>
                                         <b>{d.name}</b>
@@ -548,13 +563,13 @@ function App() {
                                     <p>{d.description}</p>
                                     {o.kind === "weapon" && (
                                       <small>
-                                        {sim.weaponDamage(o).toFixed(1)}伤害 ·{" "}
-                                        {sim.weaponInterval(o).toFixed(2)}s
+                                        {sim.weaponDamage(o).toFixed(1)}伤害，
+                                        {sim.weaponInterval(o).toFixed(2)}秒/击
                                         {sim.weapons.some(
                                           (w) =>
                                             w.id === o.id && w.tier === o.tier,
                                         ) && o.tier < 4
-                                          ? " · 可合成"
+                                          ? "，可合成"
                                           : ""}
                                       </small>
                                     )}
@@ -568,7 +583,7 @@ function App() {
                                       sim.canBuy(i)
                                         ? "购买并合成"
                                         : "购买"}{" "}
-                                      · ◆{o.price}
+                                      ◆{o.price}
                                     </button>
                                   </>
                                 ) : (
@@ -590,7 +605,7 @@ function App() {
                             }
                             onClick={() => act(() => sim.reroll())}
                           >
-                            刷新商品 · ◆{sim.rerollPrice}
+                            刷新商品 ◆{sim.rerollPrice}
                           </button>
                           <button
                             className="primary"
@@ -600,7 +615,7 @@ function App() {
                           </button>
                         </div>
                         <small className="shop-help">
-                          锁定跨波保留 · 二合一释放武器槽 · 至少保留一把武器
+                          锁定跨波保留，二合一释放武器槽，至少保留一把武器
                         </small>
                       </div>
                       <aside>
@@ -619,7 +634,7 @@ function App() {
                                 title={familyBenefits[key as Family]}
                                 key={key}
                               >
-                                {familyNames[key as Family]} ×{n} ·{" "}
+                                {familyNames[key as Family]} ×{n}：
                                 {familyBenefits[key as Family]}
                               </span>
                             ))}
@@ -628,7 +643,7 @@ function App() {
                           {displayed.map((key) => (
                             <span key={key}>
                               {statNames[key]}{" "}
-                              <b>{Number(sim.value(key).toFixed(2))}</b>
+                              <b>{fmtStat(Number(sim.value(key).toFixed(2)))}</b>
                             </span>
                           ))}
                         </div>
@@ -669,7 +684,7 @@ function App() {
                       <div>
                         <b>
                           {sim.wave}
-                          <small>/12</small>
+                          <small>/{sim.finalWave}</small>
                         </b>
                         <span>到达波次</span>
                       </div>
@@ -704,9 +719,9 @@ function App() {
           <span>
             <kbd>WASD</kbd> 移动 / <kbd>ESC</kbd> 暂停
           </span>
-          <span>六武器 · 波间商店 · 装备联动</span>
+          <span>六武器，波间商店，装备联动</span>
           <span className="perf">
-            {sim ? `${Math.round(runtime.fps)} FPS` : "原创角色 · 构筑生存"}
+            {sim ? `${Math.round(runtime.fps)} FPS` : "原创角色，构筑生存"}
           </span>
         </footer>
         <div className="mobile-note">
