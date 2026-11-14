@@ -2,7 +2,7 @@ export type HeroId = "gunner" | "knight" | "frost" | "engineer" | "reaper";
 export const heroes = {
   gunner: {
     name: "时间枪手",
-    tag: "闪现 · 回溯 · 双枪",
+    tag: "闪现、回溯、双枪",
     hp: 90,
     speed: 210,
     damage: 12,
@@ -15,7 +15,7 @@ export const heroes = {
   },
   knight: {
     name: "灰烬骑士",
-    tag: "精力 · 翻滚 · 弹反",
+    tag: "精力、翻滚、弹反",
     hp: 150,
     speed: 165,
     damage: 32,
@@ -28,7 +28,7 @@ export const heroes = {
   },
   frost: {
     name: "霜环术士",
-    tag: "连锁冰箭 · 减速领域 · 冰封",
+    tag: "连锁冰箭、减速领域、冰封",
     hp: 85,
     speed: 185,
     damage: 18,
@@ -41,7 +41,7 @@ export const heroes = {
   },
   engineer: {
     name: "机巧召唤师",
-    tag: "炮台布阵 · 换位 · 超载",
+    tag: "炮台布阵、换位、超载",
     hp: 110,
     speed: 180,
     damage: 14,
@@ -54,7 +54,7 @@ export const heroes = {
   },
   reaper: {
     name: "血刃猎手",
-    tag: "血能 · 穿刺 · 吸血爆发",
+    tag: "血能、穿刺、吸血爆发",
     hp: 105,
     speed: 230,
     damage: 23,

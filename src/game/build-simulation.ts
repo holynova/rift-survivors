@@ -230,7 +230,7 @@ export class BuildSimulation extends Simulation {
     if (!wasPending && this.pendingShop) {
       this.coins += 15 + Math.max(0, this.stats.harvest);
       this.recover(this.p.maxHp * 0.12);
-      this.msg("波次完成 · 剩余材料按80%结算，恢复12%生命");
+      this.msg("波次完成，剩余材料按80%结算，恢复12%生命");
     }
   }
   tickMelee(dt: number) {

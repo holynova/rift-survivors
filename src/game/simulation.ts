@@ -272,7 +272,7 @@ export class Simulation {
     }
     if (this.time < 15 && !this.reinforcements) {
       this.reinforcements = true;
-      this.msg("末段怪潮 · 保持移动");
+      this.msg("末段怪潮，保持移动");
       if (this.wave === this.finalWave) this.spawn(3);
       this.sound?.("warning");
     }
@@ -664,7 +664,7 @@ export class Simulation {
         0xf7d488,
         "parry",
       );
-      this.msg("弹反成功 · 处决");
+      this.msg("弹反成功，处决");
       this.sound?.("parry");
       return;
     }
@@ -971,7 +971,7 @@ export class Simulation {
         this.hero === "reaper" &&
         this.blood < (this.special.has("harvest") ? 40 : 60)
       ) {
-        this.msg("血能不足 · 命中敌人积累血能");
+        this.msg("血能不足，命中敌人积累血能");
         return false;
       }
       this.ultCd =

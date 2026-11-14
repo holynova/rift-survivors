@@ -249,12 +249,14 @@ export const buildHeroes: Record<
   string,
   {
     description: string;
+    role: string;
     start: string[];
     scale: Record<Group, number>;
     stats: Partial<Record<Stat, number>>;
   }
 > = {
   gunner: {
+    role: "远程火力",
     description:
       "远程武器收益 +30%，近战收益 −40%。从精准射击到六枪弹幕，装备决定你的打法。",
     start: ["pistol", "smg", "crossbow"],
@@ -262,6 +264,7 @@ export const buildHeroes: Record<
     stats: { speed: 5 },
   },
   knight: {
+    role: "近战搏杀",
     description:
       "近战收益 +30%，初始护甲 +3；远程收益 −40%。长矛控距、重锤推墙或快速吸血。",
     start: ["spear", "dagger", "hammer"],
@@ -269,6 +272,7 @@ export const buildHeroes: Record<
     stats: { armor: 3, maxHp: 15 },
   },
   engineer: {
+    role: "工程阵地",
     description:
       "工程收益 +40%，普通武器收益 −25%。装置提供阵地火力；可混搭防身武器。",
     start: ["deployer", "pistol", "bomb"],
