@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="1200" height="360" viewBox="0 0 1200 360"
+     role="img" aria-labelledby="title desc">
+  <title id="title">裂隙幸存者 Rift Survivors — 五英雄八波生存竞技场</title>
+  <desc id="desc">深色石板底标题：裂隙幸存者，副标题在怪潮之间，构筑你的打法；右侧是竞技场中央的金色符文法阵，中央一颗裂隙菱形，四周八个波次刻度。</desc>
+
+  <rect width="1200" height="360" rx="26" fill="#171a24"/>
+
+  <g id="title-block" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif">
+    <text x="56" y="62" font-size="19" letter-spacing="3" fill="#9aa0b0">生存竞技场 · SURVIVAL ARENA</text>
+    <text x="56" y="128" font-size="62" font-weight="700" fill="#ece7d8">裂隙幸存者</text>
+    <text x="56" y="168" font-size="23" fill="#e3c878">RIFT SURVIVORS — 在怪潮之间，构筑你的打法</text>
+    <text x="56" y="204" font-size="19" fill="#b9bdc9">五位英雄，八波怪潮；波间商店买、合、卖，配出自己的流派。</text>
+    <g id="chips" font-size="18" fill="#ece7d8" text-anchor="middle">
+      <g><rect x="56" y="238" width="126" height="36" rx="18" fill="#222634" stroke="#3a3f52" stroke-width="1.5"/><text x="119" y="262">5 位英雄</text></g>
+      <g><rect x="194" y="238" width="126" height="36" rx="18" fill="#222634" stroke="#3a3f52" stroke-width="1.5"/><text x="257" y="262">8 波怪潮</text></g>
+      <g><rect x="332" y="238" width="190" height="36" rx="18" fill="#222634" stroke="#3a3f52" stroke-width="1.5"/><text x="427" y="262">12 武器 · 30 道具</text></g>
+      <g><rect x="534" y="238" width="126" height="36" rx="18" fill="#222634" stroke="#3a3f52" stroke-width="1.5"/><text x="597" y="262">波间商店</text></g>
+    </g>
+  </g>
+
+  <g id="rift-diagram" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif">
+    <g id="rune-circle" fill="none" stroke="#e3c878">
+      <circle cx="950" cy="180" r="118" stroke-width="2" opacity="0.85"/>
+      <circle cx="950" cy="180" r="92" stroke-width="1.5" opacity="0.55"/>
+      <circle cx="950" cy="180" r="64" stroke-width="1.5" opacity="0.4"/>
+    </g>
+    <g id="wave-pips" fill="#e3c878">
+      <circle cx="950" cy="62" r="5"/>
+      <circle cx="1033" cy="97" r="5"/>
+      <circle cx="1068" cy="180" r="5"/>
+      <circle cx="1033" cy="263" r="5"/>
+      <circle cx="950" cy="298" r="5"/>
+      <circle cx="867" cy="263" r="5"/>
+      <circle cx="832" cy="180" r="5"/>
+      <circle cx="867" cy="97" r="5"/>
+    </g>
+    <g id="rift-gem">
+      <polygon points="950,118 992,180 950,242 908,180" fill="#3a4a6b" stroke="#8cdcff" stroke-width="2.5"/>
+      <polygon points="950,146 972,180 950,214 928,180" fill="#8cdcff" opacity="0.85"/>
+    </g>
+    <text x="950" y="336" font-size="18" fill="#9aa0b0" text-anchor="middle">第 8 波 · Boss</text>
+  </g>
+</svg>
