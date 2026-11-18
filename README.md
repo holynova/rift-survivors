@@ -1,9 +1,11 @@
+<p align="right"><a href="README.en.md">English</a></p>
+
 <p align="center">
   <img src="./assets/readme/hero.svg" width="100%" alt="裂隙幸存者 Rift Survivors — 竞技场中央的金色符文法阵，中央一颗裂隙菱形，四周八个波次刻度">
 </p>
 
 <p align="center">
-  <a href="https://rift-survivors.xiaosang.cc/">▶ 在线玩 Play Online</a>
+  <a href="https://rift-survivors.xiaosang.cc/">▶ 在线玩</a>
   ·
   <a href="https://github.com/holynova/rift-survivors">GitHub 仓库</a>
   ·
@@ -12,15 +14,13 @@
 
 裂隙幸存者是一款浏览器生存竞技场：选一位英雄，在 8 波怪潮里活下来，击败第 8 波 Boss 即胜利。武器自动攻击、各自独立；波间进入商店，购买、合成、出售武器与道具，构筑自己的打法。桌面键盘为主要输入方式。
 
-Rift Survivors is a browser survival arena: pick a hero, survive 8 waves of monsters, and beat the Wave 8 Boss. Weapons attack automatically and independently; between waves, buy, fuse, and sell weapons and items in the shop to build your own loadout. Desktop keyboard is the primary input.
-
-## 截图 / Screenshots
+## 截图
 
 <p align="center">
   <img src="./assets/readme/screenshot.png" width="700" alt="实战画面：时间枪手站在石板竞技场中央符文法阵上，第 1 波，底部 6 个武器槽位">
 </p>
 
-## 玩法 / How to Play
+## 玩法
 
 - **移动**：WASD / 方向键；武器自动攻击，近战按真实轨迹接触命中。
 - **技能**：每位英雄都有 Space 位移技、E 战术技、Q 大招（如时间枪手的回溯、灰烬骑士的弹反）。
@@ -28,7 +28,7 @@ Rift Survivors is a browser survival arena: pick a hero, survive 8 waves of mons
 - **商店**：波间结算进商店，每波三件商品，可购买、锁定、出售、合成与刷新（刷新 6 金币）；也可花 10 金币治疗（恢复 30% 最大生命）。
 - **暂停**：Esc 暂停；切换标签页自动暂停。
 
-## 英雄 / Heroes
+## 英雄
 
 | 英雄 | 定位 | 特点 |
 |------|------|------|
@@ -40,11 +40,11 @@ Rift Survivors is a browser survival arena: pick a hero, survive 8 waves of mons
 
 每位英雄另有 3 项专属强化，只进入自己的升级池。
 
-## 构筑模式 / Build Mode
+## 构筑模式
 
 另有六武器构筑玩法：12 种武器（匕首、长矛、重锤、回旋刃、手枪、连发枪、霰弹、弩、冰晶杖、爆破器、镰刀、哨戒部署器）与 30 种道具，6 个武器槽位，12 波怪潮，波间商店配装。武器分近战 / 远程 / 元素 / 工程四系，同系成套有加成。
 
-## 本地运行 / Run Locally
+## 本地运行
 
 ```bash
 npm ci
@@ -54,7 +54,7 @@ npm test          # Vitest 单元测试
 npm run test:browser   # Playwright 浏览器测试
 ```
 
-## 技术 / Tech
+## 技术
 
 - Phaser 3.90 渲染 + React 19 界面，TypeScript + Vite；战斗模拟是纯函数（`src/game/simulation.ts`），Phaser 只负责绘制。
 - 近战按真实挥砍轨迹做接触判定（`src/game/melee.ts`）；音效与音乐分层（`src/game/audio.ts`）。
@@ -70,14 +70,3 @@ src/main.tsx               入口与 UI
 tests/                     Vitest + Playwright 测试
 docs/                      设计文档（玩法 / 数值 / 美术 / 生产）
 ```
-
-## English
-
-**Rift Survivors** is a browser survival arena: pick one of 5 heroes, survive 8 waves, and defeat the Wave 8 Boss.
-
-- **Combat**: weapons attack automatically and independently; melee hits follow the real swing arc. Each hero has a Space dash, an E tactical skill, and a Q ultimate — plus 3 exclusive upgrades.
-- **Progression**: kills drop crystals for XP (pick 1 of 3 on level-up); gold buys shop goods between waves — 3 items per wave, buy / lock / sell / fuse / refresh (6 gold), heal for 10 gold.
-- **Build mode**: 12 weapons and 30 items across 4 families (melee / ranged / elemental / engineering), 6 weapon slots, 12 waves, family set bonuses.
-- **Controls**: WASD / arrows to move, Esc to pause (auto-pause on tab switch). Desktop keyboard first.
-- **Run it**: `npm ci && npm run dev`. Tests: `npm test` (Vitest) and `npm run test:browser` (Playwright).
-- **Tech**: Phaser 3.90 + React 19 + TypeScript + Vite. Combat is a pure-function simulation (`src/game/simulation.ts`); Phaser only renders. Design docs live in `docs/`.
